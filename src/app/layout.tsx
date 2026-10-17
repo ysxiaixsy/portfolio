@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { Toaster } from "@/components/ui/toast";
 import { site } from "@/data/site";
 import { themeScript } from "@/lib/theme";
 import "./globals.css";
@@ -36,11 +37,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="flex min-h-full flex-col font-sans">
-        <SiteHeader />
-        <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 print:max-w-none print:p-0">
-          {children}
-        </main>
-        <SiteFooter />
+        <Toaster>
+          <SiteHeader />
+          <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 print:max-w-none print:p-0">
+            {children}
+          </main>
+          <SiteFooter />
+        </Toaster>
       </body>
     </html>
   );

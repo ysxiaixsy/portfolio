@@ -1,7 +1,8 @@
-import { ArrowRightIcon, DownloadIcon, MailIcon } from "lucide-react";
+import { ArrowRightIcon, MailIcon } from "lucide-react";
 import Link from "next/link";
 import { PageTransition } from "@/components/page-transition";
 import { ProjectCard } from "@/components/project-card";
+import { ResumeButton } from "@/components/resume-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/data/projects";
@@ -23,14 +24,7 @@ export default function Home() {
               {site.tagline}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button
-                size="lg"
-                nativeButton={false}
-                render={<a href={site.resume} download />}
-              >
-                <DownloadIcon data-icon="inline-start" />
-                Download résumé
-              </Button>
+              <ResumeButton size="lg">Download résumé</ResumeButton>
               <Button
                 size="lg"
                 variant="outline"

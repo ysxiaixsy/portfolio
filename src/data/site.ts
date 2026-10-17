@@ -8,8 +8,9 @@ export const site = {
   description:
     "Portfolio of JP Salomeo — projects, experience, and ways to get in touch.",
   email: "jasalomeo@up.edu.ph",
-  // Path to your résumé PDF in /public.
-  resume: "/resume.pdf",
+  // Path to your résumé PDF in /public, e.g. "/resume.pdf". Leave empty and
+  // the résumé buttons show a "coming soon" toast instead.
+  resume: "" as string,
   links: [
     { label: "GitHub", href: "https://github.com/ysxiaixsy" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/jp-salomeo" },

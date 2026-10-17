@@ -1,8 +1,9 @@
-import { DownloadIcon, MailIcon } from "lucide-react";
+import { MailIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JourneyTimeline } from "@/components/journey-timeline";
 import { PageTransition } from "@/components/page-transition";
+import { ResumeButton } from "@/components/resume-button";
 import { TechStack } from "@/components/tech-stack";
 import { Button } from "@/components/ui/button";
 import { site } from "@/data/site";
@@ -58,15 +59,9 @@ export default function AboutPage() {
 
         <div className="mt-14 flex items-baseline justify-between gap-4">
           <h2 className="text-xl font-semibold tracking-tight">Journey</h2>
-          <Button
-            variant="outline"
-            size="sm"
-            nativeButton={false}
-            render={<a href={site.resume} download />}
-          >
-            <DownloadIcon data-icon="inline-start" />
+          <ResumeButton variant="outline" size="sm">
             Résumé
-          </Button>
+          </ResumeButton>
         </div>
         <div className="mt-6">
           <JourneyTimeline />
