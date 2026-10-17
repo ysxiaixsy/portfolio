@@ -14,6 +14,9 @@ export type ContactState = {
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// People take longer than this to fill the form in; bots submit instantly.
+const MIN_FILL_MS = 3000;
+
 function validate({ name, email, message }: Fields) {
   const errors: ContactState["errors"] = {};
   if (!name) errors.name = "Please enter your name.";
@@ -38,9 +41,23 @@ export async function sendMessage(
   // Honeypot: real visitors never see this field, bots fill it in.
   if (formData.get("company")) return { status: "success" };
 
+  // The page adds how long the form was open; a post without it didn't come
+  // from the page. Both bot checks fake success so bots don't adapt.
+  if (!formData.has("elapsed")) return { status: "success" };
+
   const errors = validate(values);
   if (Object.keys(errors).length > 0) {
     return { status: "error", errors, values };
+  }
+
+  // Too fast is usually a bot, but could be a quick person, so ask again.
+  const elapsed = Number(formData.get("elapsed"));
+  if (!(elapsed >= MIN_FILL_MS)) {
+    return {
+      status: "error",
+      message: "That was quick! Please wait a moment, then send it again.",
+      values,
+    };
   }
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -67,6 +84,16 @@ export async function sendMessage(
       text: `${values.message}\n\n— ${values.name} <${values.email}>`,
     }),
   });
+
+  // Resend's free plan allows 100 emails a day and 3,000 a month.
+  if (response.status === 429) {
+    console.error("Contact form: Resend limit hit", await response.text());
+    return {
+      status: "error",
+      message: "I'm getting a lot of messages right now.",
+      values,
+    };
+  }
 
   if (!response.ok) {
     console.error("Contact form: Resend error", await response.text());

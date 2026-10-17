@@ -1,7 +1,7 @@
 "use client";
 
 import { CircleAlertIcon, CircleCheckIcon } from "lucide-react";
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { type ContactState, sendMessage } from "@/app/contact/actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,19 @@ export function ContactForm() {
     sendMessage,
     initialState,
   );
+  const shownAt = useRef<number | null>(null);
+  useEffect(() => {
+    shownAt.current = Date.now();
+  }, []);
+
+  // Sends how long the form has been open, timed on this device so clock
+  // differences with the server don't matter. See MIN_FILL_MS in actions.ts.
+  function submit(formData: FormData) {
+    if (shownAt.current !== null) {
+      formData.set("elapsed", String(Date.now() - shownAt.current));
+    }
+    formAction(formData);
+  }
 
   if (state.status === "success") {
     return (
@@ -39,7 +52,7 @@ export function ContactForm() {
   const { errors, values } = state;
 
   return (
-    <form action={formAction} noValidate>
+    <form action={submit} noValidate>
       <FieldGroup>
         {state.message && (
           <Alert variant="destructive">
