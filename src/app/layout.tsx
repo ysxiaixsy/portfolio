@@ -37,7 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="flex min-h-full flex-col font-sans">
         <SiteHeader />
-        <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16">
+        <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 print:max-w-none print:p-0">
           {children}
         </main>
         <SiteFooter />

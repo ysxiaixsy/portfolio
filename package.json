@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "resume": "node scripts/resume-pdf.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

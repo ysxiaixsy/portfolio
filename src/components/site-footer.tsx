@@ -9,7 +9,7 @@ async function CurrentYear() {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border">
+    <footer className="border-t border-border print:hidden">
       <div className="mx-auto flex max-w-3xl flex-col gap-3 px-6 py-8 text-sm text-muted-foreground sm:flex-row sm:justify-between">
         <p>
           © <CurrentYear /> {site.name}

@@ -16,6 +16,8 @@ export type Project = {
   summary: string;
   // What you did — needed for team projects, e.g. "Design & development".
   role: string;
+  // Where it was made, if it was for a hackathon, class or competition.
+  event?: string;
   description: string[];
   tech: string[];
   year: number;
@@ -33,6 +35,7 @@ export const projects: Project[] = [
     summary:
       "Post-harvest capacity planning for the Iloilo Rice Processing Complex, with an SMS channel for farmers and buyers.",
     role: "UI/UX design, planning & development",
+    event: "Hack Iloilo 2026",
     description: [
       "The Iloilo Rice Processing Complex can't see palay coming until it reaches the gate. At peak, dryers overflow and farmers turn to private mills; off-season, machines sit idle while power costs keep running. SACKTO shows the plant what's coming weeks ahead and suggests what to do about it.",
       "Farmers and buyers report what's coming by SMS or on the web: booking drying or milling, offering palay for sale, getting price quotes, or requesting rice. Bookings, sell offers and a harvest forecast feed a capacity view for the dryers, storage and mill, which suggests moving flexible bookings off busy days or texting farmers ahead of idle stretches. Staff run the day from one gate queue and one batch record, from receiving to dispatch.",
