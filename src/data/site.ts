@@ -1,3 +1,5 @@
+import { GitHubIcon, LinkedInIcon } from "@/components/brand-icons";
+
 export const site = {
   name: "JP Salomeo",
   initials: "JPS",
@@ -12,7 +14,11 @@ export const site = {
   // the résumé buttons show a "coming soon" toast instead.
   resume: "" as string,
   links: [
-    { label: "GitHub", href: "https://github.com/ysxiaixsy" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/jp-salomeo" },
+    { label: "GitHub", href: "https://github.com/ysxiaixsy", icon: GitHubIcon },
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/jp-salomeo",
+      icon: LinkedInIcon,
+    },
   ],
 } as const;
