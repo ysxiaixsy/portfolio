@@ -146,6 +146,31 @@
   }
 }
 
+/* ---------- Theme toggle icons ---------- */
+
+/* Both turn clockwise: the old icon spins out to 90°, the new one spins in
+   from -90°, so the button keeps rotating the same way either direction. */
+@keyframes theme-icon-in {
+  from {
+    rotate: -90deg;
+    scale: 0;
+    opacity: 0;
+  }
+}
+@keyframes theme-icon-out {
+  /* Explicit start: the icon's own styles already say "hidden" by now. */
+  from {
+    rotate: 0deg;
+    scale: 1;
+    opacity: 1;
+  }
+  to {
+    rotate: 90deg;
+    scale: 0;
+    opacity: 0;
+  }
+}
+
 /* ---------- Page transitions (React <ViewTransition>) ---------- */
 
 @keyframes fade {
