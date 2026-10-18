@@ -62,6 +62,38 @@ export const projects: Project[] = [
     liveUrl: "https://sackto.vercel.app",
     repoUrl: "https://github.com/popcorn-prophets/sackto",
   },
+  {
+    slug: "rateupv",
+    title: "RateUPV",
+    summary:
+      "Student-driven reviews of UP Visayas campus facilities and services, like Rate My Professors for the places around campus.",
+    role: "Lead, UI/UX design & full-stack development",
+    description: [
+      "RateUPV is an independent, student-built guide to UP Visayas facilities and services, starting with the Miagao campus. It helps students find the right place, arrive prepared, and pass on what they learned to the next person.",
+      "Each place page brings together what to prepare, location, contacts and hours, with the source and the date each detail was checked, plus a campus map that loads on demand and walking directions. Students sign in with their UP email to write reviews, join discussions, suggest missing places and send corrections, and moderators work from an inbox and a catalog editor.",
+      "It's a Next.js app on Supabase, where Postgres row-level security guards every write, so there's no separate API server. Unit, database and end-to-end Playwright tests cover it.",
+      "I led the project, designed the UI, and worked across the full stack.",
+    ],
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Supabase",
+      "PostgreSQL",
+      "Playwright",
+    ],
+    year: 2026,
+    logo: {
+      src: "/projects/rateupv/logo.svg",
+      darkSrc: "/projects/rateupv/logo-cream.svg",
+      width: 1473,
+      height: 1473,
+    },
+    featured: true,
+    liveUrl: "https://rateupv.vercel.app",
+    repoUrl: "https://github.com/ysxiaixsy/RateUPV",
+  },
 ];
 
 export function getProject(slug: string) {
