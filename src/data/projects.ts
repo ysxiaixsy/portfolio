@@ -86,7 +86,7 @@ export const projects: Project[] = [
     year: 2026,
     logo: {
       src: "/projects/rateupv/logo.svg",
-      darkSrc: "/projects/rateupv/logo-cream.svg",
+      darkSrc: "/projects/rateupv/logo-pink.svg",
       width: 1473,
       height: 1473,
     },
