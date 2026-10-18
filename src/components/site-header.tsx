@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AutoHideHeader } from "@/components/auto-hide-header";
 import { MainTabs } from "@/components/main-tabs";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { site } from "@/data/site";
@@ -6,8 +7,8 @@ import { site } from "@/data/site";
 export function SiteHeader() {
   return (
     // Named so it stays put while page content slides (see globals.css).
-    <header
-      className="border-b border-border print:hidden"
+    <AutoHideHeader
+      className="sticky top-0 z-40 border-b border-border bg-background will-change-transform focus-within:[transform:none]! print:hidden"
       style={{ viewTransitionName: "site-header" }}
     >
       <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-6 py-4">
@@ -23,6 +24,6 @@ export function SiteHeader() {
           <ThemeToggle />
         </div>
       </div>
-    </header>
+    </AutoHideHeader>
   );
 }
