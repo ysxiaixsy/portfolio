@@ -1,78 +1,33 @@
 "use client";
 
-import { MonitorIcon, MoonIcon, SunIcon } from "lucide-react";
-import { useSyncExternalStore } from "react";
+import { MoonIcon, SunIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { THEME_STORAGE_KEY, type Theme } from "@/lib/theme";
+import { THEME_STORAGE_KEY } from "@/lib/theme";
 
-const themes = [
-  { value: "light", label: "Light", icon: SunIcon },
-  { value: "dark", label: "Dark", icon: MoonIcon },
-  { value: "system", label: "System", icon: MonitorIcon },
-] as const;
-
-const listeners = new Set<() => void>();
-
-function subscribe(listener: () => void) {
-  listeners.add(listener);
-  window.addEventListener("storage", listener);
-  return () => {
-    listeners.delete(listener);
-    window.removeEventListener("storage", listener);
-  };
-}
-
-function getTheme(): Theme {
+// Flips between light and dark. With no saved choice the site follows the OS
+// (see themeScript in @/lib/theme), and picking the OS's own theme clears the
+// saved choice so it goes back to following the OS.
+function toggleTheme() {
+  const root = document.documentElement;
+  const next = root.dataset.theme === "dark" ? "light" : "dark";
+  const system = matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
   try {
-    const theme = localStorage.getItem(THEME_STORAGE_KEY);
-    if (theme === "light" || theme === "dark") return theme;
+    if (next === system) localStorage.removeItem(THEME_STORAGE_KEY);
+    else localStorage.setItem(THEME_STORAGE_KEY, next);
   } catch {}
-  return "system";
-}
-
-// Mirrors themeScript in @/lib/theme, which handles the first paint.
-function setTheme(theme: Theme) {
-  try {
-    if (theme === "system") localStorage.removeItem(THEME_STORAGE_KEY);
-    else localStorage.setItem(THEME_STORAGE_KEY, theme);
-  } catch {}
-  const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
-  document.documentElement.dataset.theme =
-    theme === "dark" || (theme === "system" && prefersDark) ? "dark" : "light";
-  listeners.forEach((listener) => listener());
+  root.dataset.theme = next;
 }
 
 export function ThemeToggle() {
-  const theme = useSyncExternalStore(subscribe, getTheme, () => "system");
-
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger render={<Button variant="ghost" size="icon" />}>
-        {/* CSS picks the icon, so it's right before hydration too. */}
-        <SunIcon className="dark:hidden" />
-        <MoonIcon className="hidden dark:block" />
-        <span className="sr-only">Change theme</span>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuRadioGroup
-          value={theme}
-          onValueChange={(value: Theme) => setTheme(value)}
-        >
-          {themes.map(({ value, label, icon: Icon }) => (
-            <DropdownMenuRadioItem key={value} value={value}>
-              <Icon />
-              {label}
-            </DropdownMenuRadioItem>
-          ))}
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Button variant="ghost" size="icon" onClick={toggleTheme}>
+      {/* CSS picks the icon and label, so they're right before hydration. */}
+      <SunIcon className="dark:hidden" />
+      <MoonIcon className="hidden dark:block" />
+      <span className="sr-only dark:hidden">Switch to dark mode</span>
+      <span className="sr-only hidden dark:inline">Switch to light mode</span>
+    </Button>
   );
 }

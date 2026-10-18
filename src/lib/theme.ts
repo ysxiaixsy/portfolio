@@ -1,5 +1,3 @@
-export type Theme = "light" | "dark" | "system";
-
 export const THEME_STORAGE_KEY = "theme";
 
 // Inlined in <head> so it runs before first paint: resolves the saved choice
