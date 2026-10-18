@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { ViewTransition } from "react";
 import { PageTransition } from "@/components/page-transition";
 import { ProjectLogo } from "@/components/project-logo";
+import { ProjectName } from "@/components/project-name";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -54,7 +55,7 @@ export default async function ProjectPage(
               project={project}
               className={project.logo.wordmark ? "h-10" : "size-9"}
             />
-            {!project.logo.wordmark && project.title}
+            <ProjectName project={project} />
           </h1>
         </ViewTransition>
         <p className="mt-3 text-lg text-muted-foreground">{project.summary}</p>

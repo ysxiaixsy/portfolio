@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ViewTransition } from "react";
 import { ProjectLogo } from "@/components/project-logo";
+import { ProjectName } from "@/components/project-name";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -33,7 +34,7 @@ export function ProjectCard({ project }: { project: Project }) {
                   project={project}
                   className={project.logo.wordmark ? "h-5" : "size-5"}
                 />
-                {!project.logo.wordmark && project.title}
+                <ProjectName project={project} />
               </h3>
             </ViewTransition>
           </CardTitle>
