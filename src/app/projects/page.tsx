@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageTransition } from "@/components/page-transition";
-import { ProjectCard } from "@/components/project-card";
+import { ProjectList } from "@/components/project-list";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
@@ -17,10 +17,8 @@ export default function ProjectsPage() {
         <p className="mt-3 text-muted-foreground">
           Things I&apos;ve built or contributed to, newest first.
         </p>
-        <div className="mt-10 grid gap-4">
-          {sorted.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
+        <div className="mt-10">
+          <ProjectList projects={sorted} />
         </div>
       </div>
     </PageTransition>
