@@ -1,6 +1,5 @@
 import { ArrowRightIcon, MailIcon } from "lucide-react";
 import Link from "next/link";
-import { MonoLabel } from "@/components/mono-label";
 import { PageTransition } from "@/components/page-transition";
 import { ProjectGrid } from "@/components/project-grid";
 import { ResumeButton } from "@/components/resume-button";
@@ -17,12 +16,12 @@ export default function Home() {
       <div className="flex flex-col gap-24">
         <section className="flex flex-col-reverse gap-8 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p>
-              <MonoLabel>{site.role}</MonoLabel>
-            </p>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
               Hi, I&apos;m {site.name}.
             </h1>
+            <p className="mt-3 text-2xl font-medium tracking-tight text-highlight sm:text-3xl">
+              {site.role}
+            </p>
             <p className="mt-6 max-w-2xl text-lg whitespace-pre-line text-muted-foreground">
               {site.tagline}
             </p>
