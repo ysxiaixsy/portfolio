@@ -2,7 +2,7 @@ import { ArrowRightIcon, MailIcon } from "lucide-react";
 import Link from "next/link";
 import { MonoLabel } from "@/components/mono-label";
 import { PageTransition } from "@/components/page-transition";
-import { ProjectList } from "@/components/project-list";
+import { ProjectGrid } from "@/components/project-grid";
 import { ResumeButton } from "@/components/resume-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -64,7 +64,7 @@ export default function Home() {
             </Button>
           </div>
           <div className="mt-6">
-            <ProjectList projects={featured} />
+            <ProjectGrid projects={featured} />
           </div>
         </section>
       </div>

@@ -11,31 +11,35 @@ import {
   CardAction,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { type Project, projectNumber } from "@/data/projects";
-import { cn } from "@/lib/utils";
 
-export function ProjectCard({ project }: { project: Project }) {
-  const keyDecision = project.decisions?.[0];
-
+export function ProjectCard({
+  project,
+  eager,
+}: {
+  project: Project;
+  // Set this on the first card, whose screenshot is above the fold.
+  eager?: boolean;
+}) {
   return (
     <Link
       href={`/projects/${project.slug}`}
       transitionTypes={["nav-forward"]}
-      className="group block rounded-xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+      className="group block h-full rounded-xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
     >
-      {/* Text on the left and the screenshot on the right on large screens;
-          stacked in source order on small ones. */}
-      <Card
-        className={cn(
-          "gap-6 overflow-visible rounded-none bg-transparent ring-0 [--card-spacing:0px]",
-          project.screenshot &&
-            "lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:grid-rows-[auto_1fr_auto] lg:gap-x-12",
-        )}
-      >
-        <CardHeader className="gap-3">
+      <Card className="h-full transition-shadow group-hover:ring-foreground/25 [--card-spacing:--spacing(5)]">
+        <ProjectScreenshot
+          project={project}
+          eager={eager}
+          sizes="(min-width: 1024px) 570px, (min-width: 768px) calc(50vw - 32px), calc(100vw - 48px)"
+          className="rounded-none border-b ring-0"
+        />
+
+        <CardHeader className="gap-2">
           <CardTitle className="flex items-center gap-3 text-xl">
             <MonoLabel>{projectNumber(project)}</MonoLabel>
             {/* Morphs into the heading on the project page. */}
@@ -53,15 +57,13 @@ export function ProjectCard({ project }: { project: Project }) {
               </h3>
             </ViewTransition>
           </CardTitle>
-          <CardDescription className="text-base">
-            {project.summary}
-          </CardDescription>
+          <CardDescription>{project.summary}</CardDescription>
           <CardAction>
             <MonoLabel>{project.year}</MonoLabel>
           </CardAction>
         </CardHeader>
 
-        <CardContent className="flex flex-col gap-5">
+        <CardContent>
           <dl className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-x-4 gap-y-3">
             <dt>
               <MonoLabel>Role</MonoLabel>
@@ -80,26 +82,15 @@ export function ProjectCard({ project }: { project: Project }) {
               </ul>
             </dd>
           </dl>
-          {keyDecision && (
-            <div className="flex flex-col gap-1.5">
-              <MonoLabel className="text-highlight">Key decision</MonoLabel>
-              <p>{keyDecision.detail}</p>
-            </div>
-          )}
         </CardContent>
 
-        <ProjectScreenshot
-          project={project}
-          sizes="(min-width: 1024px) 510px, calc(100vw - 48px)"
-          className="lg:col-start-2 lg:row-span-3 lg:row-start-1"
-        />
-
-        <CardContent>
+        {/* Keeps the footers level when tiles in a row differ in length. */}
+        <CardFooter className="mt-auto">
           <span className="inline-flex items-center gap-1.5 font-medium transition-colors group-hover:text-highlight">
             Read case study
             <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-1" />
           </span>
-        </CardContent>
+        </CardFooter>
       </Card>
     </Link>
   );

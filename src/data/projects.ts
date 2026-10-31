@@ -19,8 +19,6 @@ export type Project = {
   // Where it was made, if it was for a hackathon, class or competition.
   event?: string;
   description: string[];
-  // Engineering choices worth pulling out of the description.
-  decisions?: { title: string; detail: string }[];
   // Files live in /public/projects/<slug>/.
   screenshot?: { src: string; alt: string; width: number; height: number };
   tech: string[];
@@ -45,21 +43,6 @@ export const projects: Project[] = [
       "Farmers and buyers report what's coming by SMS or on the web: booking drying or milling, offering palay for sale, getting price quotes, or requesting rice. Bookings, sell offers and a harvest forecast feed a capacity view for the dryers, storage and mill, which suggests moving flexible bookings off busy days or texting farmers ahead of idle stretches. Staff run the day from one gate queue and one batch record, from receiving to dispatch.",
       "It's a single Next.js app on Supabase. Basic phones reach it through an Android SMS gateway and a webhook relay. An LLM parses free-text messages but never computes figures, and the harvest forecast is trained offline in Python. Built for Hack Iloilo 2026.",
       "I designed the UI, every screen of it, and worked on SACKTO's planning and development from start to finish.",
-    ],
-    decisions: [
-      {
-        title: "LLM for parsing only",
-        detail: "An LLM parses free-text messages but never computes figures.",
-      },
-      {
-        title: "SMS for basic phones",
-        detail:
-          "Basic phones reach the app through an Android SMS gateway and a webhook relay.",
-      },
-      {
-        title: "Forecast trained offline",
-        detail: "The harvest forecast is trained offline in Python.",
-      },
     ],
     screenshot: {
       src: "/projects/sackto/screenshot.webp",
@@ -98,21 +81,6 @@ export const projects: Project[] = [
       "Each place page brings together what to prepare, location, contacts and hours, with the source and the date each detail was checked, plus a campus map that loads on demand and walking directions. Students sign in with their UP email to write reviews, join discussions, suggest missing places and send corrections, and moderators work from an inbox and a catalog editor.",
       "It's a Next.js app on Supabase, where Postgres row-level security guards every write, so there's no separate API server. Unit, database and end-to-end Playwright tests cover it.",
       "I led the project, designed the UI, and worked across the full stack.",
-    ],
-    decisions: [
-      {
-        title: "Row-level security, no API server",
-        detail:
-          "Postgres row-level security guards every write, so there's no separate API server.",
-      },
-      {
-        title: "Tests at three levels",
-        detail: "Unit, database and end-to-end Playwright tests cover it.",
-      },
-      {
-        title: "Campus map on demand",
-        detail: "The campus map loads on demand.",
-      },
     ],
     screenshot: {
       src: "/projects/rateupv/screenshot.webp",

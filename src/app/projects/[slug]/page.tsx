@@ -10,7 +10,6 @@ import { ProjectName } from "@/components/project-name";
 import { ProjectScreenshot } from "@/components/project-screenshot";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { getProject, projects } from "@/data/projects";
 
 export function generateStaticParams() {
@@ -111,32 +110,6 @@ export default async function ProjectPage(
           </dl>
 
           <div className="flex min-w-0 flex-col gap-10">
-            {project.decisions && (
-              <section>
-                <h2 className="text-xl font-semibold tracking-tight">
-                  Key decisions
-                </h2>
-                <ol className="mt-5 flex flex-col gap-4">
-                  {project.decisions.map((decision, i) => (
-                    <li key={decision.title} className="flex flex-col gap-4">
-                      <Separator />
-                      <div className="grid grid-cols-[2.5rem_minmax(0,1fr)]">
-                        <MonoLabel className="pt-1 text-highlight">
-                          {String(i + 1).padStart(2, "0")}
-                        </MonoLabel>
-                        <div>
-                          <h3 className="font-medium">{decision.title}</h3>
-                          <p className="mt-1 text-muted-foreground">
-                            {decision.detail}
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              </section>
-            )}
-
             <div className="flex flex-col gap-4 leading-relaxed">
               {project.description.map((paragraph, i) => (
                 <p key={i}>{paragraph}</p>
