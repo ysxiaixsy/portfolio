@@ -1,6 +1,6 @@
 import { MailIcon, UserIcon } from "lucide-react";
-import Link from "next/link";
 import { ResumeButton } from "@/components/resume-button";
+import { SectionLink } from "@/components/section-link";
 import { Button } from "@/components/ui/button";
 import { site } from "@/data/site";
 
@@ -10,9 +10,9 @@ async function CurrentYear() {
   return new Date().getFullYear();
 }
 
-const pages = [
-  { label: "About", href: "/about", icon: UserIcon },
-  { label: "Contact", href: "/contact", icon: MailIcon },
+const sections = [
+  { label: "About", id: "about", icon: UserIcon },
+  { label: "Contact", id: "contact", icon: MailIcon },
 ] as const;
 
 export function SiteFooter() {
@@ -23,16 +23,16 @@ export function SiteFooter() {
           © <CurrentYear /> {site.name}
         </p>
         <ul className="-mx-2.5 flex flex-wrap gap-1">
-          {pages.map((page) => (
-            <li key={page.href}>
+          {sections.map((section) => (
+            <li key={section.id}>
               <Button
                 variant="ghost"
                 size="sm"
                 nativeButton={false}
-                render={<Link href={page.href} />}
+                render={<SectionLink section={section.id} />}
               >
-                <page.icon data-icon="inline-start" />
-                {page.label}
+                <section.icon data-icon="inline-start" />
+                {section.label}
               </Button>
             </li>
           ))}

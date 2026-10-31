@@ -24,7 +24,6 @@ export type Project = {
   tech: string[];
   year: number;
   logo: ProjectLogo;
-  featured?: boolean;
   liveUrl?: string;
   repoUrl?: string;
 };
@@ -66,7 +65,6 @@ export const projects: Project[] = [
       height: 103,
       wordmark: true,
     },
-    featured: true,
     liveUrl: "https://sackto.vercel.app",
     repoUrl: "https://github.com/popcorn-prophets/sackto",
   },
@@ -104,7 +102,6 @@ export const projects: Project[] = [
       width: 1473,
       height: 1473,
     },
-    featured: true,
     liveUrl: "https://rateupv.vercel.app",
     repoUrl: "https://github.com/ysxiaixsy/RateUPV",
   },
@@ -112,10 +109,4 @@ export const projects: Project[] = [
 
 export function getProject(slug: string) {
   return projects.find((project) => project.slug === slug);
-}
-
-// Its position in the list above, e.g. "01". Stays the same on every page.
-export function projectNumber(project: Project) {
-  const position = projects.findIndex(({ slug }) => slug === project.slug);
-  return String(position + 1).padStart(2, "0");
 }

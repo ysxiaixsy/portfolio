@@ -31,6 +31,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      // Smooth scrolling is for the home page's sections, not route changes.
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <head>

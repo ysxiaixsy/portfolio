@@ -1,9 +1,7 @@
-// How deep a route sits in the site: main pages < project list < a project.
+// How deep a route sits in the site: the home page < a project.
 // Navigating to a deeper route slides forward; to a shallower one, back.
 export function routeDepth(pathname: string) {
-  if (pathname.startsWith("/projects/")) return 2;
-  if (pathname === "/projects") return 1;
-  return 0;
+  return pathname.startsWith("/projects/") ? 1 : 0;
 }
 
 export function transitionTypesFor(from: string, to: string) {

@@ -1,28 +1,78 @@
 "use client";
 
 import { FolderIcon, HouseIcon, MailIcon, UserIcon } from "lucide-react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { SectionLink } from "@/components/section-link";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { routeDepth, transitionTypesFor } from "@/lib/navigation";
 
+// Each value is the id of a section on the home page.
 const tabs = [
-  { value: "main", label: "Main", href: "/", icon: HouseIcon },
-  { value: "projects", label: "Projects", href: "/projects", icon: FolderIcon },
-  { value: "about", label: "About", href: "/about", icon: UserIcon },
-  { value: "contact", label: "Contact", href: "/contact", icon: MailIcon },
+  { value: "main", label: "Main", icon: HouseIcon },
+  { value: "projects", label: "Projects", icon: FolderIcon },
+  { value: "about", label: "About", icon: UserIcon },
+  { value: "contact", label: "Contact", icon: MailIcon },
 ] as const;
 
-// Project pages count as "projects"; any other unlisted page as "main".
-function tabForPath(pathname: string) {
-  if (routeDepth(pathname) > 0) return "projects";
-  return tabs.find((tab) => tab.href === pathname)?.value ?? "main";
+// The section being read: the last one to reach 40% down the screen. The ends
+// of the page always count as the first and last sections, since those may
+// never reach that line on a tall screen.
+function findActiveSection() {
+  const sections = tabs.map((tab) => tab.value);
+  const { scrollHeight } = document.documentElement;
+  if (window.scrollY <= 0) return sections[0];
+  if (window.scrollY + window.innerHeight >= scrollHeight - 1) {
+    return sections[sections.length - 1];
+  }
+  const line = window.innerHeight * 0.4;
+  return (
+    sections.findLast((id) => {
+      const top = document.getElementById(id)?.getBoundingClientRect().top;
+      return top !== undefined && top <= line;
+    }) ?? sections[0]
+  );
+}
+
+function useActiveSection(pathname: string | null) {
+  const [active, setActive] = useState<string>("main");
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+    let frame = 0;
+
+    function update() {
+      frame = 0;
+      setActive(findActiveSection());
+    }
+
+    function onChange() {
+      if (!frame) frame = requestAnimationFrame(update);
+    }
+
+    onChange();
+    window.addEventListener("scroll", onChange, { passive: true });
+    window.addEventListener("resize", onChange);
+    return () => {
+      window.removeEventListener("scroll", onChange);
+      window.removeEventListener("resize", onChange);
+      cancelAnimationFrame(frame);
+    };
+  }, [pathname]);
+
+  return active;
 }
 
 function TabsNav({ pathname }: { pathname: string | null }) {
+  const section = useActiveSection(pathname);
+
+  // Project pages count as "projects"; any other page as "main".
+  let value: string | null = null;
+  if (pathname === "/") value = section;
+  else if (pathname) value = routeDepth(pathname) > 0 ? "projects" : "main";
+
   return (
-    <Tabs value={pathname ? tabForPath(pathname) : null}>
+    <Tabs value={value}>
       <TabsList>
         {tabs.map((tab) => (
           <TabsTrigger
@@ -30,10 +80,10 @@ function TabsNav({ pathname }: { pathname: string | null }) {
             value={tab.value}
             nativeButton={false}
             render={
-              <Link
-                href={tab.href}
+              <SectionLink
+                section={tab.value}
                 transitionTypes={
-                  pathname ? transitionTypesFor(pathname, tab.href) : undefined
+                  pathname ? transitionTypesFor(pathname, "/") : undefined
                 }
               />
             }

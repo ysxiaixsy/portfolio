@@ -39,7 +39,7 @@ export default async function ProjectPage(
           size="sm"
           className="-ml-2.5"
           nativeButton={false}
-          render={<Link href="/projects" transitionTypes={["nav-back"]} />}
+          render={<Link href="/#projects" transitionTypes={["nav-back"]} />}
         >
           <ArrowLeftIcon data-icon="inline-start" />
           All projects

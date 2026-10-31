@@ -14,10 +14,10 @@ export function JourneyTimeline() {
           <p className="text-sm text-muted-foreground">
             {entry.start} — {entry.end ?? "Present"}
           </p>
-          <h3 className="mt-1 font-medium">
+          <h4 className="mt-1 font-medium">
             {entry.title} <span className="text-muted-foreground">at</span>{" "}
             {entry.place}
-          </h3>
+          </h4>
           <ul className="mt-4 flex flex-col gap-3 text-sm">
             {entry.involvements.map((item) => (
               <li key={`${item.org}-${item.role}`}>

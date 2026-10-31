@@ -6,9 +6,9 @@ export function TechStack() {
     <div className="flex flex-col gap-8">
       {stacks.map((group) => (
         <section key={group.title}>
-          <h3 className="text-sm font-medium text-muted-foreground">
+          <h4 className="text-sm font-medium text-muted-foreground">
             {group.title}
-          </h3>
+          </h4>
           <ul className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-5">
             {group.items.map((item) => (
               <li key={item.title}>

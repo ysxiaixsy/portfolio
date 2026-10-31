@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { AutoHideHeader } from "@/components/auto-hide-header";
 import { MainTabs } from "@/components/main-tabs";
+import { SectionLink } from "@/components/section-link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { site } from "@/data/site";
 
@@ -14,13 +14,13 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
         <MainTabs />
         <div className="flex min-w-0 items-center gap-2">
-          <Link
-            href="/"
+          <SectionLink
+            section="main"
             transitionTypes={["nav-back"]}
             className="truncate font-semibold tracking-tight"
           >
             {site.name}
-          </Link>
+          </SectionLink>
           <ThemeToggle />
         </div>
       </div>
