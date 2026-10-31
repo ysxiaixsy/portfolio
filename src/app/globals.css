@@ -8,24 +8,26 @@
 
 :root {
   --rateupv-primary: #a31f33;
-  --muted: oklch(0.97 0 0);
-  --border: oklch(0.922 0 0);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  /* Used sparingly: key-decision labels and link hover. */
+  --highlight: oklch(0.55 0.17 45);
+  --muted: oklch(0.965 0.004 80);
+  --border: oklch(0.915 0.005 80);
+  --background: oklch(0.993 0.002 80);
+  --foreground: oklch(0.17 0.006 60);
+  --card: oklch(0.993 0.002 80);
+  --card-foreground: oklch(0.17 0.006 60);
+  --popover: oklch(0.993 0.002 80);
+  --popover-foreground: oklch(0.17 0.006 60);
+  --primary: oklch(0.22 0.006 60);
+  --primary-foreground: oklch(0.985 0.002 80);
+  --secondary: oklch(0.965 0.004 80);
+  --secondary-foreground: oklch(0.22 0.006 60);
+  --muted-foreground: oklch(0.5 0.008 60);
+  --accent: oklch(0.965 0.004 80);
+  --accent-foreground: oklch(0.22 0.006 60);
   --destructive: oklch(0.577 0.245 27.325);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --input: oklch(0.915 0.005 80);
+  --ring: oklch(0.708 0.006 60);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -44,6 +46,7 @@
 
 @theme inline {
   --color-rateupv-primary: var(--rateupv-primary);
+  --color-highlight: var(--highlight);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
@@ -91,25 +94,26 @@
 @media screen {
   :root[data-theme="dark"] {
     --rateupv-primary: #ed8b9a;
+    --highlight: oklch(0.78 0.14 60);
     color-scheme: dark;
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
+    --background: oklch(0.16 0.004 70);
+    --foreground: oklch(0.97 0.003 80);
+    --card: oklch(0.16 0.004 70);
+    --card-foreground: oklch(0.97 0.003 80);
+    --popover: oklch(0.21 0.005 70);
+    --popover-foreground: oklch(0.97 0.003 80);
+    --primary: oklch(0.92 0.004 80);
+    --primary-foreground: oklch(0.21 0.005 70);
+    --secondary: oklch(0.27 0.005 70);
+    --secondary-foreground: oklch(0.97 0.003 80);
+    --muted: oklch(0.27 0.005 70);
+    --muted-foreground: oklch(0.72 0.006 70);
+    --accent: oklch(0.27 0.005 70);
+    --accent-foreground: oklch(0.97 0.003 80);
     --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
+    --border: oklch(1 0.004 80 / 11%);
+    --input: oklch(1 0.004 80 / 15%);
+    --ring: oklch(0.56 0.006 70);
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
@@ -130,6 +134,11 @@
   @page {
     size: A4;
     margin: 14mm 16mm;
+  }
+  /* Backgrounds print exactly (below), so keep the résumé on pure white. */
+  :root {
+    --background: oklch(1 0 0);
+    --card: oklch(1 0 0);
   }
   html {
     /* Keep backgrounds such as Separator lines in the PDF. */
@@ -178,11 +187,9 @@
 
 @keyframes fade {
   from {
-    filter: blur(3px);
     opacity: 0;
   }
   to {
-    filter: blur(0);
     opacity: 1;
   }
 }
@@ -235,14 +242,6 @@
 /* Project title morphing from its card into the project page heading. */
 ::view-transition-group(.morph) {
   animation-duration: 400ms;
-}
-::view-transition-image-pair(.morph) {
-  animation-name: via-blur;
-}
-@keyframes via-blur {
-  30% {
-    filter: blur(3px);
-  }
 }
 
 /* Keep the header fixed while content moves beneath it. */
