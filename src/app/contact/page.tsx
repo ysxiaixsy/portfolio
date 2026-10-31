@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <PageTransition>
-      <div>
+      <div className="max-w-3xl">
         <h1 className="text-3xl font-semibold tracking-tight">Contact</h1>
         <p className="mt-3 text-muted-foreground">
           Have a role, project, or question in mind? Send me a message, or

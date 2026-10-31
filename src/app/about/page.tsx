@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <PageTransition>
-      <div>
+      <div className="max-w-3xl">
         <h1 className="text-3xl font-semibold tracking-tight">About</h1>
 
         <div className="mt-8 flex flex-col gap-4 leading-relaxed">

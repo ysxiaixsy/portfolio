@@ -11,7 +11,7 @@ export function SiteHeader() {
       className="sticky top-0 z-40 border-b border-border bg-background will-change-transform print:hidden"
       style={{ viewTransitionName: "site-header" }}
     >
-      <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-6 py-4">
+      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
         <MainTabs />
         <div className="flex min-w-0 items-center gap-2">
           <Link

@@ -45,7 +45,7 @@ const contacts = [
 export default function ResumePage() {
   return (
     <PageTransition>
-      <article className="flex flex-col gap-6 text-sm leading-relaxed">
+      <article className="flex max-w-3xl flex-col gap-6 text-sm leading-relaxed print:max-w-none">
         <header>
           <h1 className="text-3xl font-semibold tracking-tight">{site.name}</h1>
           <p className="mt-1 text-base text-muted-foreground">{site.role}</p>
