@@ -19,6 +19,10 @@ export type Project = {
   // Where it was made, if it was for a hackathon, class or competition.
   event?: string;
   description: string[];
+  // Engineering choices worth pulling out of the description.
+  decisions?: { title: string; detail: string }[];
+  // Files live in /public/projects/<slug>/.
+  screenshot?: { src: string; alt: string; width: number; height: number };
   tech: string[];
   year: number;
   logo: ProjectLogo;
@@ -42,6 +46,27 @@ export const projects: Project[] = [
       "It's a single Next.js app on Supabase. Basic phones reach it through an Android SMS gateway and a webhook relay. An LLM parses free-text messages but never computes figures, and the harvest forecast is trained offline in Python. Built for Hack Iloilo 2026.",
       "I designed the UI, every screen of it, and worked on SACKTO's planning and development from start to finish.",
     ],
+    decisions: [
+      {
+        title: "LLM for parsing only",
+        detail: "An LLM parses free-text messages but never computes figures.",
+      },
+      {
+        title: "SMS for basic phones",
+        detail:
+          "Basic phones reach the app through an Android SMS gateway and a webhook relay.",
+      },
+      {
+        title: "Forecast trained offline",
+        detail: "The harvest forecast is trained offline in Python.",
+      },
+    ],
+    screenshot: {
+      src: "/projects/sackto/screenshot.webp",
+      alt: "SACKTO's home page, with options to book drying or milling, sell palay and buy rice, above today's prices.",
+      width: 1600,
+      height: 1000,
+    },
     tech: [
       "Next.js",
       "TypeScript",
@@ -74,6 +99,27 @@ export const projects: Project[] = [
       "It's a Next.js app on Supabase, where Postgres row-level security guards every write, so there's no separate API server. Unit, database and end-to-end Playwright tests cover it.",
       "I led the project, designed the UI, and worked across the full stack.",
     ],
+    decisions: [
+      {
+        title: "Row-level security, no API server",
+        detail:
+          "Postgres row-level security guards every write, so there's no separate API server.",
+      },
+      {
+        title: "Tests at three levels",
+        detail: "Unit, database and end-to-end Playwright tests cover it.",
+      },
+      {
+        title: "Campus map on demand",
+        detail: "The campus map loads on demand.",
+      },
+    ],
+    screenshot: {
+      src: "/projects/rateupv/screenshot.webp",
+      alt: "RateUPV's home page, with the headline \"Know your campus. Make it yours.\" beside shortcuts to study spaces, payments and everyday essentials.",
+      width: 1600,
+      height: 1000,
+    },
     tech: [
       "Next.js",
       "TypeScript",
@@ -98,4 +144,10 @@ export const projects: Project[] = [
 
 export function getProject(slug: string) {
   return projects.find((project) => project.slug === slug);
+}
+
+// Its position in the list above, e.g. "01". Stays the same on every page.
+export function projectNumber(project: Project) {
+  const position = projects.findIndex(({ slug }) => slug === project.slug);
+  return String(position + 1).padStart(2, "0");
 }
