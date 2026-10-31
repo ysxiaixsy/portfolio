@@ -8,7 +8,7 @@
 
 :root {
   --rateupv-primary: #a31f33;
-  /* Used sparingly: key-decision labels and link hover. */
+  /* Used sparingly: the role line on the home page. */
   --highlight: oklch(0.55 0.17 45);
   --muted: oklch(0.965 0.004 80);
   --border: oklch(0.915 0.005 80);
@@ -158,28 +158,10 @@
   }
 }
 
-/* ---------- Theme toggle icons ---------- */
-
-/* Both turn clockwise: the old icon spins out to 90°, the new one spins in
-   from -90°, so the button keeps rotating the same way either direction. */
-@keyframes theme-icon-in {
-  from {
-    rotate: -90deg;
-    scale: 0;
-    opacity: 0;
-  }
-}
-@keyframes theme-icon-out {
-  /* Explicit start: the icon's own styles already say "hidden" by now. */
-  from {
-    rotate: 0deg;
-    scale: 1;
-    opacity: 1;
-  }
-  to {
-    rotate: 90deg;
-    scale: 0;
-    opacity: 0;
+/* The nav tabs scroll to sections of the home page. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
@@ -203,7 +185,7 @@
   }
 }
 
-/* Going deeper (Main → Projects → a project): content moves left. */
+/* Going deeper (home → a project): content moves left. */
 ::view-transition-old(.nav-forward) {
   --slide-offset: -60px;
   animation:
@@ -268,4 +250,17 @@
     animation-duration: 0s !important;
     animation-delay: 0s !important;
   }
+}
+/* ---------- Theme reveal (AnimatedThemeToggler) ---------- */
+
+/* Only while the theme changes, so page navigations keep their animations. */
+html[data-magicui-theme-vt="active"]::view-transition-old(root),
+html[data-magicui-theme-vt="active"]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Reveal the header with the page instead of snapping it to the new theme. */
+html[data-magicui-theme-vt="active"] header {
+  view-transition-name: none !important;
 }
