@@ -19,6 +19,9 @@ export type StackItem = {
   path: string;
   viewBox?: string;
   fillRule?: "evenodd";
+  // The brand colour as six hex digits (simple-icons supplies it). Black and
+  // white brands, and items without one, follow the text colour instead.
+  hex?: string;
 };
 
 // Logos come from simple-icons (https://simpleicons.org). To add one, find

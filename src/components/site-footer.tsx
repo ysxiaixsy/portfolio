@@ -1,4 +1,5 @@
 import { MailIcon, UserIcon } from "lucide-react";
+import { BackToTop } from "@/components/back-to-top";
 import { ResumeButton } from "@/components/resume-button";
 import { SectionLink } from "@/components/section-link";
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,7 @@ export function SiteFooter() {
         <p>
           © <CurrentYear /> {site.name}
         </p>
-        <ul className="-mx-2.5 flex flex-wrap gap-1">
+        <ul className="-ml-2.5 flex flex-wrap items-center gap-1">
           {sections.map((section) => (
             <li key={section.id}>
               <Button
@@ -41,19 +42,29 @@ export function SiteFooter() {
               Résumé
             </ResumeButton>
           </li>
+          {/* Icons only here; the home page shows the handles. */}
           {site.links.map((link) => (
             <li key={link.href}>
               <Button
                 variant="ghost"
-                size="sm"
+                size="icon-sm"
                 nativeButton={false}
-                render={<a href={link.href} target="_blank" rel="noreferrer" />}
+                render={
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={link.label}
+                  />
+                }
               >
-                <link.icon data-icon="inline-start" />
-                {link.label}
+                <link.icon />
               </Button>
             </li>
           ))}
+          <li>
+            <BackToTop />
+          </li>
         </ul>
       </div>
     </footer>

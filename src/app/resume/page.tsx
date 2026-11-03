@@ -31,15 +31,17 @@ function Section({
 }
 
 function displayUrl(url: string) {
-  return url.replace(/^(https?:\/\/)?(www\.)?/, "");
+  return url.replace(/^(https?:\/\/)?(www\.)?/, "").replace(/\/$/, "");
 }
 
 const contacts = [
   { label: site.email, href: `mailto:${site.email}` },
-  ...site.links.map((link) => ({
-    label: displayUrl(link.href),
-    href: link.href,
-  })),
+  ...site.links
+    .filter((link) => link.resume)
+    .map((link) => ({
+      label: displayUrl(link.href),
+      href: link.href,
+    })),
 ];
 
 export default function ResumePage() {
@@ -52,7 +54,7 @@ export default function ResumePage() {
           <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
             {contacts.map((contact) => (
               <li key={contact.href}>
-                <a href={contact.href} className="underline-offset-4 hover:underline">
+                <a href={contact.href} className="text-link print:no-underline">
                   {contact.label}
                 </a>
               </li>
@@ -66,9 +68,9 @@ export default function ResumePage() {
           <p>
             Third-year Computer Science student at the University of the
             Philippines Visayas who designs and builds software, from the
-            interface to the code behind it. Graphic designer since age 11,
-            with publication, branding and yearbook work across high school
-            and university.
+            interface to the code behind it. Graphic designer since age 11, with
+            publication, branding and yearbook work across high school and
+            university.
           </p>
         </Section>
 
@@ -113,7 +115,7 @@ export default function ResumePage() {
                       {" · "}
                       <a
                         href={project.liveUrl}
-                        className="font-normal text-muted-foreground underline-offset-4 hover:underline"
+                        className="text-link font-normal text-muted-foreground print:no-underline"
                       >
                         {displayUrl(project.liveUrl)}
                       </a>

@@ -82,7 +82,7 @@ export const projects: Project[] = [
     ],
     screenshot: {
       src: "/projects/rateupv/screenshot.webp",
-      alt: "RateUPV's home page, with the headline \"Know your campus. Make it yours.\" beside shortcuts to study spaces, payments and everyday essentials.",
+      alt: 'RateUPV\'s home page, with the headline "Know your campus. Make it yours." beside shortcuts to study spaces, payments and everyday essentials.',
       width: 1600,
       height: 1000,
     },

@@ -27,13 +27,16 @@
   --accent-foreground: oklch(0.22 0.006 60);
   --destructive: oklch(0.577 0.245 27.325);
   --input: oklch(0.915 0.005 80);
-  --ring: oklch(0.708 0.006 60);
+  /* Focus rings are the accent signal too (see AGENTS.md). */
+  --ring: var(--highlight);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --radius: 0.625rem;
+  /* The sticky header, border included. Sections size and scroll to it. */
+  --header-height: 4.5rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -90,6 +93,24 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+    }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+    }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
 }
 
 /* Screen only: printouts (like the résumé PDF) always use the light theme. */
@@ -115,7 +136,6 @@
     --destructive: oklch(0.704 0.191 22.216);
     --border: oklch(1 0.004 80 / 11%);
     --input: oklch(1 0.004 80 / 15%);
-    --ring: oklch(0.56 0.006 70);
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
@@ -265,4 +285,25 @@ html[data-magicui-theme-vt="active"]::view-transition-new(root) {
 /* Reveal the header with the page instead of snapping it to the new theme. */
 html[data-magicui-theme-vt="active"] header {
   view-transition-name: none !important;
+}
+
+/* ---------- Shared patterns (see AGENTS.md) ---------- */
+
+/* An inline text link: underlined, turning to the accent on hover and focus. */
+@utility text-link {
+  text-decoration-line: underline;
+  text-underline-offset: 4px;
+  transition: color 300ms ease-out;
+  &:hover,
+  &:focus-visible {
+    color: var(--color-highlight);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+/* A home page section: at least one screen tall below the header. */
+@utility min-h-page {
+  min-height: calc(100svh - var(--header-height));
 }

@@ -26,7 +26,7 @@ export function JourneyTimeline() {
                     <Link
                       href={item.href}
                       transitionTypes={["nav-forward"]}
-                      className="underline underline-offset-4 hover:text-muted-foreground"
+                      className="text-link"
                     >
                       {item.org}
                     </Link>

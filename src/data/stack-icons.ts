@@ -9,6 +9,7 @@ const adobeTile =
 
 export const adobeIllustrator: StackItem = {
   title: "Adobe Illustrator",
+  hex: "FF9A00",
   viewBox: "0 0 240 240",
   fillRule: "evenodd",
   path:
@@ -19,6 +20,7 @@ export const adobeIllustrator: StackItem = {
 
 export const adobePhotoshop: StackItem = {
   title: "Adobe Photoshop",
+  hex: "31A8FF",
   viewBox: "0 0 240 240",
   fillRule: "evenodd",
   path:

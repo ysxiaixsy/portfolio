@@ -8,6 +8,7 @@ import { PageTransition } from "@/components/page-transition";
 import { ProjectLogo } from "@/components/project-logo";
 import { ProjectName } from "@/components/project-name";
 import { ProjectScreenshot } from "@/components/project-screenshot";
+import { Title } from "@/components/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getProject, projects } from "@/data/projects";
@@ -51,13 +52,15 @@ export default async function ProjectPage(
           share="morph"
           default="none"
         >
-          <h1 className="mt-6 flex items-center gap-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+          <Title as="h1" className="mt-6 flex items-center gap-3">
             <ProjectLogo
               project={project}
-              className={project.logo.wordmark ? "h-10" : "size-9"}
+              className={
+                project.logo.wordmark ? "h-10 sm:h-12" : "size-9 sm:size-11"
+              }
             />
             <ProjectName project={project} />
-          </h1>
+          </Title>
         </ViewTransition>
         <p className="mt-4 max-w-3xl text-lg text-muted-foreground">
           {project.summary}
@@ -110,7 +113,7 @@ export default async function ProjectPage(
           </dl>
 
           <div className="flex min-w-0 flex-col gap-10">
-            <div className="flex flex-col gap-4 leading-relaxed">
+            <div className="flex flex-col gap-4 text-lg leading-relaxed">
               {project.description.map((paragraph, i) => (
                 <p key={i}>{paragraph}</p>
               ))}

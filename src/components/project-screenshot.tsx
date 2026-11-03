@@ -30,7 +30,10 @@ export function ProjectScreenshot({
       sizes={sizes}
       loading={eager ? "eager" : "lazy"}
       fetchPriority={eager ? "high" : undefined}
-      className={cn("h-auto w-full rounded-lg ring-1 ring-foreground/10", className)}
+      className={cn(
+        "h-auto w-full rounded-lg ring-1 ring-foreground/10",
+        className,
+      )}
     />
   );
 }
