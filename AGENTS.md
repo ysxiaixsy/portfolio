@@ -16,7 +16,7 @@ Orange (`highlight`) is the **signal**: it marks what is active, hovered or focu
 
 - Interactive surfaces signal with `ring-highlight` and `shadow-glow`. A card that links somewhere (project cards, contact cards) takes `signalSurface` from `src/lib/styles.ts` inside a `group` link; the active nav tab glows the same way.
 - Inline text links use the `text-link` utility. Buttons signal through their variants in `button.tsx`, and focus rings through the `--ring` token, which is the accent.
-- Outside interaction, orange appears only in the role line and the hero's dither field.
+- Outside interaction, orange appears only in the role line.
 
 ## Layout
 

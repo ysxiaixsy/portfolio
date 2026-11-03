@@ -15,7 +15,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Backlight } from "@/components/ui/backlight";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { DitherField } from "@/components/ui/dither-field";
 import { KineticText } from "@/components/ui/kinetic-text";
 import { Separator } from "@/components/ui/separator";
 import { projects } from "@/data/projects";
@@ -32,25 +31,17 @@ export default function Home() {
           id="main"
           className="flex min-h-[calc(100svh-var(--header-height)-4rem)] scroll-mt-40 flex-col gap-12 pb-8"
         >
-          <div className="relative isolate flex flex-1 flex-col-reverse justify-center gap-8 sm:flex-row sm:items-center sm:justify-between">
-            {/* Faded at the edges so it reads as light behind the hero, not a box. */}
-            <DitherField
-              pattern="horizon"
-              color="var(--highlight)"
-              intensity={0.7}
-              dotSize={2}
-              className="pointer-events-none absolute -inset-x-6 -top-16 md:-inset-x-10 -bottom-12 -z-10 mask-[radial-gradient(ellipse_55%_65%_at_82%_45%,black_25%,transparent_72%)]"
-            />
+          <div className="flex flex-1 flex-col-reverse justify-center gap-8 sm:flex-row sm:items-center sm:justify-between">
             <div>
               {/* Outside the h1, so the heading reads as just the name. */}
-              <p className="text-lg font-medium tracking-tight text-balance text-muted-foreground sm:text-xl">
+              <p className="text-sm font-medium tracking-tight text-muted-foreground sm:text-base">
                 {site.education}
               </p>
               <h1 className="mt-2">
                 <KineticText
                   as="span"
                   text={site.name}
-                  className="text-5xl tracking-tight sm:text-6xl lg:text-7xl"
+                  className="text-5xl leading-none tracking-tight sm:text-7xl lg:text-8xl"
                 />
               </h1>
               <p className="mt-3 text-2xl font-medium tracking-tight text-highlight sm:text-3xl">

@@ -11,8 +11,7 @@ export const site = {
   // Path to your photo in /public, e.g. "/me.jpg". Leave empty to show initials.
   photo: "/portrait.jpg" as string,
   // The hero, top to bottom: education, name, role, motto, tagline.
-  education:
-    "3rd year Computer Science student at the University of the Philippines Visayas",
+  education: "3rd-year BS Computer Science – UP Visayas",
   role: "Software Engineer",
   motto: "Engineered first, designed with care.",
   tagline:
