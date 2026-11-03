@@ -19,7 +19,7 @@ const sections = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-border print:hidden">
-      <div className="page-container flex flex-col gap-3 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+      <div className="page-container flex flex-col gap-3 py-8 text-sm text-muted-foreground sm:h-[calc(var(--footer-height)-1px)] sm:flex-row sm:items-center sm:justify-between sm:py-0">
         <p>
           © <CurrentYear /> {site.name}
         </p>

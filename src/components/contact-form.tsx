@@ -121,7 +121,7 @@ function ContactFormBody() {
           <Textarea
             id="message"
             name="message"
-            rows={6}
+            rows={4}
             required
             defaultValue={values?.message}
             aria-invalid={!!errors?.message || undefined}

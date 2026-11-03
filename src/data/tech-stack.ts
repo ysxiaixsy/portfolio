@@ -26,8 +26,16 @@ export type StackItem = {
 
 // The logo's brand colour, or undefined to follow the text colour: black or
 // white logos would vanish in one of the themes.
-export function brandColor({ hex }: StackItem) {
-  if (!hex || /^(0{6}|f{6})$/i.test(hex)) return undefined;
+export function brandColor({ hex }: { hex?: string }) {
+  // Near-black and near-white brands (GitHub's 181717, say) count as black
+  // and white.
+  if (
+    !hex ||
+    /^(0|1)[0-9a-f](0|1)[0-9a-f](0|1)[0-9a-f]$|^(f|e)[0-9a-f](f|e)[0-9a-f](f|e)[0-9a-f]$/i.test(
+      hex,
+    )
+  )
+    return undefined;
   return `#${hex}`;
 }
 

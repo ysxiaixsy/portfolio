@@ -26,13 +26,15 @@ export const site = {
   // the résumé buttons show a "coming soon" toast instead.
   resume: "" as string,
   // Shown as icon + handle on the home page and as icons in the footer.
-  // `resume` marks the ones the résumé lists.
+  // `resume` marks the ones the résumé lists; `hex` is the brand colour the
+  // contact cards show.
   links: [
     {
       label: "Facebook",
       handle: "@jpas0809",
       href: "https://www.facebook.com/jpas0809",
       icon: FacebookIcon,
+      hex: "0866FF",
       resume: false,
     },
     {
@@ -40,6 +42,7 @@ export const site = {
       handle: "@jp_gaultier_",
       href: "https://www.instagram.com/jp_gaultier_/",
       icon: InstagramIcon,
+      hex: "FF0069",
       resume: false,
     },
     {
@@ -47,6 +50,7 @@ export const site = {
       handle: "@ysxiaixsy",
       href: "https://github.com/ysxiaixsy",
       icon: GitHubIcon,
+      hex: "181717",
       resume: true,
     },
     {
@@ -54,6 +58,7 @@ export const site = {
       handle: "@jp-salomeo",
       href: "https://www.linkedin.com/in/jp-salomeo/",
       icon: LinkedInIcon,
+      hex: "0A66C2",
       resume: true,
     },
   ],

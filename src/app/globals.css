@@ -37,6 +37,9 @@
   --radius: 0.625rem;
   /* The sticky header, border included. Sections size and scroll to it. */
   --header-height: 4.5rem;
+  /* The footer on wide screens, border included. The last home section
+     leaves room for it, so the two fill the final screen together. */
+  --footer-height: 5.5rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -174,6 +177,12 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  /* Tailwind's base gives buttons the arrow cursor; every enabled one is
+     clickable, so it shows the pointer like a link does. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
   }
   html {
     @apply font-sans;
@@ -330,4 +339,11 @@ html[data-magicui-theme-vt="active"] header {
 /* A home page section: at least one screen tall below the header. */
 @utility min-h-page {
   min-height: calc(100svh - var(--header-height));
+}
+
+/* The last home page section: it and the footer fill one screen, so the
+   footer shows without scrolling past. The section cancels <main>'s bottom
+   padding (-mb-16) to make room. */
+@utility min-h-page-end {
+  min-height: calc(100svh - var(--header-height) - var(--footer-height));
 }

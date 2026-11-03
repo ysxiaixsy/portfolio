@@ -3,6 +3,7 @@ import type { ComponentType, SVGProps } from "react";
 import { MonoLabel } from "@/components/mono-label";
 import { Card, CardContent } from "@/components/ui/card";
 import { site } from "@/data/site";
+import { brandColor } from "@/data/tech-stack";
 import { signalSurface } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
@@ -11,6 +12,8 @@ type Method = {
   value: string;
   href: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
+  // Brand colour; email and black or white brands follow the text colour.
+  hex?: string;
   external: boolean;
 };
 
@@ -27,6 +30,7 @@ const methods: Method[] = [
     value: link.handle,
     href: link.href,
     icon: link.icon,
+    hex: link.hex,
     external: true,
   })),
 ];
@@ -46,7 +50,11 @@ export function ContactMethods() {
             <Card size="sm" className={signalSurface}>
               <CardContent className="flex items-center gap-3">
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-muted">
-                  <method.icon aria-hidden="true" className="size-5" />
+                  <method.icon
+                    aria-hidden="true"
+                    className="size-5"
+                    style={{ color: brandColor(method) }}
+                  />
                 </span>
                 <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                   <MonoLabel>{method.label}</MonoLabel>
