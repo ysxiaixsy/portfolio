@@ -24,6 +24,13 @@ export type StackItem = {
   hex?: string;
 };
 
+// The logo's brand colour, or undefined to follow the text colour: black or
+// white logos would vanish in one of the themes.
+export function brandColor({ hex }: StackItem) {
+  if (!hex || /^(0{6}|f{6})$/i.test(hex)) return undefined;
+  return `#${hex}`;
+}
+
 // Logos come from simple-icons (https://simpleicons.org). To add one, find
 // its slug there and import it as `si<Slug>`, e.g. Docker → siDocker. For
 // brands it doesn't carry, add a path to stack-icons.ts.

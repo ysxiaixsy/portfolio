@@ -6,7 +6,7 @@ The site should read as one continuous surface: every page and section uses the 
 
 - Build UI from shadcn components (`src/components/ui`, registries in `components.json`) and their variants. Site-level pieces live in `src/components` and compose them.
 - Shared styling lives in one place: a component variant, a theme token in `src/app/globals.css`, or a shared component such as `SectionHeading` or `MonoLabel`. When two places need the same look, extract it so a change is a one-place edit.
-- Colours come from the semantic tokens in `globals.css` (`foreground`, `muted-foreground`, `border`, `highlight`, …), so light and dark stay in step. Brand logos are the one exception: the stack carousel shows each logo in its brand colour (`hex` in `src/data/tech-stack.ts`), with black and white brands following the text colour.
+- Colours come from the semantic tokens in `globals.css` (`foreground`, `muted-foreground`, `border`, `highlight`, …), so light and dark stay in step. Brand logos are the one exception: tech stack logos (the carousel and About) show their brand colour through `StackLogo`, with black and white brands following the text colour.
 - Profile links (`site.links` in `src/data/site.ts`) are the single list behind the home page socials, the footer icons and the résumé.
 - Every project in `src/data/projects.ts` ships its logo or wordmark, stored in this repo.
 

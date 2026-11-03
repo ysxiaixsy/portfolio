@@ -42,20 +42,21 @@ export default function Home() {
               className="pointer-events-none absolute -inset-x-6 -top-16 md:-inset-x-10 -bottom-12 -z-10 mask-[radial-gradient(ellipse_55%_65%_at_82%_45%,black_25%,transparent_72%)]"
             />
             <div>
-              <h1>
-                <span className="block text-xl font-medium tracking-tight text-muted-foreground sm:text-2xl">
-                  Hi, I&apos;m
-                </span>
+              {/* Outside the h1, so the heading reads as just the name. */}
+              <p className="text-lg font-medium tracking-tight text-balance text-muted-foreground sm:text-xl">
+                {site.education}
+              </p>
+              <h1 className="mt-2">
                 <KineticText
                   as="span"
                   text={site.name}
-                  className="mt-1 text-5xl tracking-tight sm:text-6xl lg:text-7xl"
+                  className="text-5xl tracking-tight sm:text-6xl lg:text-7xl"
                 />
               </h1>
               <p className="mt-3 text-2xl font-medium tracking-tight text-highlight sm:text-3xl">
                 {site.role}
               </p>
-              <p className="mt-6 max-w-2xl text-lg whitespace-pre-line text-muted-foreground">
+              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
                 {site.tagline}
               </p>
               <div className="mt-8 flex flex-wrap gap-3">

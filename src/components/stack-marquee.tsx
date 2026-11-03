@@ -1,12 +1,6 @@
+import { StackLogo } from "@/components/stack-logo";
 import { Marquee } from "@/components/ui/marquee";
-import { type StackItem, stacks } from "@/data/tech-stack";
-
-// Black or white logos would vanish in one of the themes, so they follow the
-// text colour; every other logo shows its brand colour.
-function brandColor({ hex }: StackItem) {
-  if (!hex || /^(0{6}|f{6})$/i.test(hex)) return undefined;
-  return `#${hex}`;
-}
+import { stacks } from "@/data/tech-stack";
 
 // Every logo from the tech stack, scrolling in a loop. Closes the hero and
 // leads into the next section, in place of a separator.
@@ -17,22 +11,14 @@ export function StackMarquee() {
     <Marquee
       pauseOnHover
       aria-label="Tech stack"
-      className="border-y py-5 [--duration:50s] [--gap:2.5rem] mask-[linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
+      className="border-y py-8 [--duration:60s] [--gap:3.5rem] mask-[linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
     >
       {items.map((item) => (
         <span
           key={item.title}
-          className="flex items-center gap-2.5 text-sm font-medium text-muted-foreground"
+          className="flex items-center gap-3 text-lg font-medium text-muted-foreground"
         >
-          <svg
-            viewBox={item.viewBox ?? "0 0 24 24"}
-            fill="currentColor"
-            aria-hidden="true"
-            className="size-7 shrink-0 text-foreground"
-            style={{ color: brandColor(item) }}
-          >
-            <path d={item.path} fillRule={item.fillRule} />
-          </svg>
+          <StackLogo item={item} className="size-11" />
           {item.title}
         </span>
       ))}
