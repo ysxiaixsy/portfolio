@@ -56,6 +56,9 @@ export default function Home() {
               <p className="mt-3 text-2xl font-medium tracking-tight text-highlight sm:text-3xl">
                 {site.role}
               </p>
+              <p className="mt-2 text-xl font-medium tracking-tight sm:text-2xl">
+                {site.motto}
+              </p>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
                 {site.tagline}
               </p>

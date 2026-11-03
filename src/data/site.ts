@@ -10,10 +10,11 @@ export const site = {
   initials: "JPS",
   // Path to your photo in /public, e.g. "/me.jpg". Leave empty to show initials.
   photo: "/portrait.jpg" as string,
-  // The hero, top to bottom: education, name, role, tagline.
+  // The hero, top to bottom: education, name, role, motto, tagline.
   education:
     "3rd year Computer Science student at the University of the Philippines Visayas",
-  role: "Developer & Designer",
+  role: "Software Engineer",
+  motto: "Engineered first, designed with care.",
   tagline:
     "I engineer software end to end, from web apps and games down to low-level systems, and design the interfaces people use to reach them.",
   description:
