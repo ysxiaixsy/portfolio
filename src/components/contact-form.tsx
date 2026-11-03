@@ -6,6 +6,13 @@ import { type ContactState, sendMessage } from "@/app/contact/actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
   Field,
   FieldError,
   FieldGroup,
@@ -18,7 +25,24 @@ import { site } from "@/data/site";
 
 const initialState: ContactState = { status: "idle" };
 
+// The form in a card, titled so it reads as its own way to get in touch.
 export function ContactForm() {
+  return (
+    <Card className="[--card-spacing:--spacing(6)]">
+      <CardHeader>
+        <CardTitle className="text-xl">Send a message</CardTitle>
+        <CardDescription>
+          It lands in my inbox, and I&apos;ll reply to the email you give.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ContactFormBody />
+      </CardContent>
+    </Card>
+  );
+}
+
+function ContactFormBody() {
   const [state, formAction, pending] = useActionState(
     sendMessage,
     initialState,
@@ -115,12 +139,10 @@ export function ContactForm() {
           className="hidden"
         />
 
-        <Field orientation="horizontal">
-          <Button type="submit" disabled={pending}>
-            {pending && <Spinner data-icon="inline-start" />}
-            {pending ? "Sending…" : "Send message"}
-          </Button>
-        </Field>
+        <Button type="submit" size="lg" disabled={pending} className="w-full">
+          {pending && <Spinner data-icon="inline-start" />}
+          {pending ? "Sending…" : "Send message"}
+        </Button>
       </FieldGroup>
     </form>
   );

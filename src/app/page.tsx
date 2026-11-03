@@ -1,6 +1,7 @@
-import { MailIcon } from "lucide-react";
+import { MailIcon, MapPinIcon } from "lucide-react";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
+import { ContactMethods } from "@/components/contact-methods";
 import { JourneyTimeline } from "@/components/journey-timeline";
 import { PageTransition } from "@/components/page-transition";
 import { ProjectGrid } from "@/components/project-grid";
@@ -12,6 +13,7 @@ import { StackMarquee } from "@/components/stack-marquee";
 import { TechStack } from "@/components/tech-stack";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Backlight } from "@/components/ui/backlight";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DitherField } from "@/components/ui/dither-field";
 import { KineticText } from "@/components/ui/kinetic-text";
@@ -175,17 +177,34 @@ export default function Home() {
           <div>
             <SectionHeading index={3}>Contact</SectionHeading>
             <p className="mt-10 text-lg leading-relaxed">
-              I&apos;m open to anything — internships, jobs, freelance design,
-              collaborations, or just a chat about an idea.
+              Have a role, a project or an idea? Let&apos;s talk.
             </p>
             <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
-              Have a role, project, or question in mind? Send me a message, or
-              email{" "}
-              <a href={`mailto:${site.email}`} className="text-link">
-                {site.email}
-              </a>
-              .
+              I&apos;m open to internships, full-time roles, freelance design
+              and collaborations. Reach me directly below, or send a message and
+              it lands straight in my inbox.
             </p>
+            <ul className="mt-6 flex flex-wrap gap-2">
+              <li>
+                <Badge variant="outline">
+                  {/* A live-status dot; it stops pulsing under reduced motion. */}
+                  <span
+                    aria-hidden="true"
+                    className="size-1.5 rounded-full bg-foreground motion-safe:animate-pulse"
+                  />
+                  {site.status}
+                </Badge>
+              </li>
+              <li>
+                <Badge variant="outline">
+                  <MapPinIcon data-icon="inline-start" />
+                  {site.location}
+                </Badge>
+              </li>
+            </ul>
+            <div className="mt-10">
+              <ContactMethods />
+            </div>
           </div>
           {/* Lines up with the heading's number on wide screens. */}
           <div className="lg:pt-1">

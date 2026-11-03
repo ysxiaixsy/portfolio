@@ -14,7 +14,7 @@ The site should read as one continuous surface: every page and section uses the 
 
 Orange (`highlight`) is the **signal**: it marks what is active, hovered or focused, so it always means "you are here" or "this responds".
 
-- Interactive surfaces (cards, the active nav tab) signal with `ring-highlight` and `shadow-glow`. Cards rest at `ring-2 ring-foreground/15` and move to `ring-3 ring-highlight/60 shadow-glow` on hover and focus.
+- Interactive surfaces signal with `ring-highlight` and `shadow-glow`. A card that links somewhere (project cards, contact cards) takes `signalSurface` from `src/lib/styles.ts` inside a `group` link; the active nav tab glows the same way.
 - Inline text links use the `text-link` utility. Buttons signal through their variants in `button.tsx`, and focus rings through the `--ring` token, which is the accent.
 - Outside interaction, orange appears only in the role line and the hero's dither field.
 

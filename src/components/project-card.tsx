@@ -15,6 +15,8 @@ import {
 import { ProgressiveBlur } from "@/components/ui/progressive-blur";
 import { Tilt } from "@/components/ui/tilt";
 import type { Project } from "@/data/projects";
+import { signalSurface } from "@/lib/styles";
+import { cn } from "@/lib/utils";
 
 // Far below the component's default of 64px: backdrop blur costs more the
 // wider its radius, and this has to stay smooth on low-end devices.
@@ -35,7 +37,12 @@ export function ProjectCard({
         transitionTypes={["nav-forward"]}
         className="group block h-full rounded-xl outline-none"
       >
-        <Card className="h-full pt-0 ring-2 ring-foreground/15 transition-shadow duration-300 ease-out group-hover:shadow-glow group-hover:ring-3 group-hover:ring-highlight/60 group-focus-visible:shadow-glow group-focus-visible:ring-3 group-focus-visible:ring-highlight/60 motion-reduce:transition-none [--card-spacing:--spacing(5)]">
+        <Card
+          className={cn(
+            "h-full pt-0 [--card-spacing:--spacing(5)]",
+            signalSurface,
+          )}
+        >
           <div className="relative border-b">
             <ProjectScreenshot
               project={project}

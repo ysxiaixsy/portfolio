@@ -16,6 +16,9 @@ export const site = {
   description:
     "Portfolio of JP Salomeo — projects, experience, and ways to get in touch.",
   email: "jasalomeo@up.edu.ph",
+  // The availability line in the Contact section.
+  status: "Open to internships, jobs and freelance work",
+  location: "Iloilo, Philippines",
   // Path to your résumé PDF in /public, e.g. "/resume.pdf". Leave empty and
   // the résumé buttons show a "coming soon" toast instead.
   resume: "" as string,
