@@ -74,8 +74,8 @@ export default function Home() {
             </div>
 
             {/* Casts the photo's own colours around it as a glow. */}
-            <Backlight blur={28} className="shrink-0">
-              <Avatar className="size-28 sm:size-36 lg:size-44">
+            <Backlight blur={36} className="shrink-0">
+              <Avatar className="size-36 sm:size-52 lg:size-72">
                 {site.photo && <AvatarImage src={site.photo} alt={site.name} />}
                 <AvatarFallback className="text-3xl font-medium">
                   {site.initials}
