@@ -47,6 +47,8 @@
 @theme inline {
   --color-rateupv-primary: var(--rateupv-primary);
   --color-highlight: var(--highlight);
+  /* The orange glow on the active nav tab and hovered project cards. */
+  --shadow-glow: 0 0 18px -2px color-mix(in oklab, var(--highlight) 65%, transparent);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);

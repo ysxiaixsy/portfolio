@@ -80,7 +80,7 @@ function TabsNav({ pathname }: { pathname: string | null }) {
     <Tabs value={value}>
       <TabsList className="relative isolate p-1 group-data-horizontal/tabs:h-10">
         {/* Glows in the highlight colour and slides to the section being read. */}
-        <TabsIndicator className="ring-1 ring-highlight/50 shadow-[0_0_18px_-2px_color-mix(in_oklab,var(--highlight)_65%,transparent)] dark:ring-highlight/50" />
+        <TabsIndicator className="shadow-glow ring-1 ring-highlight/50 dark:ring-highlight/50" />
         {tabs.map((tab) => (
           <TabsTrigger
             key={tab.value}

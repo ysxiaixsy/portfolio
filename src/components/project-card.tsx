@@ -35,7 +35,7 @@ export function ProjectCard({
         transitionTypes={["nav-forward"]}
         className="group block h-full rounded-xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
       >
-        <Card className="h-full pt-0 ring-2 ring-foreground/15 transition-shadow group-hover:ring-4 group-hover:ring-foreground/35 [--card-spacing:--spacing(5)]">
+        <Card className="h-full pt-0 ring-2 ring-foreground/15 transition-shadow group-hover:shadow-glow group-hover:ring-3 group-hover:ring-highlight/60 [--card-spacing:--spacing(5)]">
           <div className="relative border-b">
             <ProjectScreenshot
               project={project}
