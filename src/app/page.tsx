@@ -74,8 +74,8 @@ export default function Home() {
             </div>
 
             {/* Casts the photo's own colours around it as a glow. */}
-            <Backlight blur={36} className="shrink-0">
-              <Avatar className="size-36 sm:size-52 lg:size-72">
+            <Backlight blur={40} className="shrink-0">
+              <Avatar className="size-40 sm:size-60 lg:size-80">
                 {site.photo && <AvatarImage src={site.photo} alt={site.name} />}
                 <AvatarFallback className="text-3xl font-medium">
                   {site.initials}
@@ -184,18 +184,23 @@ export default function Home() {
               and collaborations. Reach me directly below, or send a message and
               it lands straight in my inbox.
             </p>
-            <ul className="mt-6 flex flex-wrap gap-2">
-              <li>
+            <ul className="mt-6 flex flex-wrap items-center gap-2">
+              <li className="flex">
                 <Badge variant="outline">
-                  {/* A live-status dot; it stops pulsing under reduced motion. */}
+                  {/* A live-status dot in the same 12px slot as the pin icon,
+                      so both badges share padding and alignment. It stops
+                      pulsing under reduced motion. */}
                   <span
+                    data-icon="inline-start"
                     aria-hidden="true"
-                    className="size-1.5 rounded-full bg-foreground motion-safe:animate-pulse"
-                  />
+                    className="flex size-3 shrink-0 items-center justify-center"
+                  >
+                    <span className="size-1.5 rounded-full bg-foreground motion-safe:animate-pulse" />
+                  </span>
                   {site.status}
                 </Badge>
               </li>
-              <li>
+              <li className="flex">
                 <Badge variant="outline">
                   <MapPinIcon data-icon="inline-start" />
                   {site.location}
