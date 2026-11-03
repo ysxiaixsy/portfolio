@@ -88,7 +88,7 @@ export default function Home() {
         >
           <SectionHeading
             index={1}
-            description="Things I've built or contributed to, newest first."
+            description="Things I've built or contributed to, from games and web apps to a programming language."
           >
             Projects
           </SectionHeading>
@@ -167,7 +167,7 @@ export default function Home() {
 
         <section
           id="contact"
-          className="grid min-h-page scroll-mt-(--header-height) content-center gap-10 py-20 lg:grid-cols-2 lg:gap-16"
+          className="-mb-16 grid min-h-page-end scroll-mt-(--header-height) content-center gap-10 pt-12 pb-10 lg:grid-cols-2 lg:gap-16"
         >
           <div>
             <SectionHeading index={3}>Contact</SectionHeading>

@@ -7,7 +7,7 @@ import { MonoLabel } from "@/components/mono-label";
 import { PageTransition } from "@/components/page-transition";
 import { ProjectLogo } from "@/components/project-logo";
 import { ProjectName } from "@/components/project-name";
-import { ProjectScreenshot } from "@/components/project-screenshot";
+import { ProjectMedia } from "@/components/project-media";
 import { Title } from "@/components/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -56,7 +56,7 @@ export default async function ProjectPage(
             <ProjectLogo
               project={project}
               className={
-                project.logo.wordmark ? "h-10 sm:h-12" : "size-9 sm:size-11"
+                project.logo?.wordmark ? "h-10 sm:h-12" : "size-9 sm:size-11"
               }
             />
             <ProjectName project={project} />
@@ -66,16 +66,28 @@ export default async function ProjectPage(
           {project.summary}
         </p>
 
-        <ProjectScreenshot
-          project={project}
-          eager
-          sizes="(min-width: 1280px) 1210px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 48px)"
-          className="mt-10"
-        />
+        {/* Covers suit the project grid; here only a real screenshot shows. */}
+
+        {project.screenshot && (
+          <ProjectMedia
+            project={project}
+            eager
+            sizes="(min-width: 1280px) 1210px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 48px)"
+            className="mt-10"
+          />
+        )}
 
         {/* Metadata sits in a left rail on large screens. */}
         <div className="mt-10 grid gap-10 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-12">
           <dl className="flex flex-col gap-5 text-sm">
+            {project.inProgress && (
+              <div className="flex flex-col gap-1">
+                <dt>
+                  <MonoLabel>Status</MonoLabel>
+                </dt>
+                <dd>In progress</dd>
+              </div>
+            )}
             <div className="flex flex-col gap-1">
               <dt>
                 <MonoLabel>Year</MonoLabel>

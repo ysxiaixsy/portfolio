@@ -10,7 +10,7 @@ const agency = localFont({
 });
 
 export function ProjectName({ project }: { project: Project }) {
-  if (project.logo.wordmark) return null;
+  if (project.logo?.wordmark) return null;
   if (project.slug !== "rateupv") return project.title;
 
   return (

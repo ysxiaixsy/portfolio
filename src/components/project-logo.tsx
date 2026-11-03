@@ -11,6 +11,8 @@ export function ProjectLogo({
   className?: string;
 }) {
   const { logo, title } = project;
+  // Projects without a logo show their name as text instead.
+  if (!logo) return null;
   // A wordmark is the name itself; a mark sits next to the title text.
   const alt = logo.wordmark ? title : "";
   const props = { width: logo.width, height: logo.height, unoptimized: true };

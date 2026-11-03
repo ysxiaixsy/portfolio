@@ -3,12 +3,13 @@ import { ViewTransition } from "react";
 import { MonoLabel } from "@/components/mono-label";
 import { ProjectLogo } from "@/components/project-logo";
 import { ProjectName } from "@/components/project-name";
-import { ProjectScreenshot } from "@/components/project-screenshot";
+import { ProjectMedia } from "@/components/project-media";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardAction,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -44,13 +45,15 @@ export function ProjectCard({
           )}
         >
           <div className="relative border-b">
-            <ProjectScreenshot
+            <ProjectMedia
               project={project}
               eager={eager}
               sizes="(min-width: 1280px) 600px, (min-width: 768px) calc(50vw - 48px), calc(100vw - 48px)"
               className="rounded-none ring-0"
             />
-            <ProgressiveBlur height="25%" blurLevels={BLUR_LEVELS} />
+            {project.screenshot && (
+              <ProgressiveBlur height="25%" blurLevels={BLUR_LEVELS} />
+            )}
           </div>
 
           <CardHeader className="gap-2">
@@ -64,12 +67,17 @@ export function ProjectCard({
                 <h3 className="flex items-center gap-2">
                   <ProjectLogo
                     project={project}
-                    className={project.logo.wordmark ? "h-5" : "size-5"}
+                    className={project.logo?.wordmark ? "h-5" : "size-5"}
                   />
                   <ProjectName project={project} />
                 </h3>
               </ViewTransition>
             </CardTitle>
+            {project.inProgress && (
+              <CardAction>
+                <Badge variant="outline">In progress</Badge>
+              </CardAction>
+            )}
             <CardDescription>{project.summary}</CardDescription>
           </CardHeader>
 
