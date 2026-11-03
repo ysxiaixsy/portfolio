@@ -4,7 +4,12 @@ import { FolderIcon, HouseIcon, MailIcon, UserIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { SectionLink } from "@/components/section-link";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Tabs,
+  TabsIndicator,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
 import { routeDepth, transitionTypesFor } from "@/lib/navigation";
 
 // Each value is the id of a section on the home page.
@@ -73,11 +78,14 @@ function TabsNav({ pathname }: { pathname: string | null }) {
 
   return (
     <Tabs value={value}>
-      <TabsList>
+      <TabsList className="relative isolate p-1 group-data-horizontal/tabs:h-10">
+        {/* Glows in the highlight colour and slides to the section being read. */}
+        <TabsIndicator className="ring-1 ring-highlight/50 shadow-[0_0_18px_-2px_color-mix(in_oklab,var(--highlight)_65%,transparent)] dark:ring-highlight/50" />
         {tabs.map((tab) => (
           <TabsTrigger
             key={tab.value}
             value={tab.value}
+            className="px-2.5 has-data-[icon=inline-start]:pl-2.5 sm:px-3 sm:text-[0.9375rem]"
             nativeButton={false}
             render={
               <SectionLink
