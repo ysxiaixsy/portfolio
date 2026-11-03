@@ -40,7 +40,7 @@ export function ProjectCard({
             <ProjectScreenshot
               project={project}
               eager={eager}
-              sizes="(min-width: 1024px) 480px, (min-width: 768px) calc(50vw - 32px), calc(100vw - 48px)"
+              sizes="(min-width: 1280px) 600px, (min-width: 768px) calc(50vw - 48px), calc(100vw - 48px)"
               className="rounded-none ring-0"
             />
             <ProgressiveBlur height="25%" blurLevels={BLUR_LEVELS} />

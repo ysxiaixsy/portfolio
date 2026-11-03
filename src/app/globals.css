@@ -178,6 +178,19 @@
   html {
     @apply font-sans;
   }
+  /* Everything is sized in rem, so raising the root size on wide screens
+     scales text, spacing and controls together. Breakpoints stay put: media
+     queries measure rem from the browser default, not this. */
+  @media screen and (min-width: 64rem) {
+    html {
+      font-size: 106.25%;
+    }
+  }
+  @media screen and (min-width: 80rem) {
+    html {
+      font-size: 112.5%;
+    }
+  }
 }
 
 /* The nav tabs scroll to sections of the home page. */
@@ -300,6 +313,17 @@ html[data-magicui-theme-vt="active"] header {
   }
   @media (prefers-reduced-motion: reduce) {
     transition: none;
+  }
+}
+
+/* The one content column every page, the header and the footer share. */
+@utility page-container {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  @media (min-width: 48rem) {
+    padding-inline: 2.5rem;
   }
 }
 

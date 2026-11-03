@@ -11,7 +11,7 @@ export function SiteHeader() {
       className="sticky top-0 z-40 h-(--header-height) border-b border-border bg-background print:hidden"
       style={{ viewTransitionName: "site-header" }}
     >
-      <div className="mx-auto flex h-full max-w-5xl items-center justify-between gap-3 px-6 sm:gap-4">
+      <div className="page-container flex h-full items-center justify-between gap-3 sm:gap-4">
         <SectionLink
           section="main"
           transitionTypes={["nav-back"]}

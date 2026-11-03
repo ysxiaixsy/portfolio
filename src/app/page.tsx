@@ -37,7 +37,7 @@ export default function Home() {
               color="var(--highlight)"
               intensity={0.7}
               dotSize={2}
-              className="pointer-events-none absolute -inset-x-6 -top-16 -bottom-12 -z-10 mask-[radial-gradient(ellipse_55%_65%_at_82%_45%,black_25%,transparent_72%)]"
+              className="pointer-events-none absolute -inset-x-6 -top-16 md:-inset-x-10 -bottom-12 -z-10 mask-[radial-gradient(ellipse_55%_65%_at_82%_45%,black_25%,transparent_72%)]"
             />
             <div>
               <h1>

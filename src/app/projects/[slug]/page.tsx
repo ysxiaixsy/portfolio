@@ -69,7 +69,7 @@ export default async function ProjectPage(
         <ProjectScreenshot
           project={project}
           eager
-          sizes="(min-width: 1024px) 976px, calc(100vw - 48px)"
+          sizes="(min-width: 1280px) 1210px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 48px)"
           className="mt-10"
         />
 

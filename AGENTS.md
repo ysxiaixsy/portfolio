@@ -20,7 +20,7 @@ Orange (`highlight`) is the **signal**: it marks what is active, hovered or focu
 
 ## Layout
 
-- Every page shares the container in `src/app/layout.tsx` (`max-w-5xl px-6`), and every section fills its full width. To use wide space, split a section into columns (`grid lg:grid-cols-2 gap-16`) rather than narrowing it.
+- Every page, the header and the footer share one content column, the `page-container` utility in `globals.css`, and every section fills its full width. Sizes are in rem, which the root font size scales up on wide screens. To use wide space, split a section into columns (`grid lg:grid-cols-2 gap-16`) rather than narrowing it.
 - Each home page section is at least one screen tall (`min-h-page`, `py-20`, content centred) and scrolls to just below the header (`scroll-mt-(--header-height)`). The hero's screen ends with the tech stack carousel, which leads into Projects; every later pair of sections has a `Separator` between them.
 - Sections open with `SectionHeading`, numbered in page order, and their content starts `mt-10` below it.
 - Links to a home page section use `SectionLink`, and the nav tabs list every section.
