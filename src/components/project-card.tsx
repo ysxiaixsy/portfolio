@@ -35,7 +35,7 @@ export function ProjectCard({
         transitionTypes={["nav-forward"]}
         className="group block h-full rounded-xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
       >
-        <Card className="h-full pt-0 ring-2 ring-foreground/15 transition-shadow group-hover:ring-foreground/35 [--card-spacing:--spacing(5)]">
+        <Card className="h-full pt-0 ring-2 ring-foreground/15 transition-shadow group-hover:ring-4 group-hover:ring-foreground/35 [--card-spacing:--spacing(5)]">
           <div className="relative border-b">
             <ProjectScreenshot
               project={project}
@@ -54,7 +54,7 @@ export function ProjectCard({
                 share="morph"
                 default="none"
               >
-                <h3 className="flex items-center gap-2 group-hover:underline">
+                <h3 className="flex items-center gap-2">
                   <ProjectLogo
                     project={project}
                     className={project.logo.wordmark ? "h-5" : "size-5"}
