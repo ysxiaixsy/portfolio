@@ -36,7 +36,7 @@ export function ProjectReveal({
 
   return (
     <div ref={root} className="mt-4">
-      <div className="relative">
+      <div className="group/peek relative">
         <motion.div
           id={id}
           initial={false}
@@ -53,7 +53,8 @@ export function ProjectReveal({
           <div
             className={cn(
               "transition-[filter] duration-300 ease-out motion-reduce:transition-none",
-              !open && "blur-[3px]",
+              // Hovering the peek eases the blur, hinting at what opens.
+              !open && "blur-[3px] group-hover/peek:blur-[1.5px]",
             )}
           >
             {children}
@@ -61,18 +62,24 @@ export function ProjectReveal({
         </motion.div>
 
         {!open && (
-          <div className="absolute inset-0 flex items-end justify-center bg-linear-to-b from-transparent from-10% via-background/40 to-background pb-4">
+          <>
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent from-10% via-background/40 to-background"
+            />
+            {/* The whole peek is the button, as wide as both columns: click
+                anywhere on the blurred cards to open them. */}
             <Button
-              variant="outline"
-              size="lg"
+              variant="ghost"
               aria-expanded={false}
               aria-controls={id}
               onClick={() => setOpen(true)}
+              className="absolute inset-0 h-full w-full items-end rounded-xl pb-6 text-base hover:bg-transparent dark:hover:bg-transparent"
             >
               See all {total} projects
               <ChevronDownIcon data-icon="inline-end" />
             </Button>
-          </div>
+          </>
         )}
       </div>
 
