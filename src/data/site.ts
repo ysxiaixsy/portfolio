@@ -25,6 +25,8 @@ export const site = {
   // Path to your résumé PDF in /public, e.g. "/resume.pdf". Leave empty and
   // the résumé buttons show a "coming soon" toast instead.
   resume: "/resume.pdf" as string,
+  // The name the résumé saves under when downloaded.
+  resumeFileName: "Joseph Patrick Salomeo_Resume.pdf",
   // Shown as icon + handle on the home page and as icons in the footer.
   // `resume` marks the ones the résumé lists; `hex` is the brand colour the
   // contact cards show.

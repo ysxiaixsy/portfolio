@@ -25,7 +25,7 @@ export function ResumeButton({ children, ...props }: ResumeButtonProps) {
       <Button
         {...props}
         nativeButton={false}
-        render={<a href={site.resume} download />}
+        render={<a href={site.resume} download={site.resumeFileName} />}
       >
         {content}
       </Button>
