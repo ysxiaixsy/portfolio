@@ -58,11 +58,14 @@ export const projects: Project[] = [
     },
     tech: [
       "Next.js",
+      "React",
       "TypeScript",
+      "Tailwind CSS",
       "Supabase",
       "PostgreSQL",
       "Vercel AI SDK",
       "Python",
+      "Vercel",
     ],
     year: 2026,
     logo: {
@@ -103,7 +106,9 @@ export const projects: Project[] = [
       "shadcn/ui",
       "Supabase",
       "PostgreSQL",
+      "Vitest",
       "Playwright",
+      "Vercel",
     ],
     year: 2026,
     logo: {
@@ -165,6 +170,7 @@ export const projects: Project[] = [
     },
     tech: [
       "React",
+      "Vite",
       "TypeScript",
       "Tailwind CSS",
       "shadcn/ui",

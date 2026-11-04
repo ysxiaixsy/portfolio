@@ -9,7 +9,6 @@ export function StackMarquee() {
 
   return (
     <Marquee
-      pauseOnHover
       aria-label="Tech stack"
       className="border-y py-8 [--duration:60s] [--gap:3.5rem] mask-[linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
     >

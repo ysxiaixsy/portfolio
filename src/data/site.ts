@@ -24,7 +24,7 @@ export const site = {
   location: "Iloilo, Philippines",
   // Path to your résumé PDF in /public, e.g. "/resume.pdf". Leave empty and
   // the résumé buttons show a "coming soon" toast instead.
-  resume: "" as string,
+  resume: "/resume.pdf" as string,
   // Shown as icon + handle on the home page and as icons in the footer.
   // `resume` marks the ones the résumé lists; `hex` is the brand colour the
   // contact cards show.

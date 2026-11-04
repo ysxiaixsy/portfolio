@@ -11,7 +11,8 @@ export const metadata: Metadata = {
 };
 
 // Printed to public/resume.pdf by `npm run resume`; the site chrome is hidden
-// in print (see the print: classes in the layout).
+// in print (see the print: classes in the layout), and entries carry
+// break-inside-avoid so none splits across a page break.
 
 function Section({
   title,
@@ -66,17 +67,22 @@ export default function ResumePage() {
 
         <Section title="Summary">
           <p>
-            Third-year Computer Science student at the University of the
-            Philippines Visayas who designs and builds software, from the
-            interface to the code behind it. Graphic designer since age 11, with
-            publication, branding and yearbook work across high school and
-            university.
+            Third-year BS Computer Science student at the University of the
+            Philippines Visayas and DOST-SEI merit scholar. A software engineer
+            who builds web apps, games and language tooling end to end, from
+            database rules and server logic to the interface, and designs the UI
+            people use. Before UP, spent two years on a three-person research
+            project at Philippine Science High School identifying endophytic
+            fungi with pharmaceutical potential.
           </p>
         </Section>
 
         <Section title="Education & involvement">
           {journey.map((entry) => (
-            <div key={`${entry.place}-${entry.start}`}>
+            <div
+              key={`${entry.place}-${entry.start}`}
+              className="break-inside-avoid"
+            >
               <div className="flex flex-wrap items-baseline justify-between gap-x-4">
                 <h3 className="font-medium">{entry.place}</h3>
                 <p className="text-muted-foreground">
@@ -106,23 +112,28 @@ export default function ResumePage() {
 
         <Section title="Projects">
           {projects.map((project) => (
-            <div key={project.slug}>
+            <div key={project.slug} className="break-inside-avoid">
               <div className="flex flex-wrap items-baseline justify-between gap-x-4">
                 <h3 className="font-medium">
                   {project.title}
-                  {project.liveUrl && (
+                  {/* The live site when there is one, else the source. */}
+                  {(project.liveUrl ?? project.repoUrl) && (
                     <>
                       {" · "}
                       <a
-                        href={project.liveUrl}
+                        href={project.liveUrl ?? project.repoUrl}
                         className="text-link font-normal text-muted-foreground print:no-underline"
                       >
-                        {displayUrl(project.liveUrl)}
+                        {displayUrl(project.liveUrl ?? project.repoUrl!)}
                       </a>
                     </>
                   )}
                 </h3>
-                <p className="text-muted-foreground">{project.year}</p>
+                <p className="text-muted-foreground">
+                  {project.inProgress
+                    ? `${project.year} – Present`
+                    : project.year}
+                </p>
               </div>
               <p className="text-muted-foreground">
                 {project.role}
@@ -140,7 +151,7 @@ export default function ResumePage() {
           <dl className="flex flex-col gap-1">
             {stacks.map((group) => (
               <div key={group.title} className="flex gap-2">
-                <dt className="w-24 shrink-0 font-medium">{group.title}</dt>
+                <dt className="w-32 shrink-0 font-medium">{group.title}</dt>
                 <dd>{group.items.map((item) => item.title).join(", ")}</dd>
               </div>
             ))}
