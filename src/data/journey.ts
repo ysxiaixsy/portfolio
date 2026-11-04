@@ -25,7 +25,7 @@ export const journey: JourneyEntry[] = [
     involvements: [
       {
         org: "Hack Iloilo 2026",
-        role: "SACKTO: UI/UX design, planning & development",
+        role: "SACKTO: Brand, UI/UX design & development",
         href: "/projects/sackto",
       },
       {

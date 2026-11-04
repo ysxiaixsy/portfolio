@@ -144,13 +144,13 @@ export const projects: Project[] = [
     title: "SolNexus",
     summary:
       "A lead and client communication pipeline for SolTech EMR that gathers lead conversations into one searchable system and shows which leads need a follow-up today.",
-    role: "Full-stack development: wireframes, frontend foundation & staff sign-in",
+    role: "Full-stack development, lead UI/UX design & Scrum Master",
     event: "CMSC 128/129, for a real client",
     inProgress: true,
     description: [
       "SolTech EMR tracked its leads in a spreadsheet by hand. SolNexus, built by a five-person team with SolTech as a real client, replaces it with a daily follow-up list and a searchable history for each clinic.",
       "Conversations flow through a medallion-architecture pipeline: Gmail is ingested into PostgreSQL bronze tables, dbt builds silver models for leads and interactions, and Apache Airflow orchestrates it with retries. Messenger and Viber ingestion are planned.",
-      "I drew the wireframes, built the React frontend foundation (routing, the API client and a mock mode), and built staff sign-in end to end, from FastAPI sessions and protected routes with an 8-hour idle timeout to the login page and its tests.",
+      "I'm the team's Scrum Master and lead UI/UX designer. I drew the wireframes, built the React frontend foundation (routing, the API client and a mock mode), and built staff sign-in end to end, from FastAPI sessions and protected routes with an 8-hour idle timeout to the login page and its tests.",
     ],
     screenshot: {
       src: "/projects/solnexus/screenshot.webp",

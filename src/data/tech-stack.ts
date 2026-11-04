@@ -1,13 +1,18 @@
 import {
   siClaudecode,
+  siDocker,
+  siFastapi,
   siFigma,
   siGit,
   siJavascript,
+  siMysql,
   siNextdotjs,
   siNodedotjs,
+  siPhp,
   siPostgresql,
   siPython,
   siReact,
+  siRust,
   siTailwindcss,
   siTypescript,
 } from "simple-icons";
@@ -49,11 +54,15 @@ export const stacks: { title: string; items: StackItem[] }[] = [
       siTypescript,
       siJavascript,
       siPython,
+      siRust,
+      siPhp,
       siReact,
       siNextdotjs,
       siNodedotjs,
+      siFastapi,
       siTailwindcss,
       siPostgresql,
+      siMysql,
     ],
   },
   {
@@ -62,6 +71,6 @@ export const stacks: { title: string; items: StackItem[] }[] = [
   },
   {
     title: "Tools",
-    items: [siGit, siClaudecode, codex],
+    items: [siGit, siDocker, siClaudecode, codex],
   },
 ];
