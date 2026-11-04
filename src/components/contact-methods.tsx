@@ -1,6 +1,5 @@
 import { ArrowUpRightIcon, MailIcon } from "lucide-react";
 import type { ComponentType, SVGProps } from "react";
-import { MonoLabel } from "@/components/mono-label";
 import { Card, CardContent } from "@/components/ui/card";
 import { site } from "@/data/site";
 import { brandColor } from "@/data/tech-stack";
@@ -44,6 +43,8 @@ export function ContactMethods() {
         <li key={method.href} className={cn(index === 0 && "sm:col-span-2")}>
           <a
             href={method.href}
+            // The card shows only the icon and handle; this names the platform.
+            aria-label={`${method.label}: ${method.value}`}
             {...(method.external && { target: "_blank", rel: "noreferrer" })}
             className="group block rounded-xl outline-none"
           >
@@ -56,9 +57,8 @@ export function ContactMethods() {
                     style={{ color: brandColor(method) }}
                   />
                 </span>
-                <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                  <MonoLabel>{method.label}</MonoLabel>
-                  <span className="truncate font-medium">{method.value}</span>
+                <span className="min-w-0 flex-1 truncate font-medium">
+                  {method.value}
                 </span>
                 <ArrowUpRightIcon
                   aria-hidden="true"

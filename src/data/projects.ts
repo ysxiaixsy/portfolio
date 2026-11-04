@@ -27,43 +27,57 @@ export type Project = {
   logo?: ProjectLogo;
   // Still being built: the card and page say so.
   inProgress?: boolean;
+  // Shown up front on the home page; the rest sit behind "See all".
+  featured?: boolean;
   liveUrl?: string;
   repoUrl?: string;
 };
 
-// Featured first. Ship the logo or wordmark whenever the project has one.
+// Featured projects first, then the rest. Ship the logo or wordmark whenever
+// the project has one.
 export const projects: Project[] = [
   {
-    slug: "tavern-card-game",
-    title: "Tavern Card Game",
+    slug: "sackto",
+    featured: true,
+    title: "SACKTO",
     summary:
-      "A mobile recreation of Gwent, the card game from The Witcher 3, with AI opponents and online play.",
-    role: "Solo developer",
+      "Post-harvest capacity planning for the Iloilo Rice Processing Complex, with an SMS channel for farmers and buyers.",
+    role: "Brand, UI/UX design & development",
+    event: "Hack Iloilo 2026",
     description: [
-      "Tavern Card Game is a mobile version of Gwent, the card game from The Witcher 3: Wild Hunt. It has three AI difficulties, all four base-game factions, leader variants, a deck builder that saves your decks, and a standalone Android build.",
-      "The game engine is pure TypeScript with seeded randomness, so any seed replays the same match. More than 170 engine and AI tests cover it, along with a terminal simulator that plays bot-vs-bot games.",
-      "Online matches start from a room code and run through a Supabase Edge Function that checks every move with the same engine the app runs. Row-level security hides the full game state, so each player only receives their own view, and Realtime updates handle reconnecting and resuming.",
-      "I built it alone, all 94 commits. It's a non-commercial fan project: the card names belong to CD PROJEKT RED, and all the art is placeholder art drawn in code.",
+      "The Iloilo Rice Processing Complex can't see palay coming until it reaches the gate. At peak, dryers overflow and farmers turn to private mills; off-season, machines sit idle while power costs keep running. SACKTO shows the plant what's coming weeks ahead and suggests what to do about it.",
+      "Farmers and buyers report what's coming by SMS or on the web: booking drying or milling, offering palay for sale, getting price quotes, or requesting rice. Bookings, sell offers and a harvest forecast feed a capacity view for the dryers, storage and mill, which suggests moving flexible bookings off busy days or texting farmers ahead of idle stretches. Staff run the day from one gate queue and one batch record, from receiving to dispatch.",
+      "It's a single Next.js app on Supabase. Basic phones reach it through an Android SMS gateway and a webhook relay. An LLM parses free-text messages but never computes figures, and the harvest forecast is trained offline in Python. Built for Hack Iloilo 2026.",
+      "I designed SACKTO's brand, including its wordmark, and its UI, every screen of it, and worked on planning and development from start to finish.",
     ],
+    screenshot: {
+      src: "/projects/sackto/screenshot.webp",
+      alt: "SACKTO's home page, with options to book drying or milling, sell palay and buy rice, above today's prices.",
+      width: 1600,
+      height: 1000,
+    },
     tech: [
-      "Expo",
-      "React Native",
+      "Next.js",
       "TypeScript",
-      "Zustand",
       "Supabase",
       "PostgreSQL",
-      "Vitest",
+      "Vercel AI SDK",
+      "Python",
     ],
     year: 2026,
     logo: {
-      src: "/projects/tavern-card-game/logo.png",
-      width: 256,
-      height: 256,
+      src: "/projects/sackto/wordmark.svg",
+      darkSrc: "/projects/sackto/wordmark-white.svg",
+      width: 453,
+      height: 103,
+      wordmark: true,
     },
-    repoUrl: "https://github.com/ysxiaixsy/Tavern-Card-Game",
+    liveUrl: "https://sackto.vercel.app",
+    repoUrl: "https://github.com/popcorn-prophets/sackto",
   },
   {
     slug: "rateupv",
+    featured: true,
     title: "RateUPV",
     summary:
       "Student-driven reviews of UP Visayas campus facilities and services, like Rate My Professors for the places around campus.",
@@ -102,42 +116,33 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/ysxiaixsy/RateUPV",
   },
   {
-    slug: "sackto",
-    title: "SACKTO",
+    slug: "tavern-card-game",
+    title: "Tavern Card Game",
     summary:
-      "Post-harvest capacity planning for the Iloilo Rice Processing Complex, with an SMS channel for farmers and buyers.",
-    role: "Brand, UI/UX design & development",
-    event: "Hack Iloilo 2026",
+      "A mobile recreation of Gwent, the card game from The Witcher 3, with AI opponents and online play.",
+    role: "Solo developer",
     description: [
-      "The Iloilo Rice Processing Complex can't see palay coming until it reaches the gate. At peak, dryers overflow and farmers turn to private mills; off-season, machines sit idle while power costs keep running. SACKTO shows the plant what's coming weeks ahead and suggests what to do about it.",
-      "Farmers and buyers report what's coming by SMS or on the web: booking drying or milling, offering palay for sale, getting price quotes, or requesting rice. Bookings, sell offers and a harvest forecast feed a capacity view for the dryers, storage and mill, which suggests moving flexible bookings off busy days or texting farmers ahead of idle stretches. Staff run the day from one gate queue and one batch record, from receiving to dispatch.",
-      "It's a single Next.js app on Supabase. Basic phones reach it through an Android SMS gateway and a webhook relay. An LLM parses free-text messages but never computes figures, and the harvest forecast is trained offline in Python. Built for Hack Iloilo 2026.",
-      "I designed SACKTO's brand, including its wordmark, and its UI, every screen of it, and worked on planning and development from start to finish.",
+      "Tavern Card Game is a mobile version of Gwent, the card game from The Witcher 3: Wild Hunt. It has three AI difficulties, all four base-game factions, leader variants, a deck builder that saves your decks, and a standalone Android build.",
+      "The game engine is pure TypeScript with seeded randomness, so any seed replays the same match. More than 170 engine and AI tests cover it, along with a terminal simulator that plays bot-vs-bot games.",
+      "Online matches start from a room code and run through a Supabase Edge Function that checks every move with the same engine the app runs. Row-level security hides the full game state, so each player only receives their own view, and Realtime updates handle reconnecting and resuming.",
+      "I built it alone, all 94 commits. It's a non-commercial fan project: the card names belong to CD PROJEKT RED, and all the art is placeholder art drawn in code.",
     ],
-    screenshot: {
-      src: "/projects/sackto/screenshot.webp",
-      alt: "SACKTO's home page, with options to book drying or milling, sell palay and buy rice, above today's prices.",
-      width: 1600,
-      height: 1000,
-    },
     tech: [
-      "Next.js",
+      "Expo",
+      "React Native",
       "TypeScript",
+      "Zustand",
       "Supabase",
       "PostgreSQL",
-      "Vercel AI SDK",
-      "Python",
+      "Vitest",
     ],
     year: 2026,
     logo: {
-      src: "/projects/sackto/wordmark.svg",
-      darkSrc: "/projects/sackto/wordmark-white.svg",
-      width: 453,
-      height: 103,
-      wordmark: true,
+      src: "/projects/tavern-card-game/logo.png",
+      width: 256,
+      height: 256,
     },
-    liveUrl: "https://sackto.vercel.app",
-    repoUrl: "https://github.com/popcorn-prophets/sackto",
+    repoUrl: "https://github.com/ysxiaixsy/Tavern-Card-Game",
   },
   {
     slug: "solnexus",

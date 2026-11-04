@@ -8,7 +8,7 @@ The site should read as one continuous surface: every page and section uses the 
 - Shared styling lives in one place: a component variant, a theme token in `src/app/globals.css`, or a shared component such as `SectionHeading` or `MonoLabel`. When two places need the same look, extract it so a change is a one-place edit.
 - Colours come from the semantic tokens in `globals.css` (`foreground`, `muted-foreground`, `border`, `highlight`, …), so light and dark stay in step. Brand logos are the one exception: tech stack logos (`StackLogo`) and the contact cards show brand colours through `brandColor`, with black and white brands following the text colour.
 - Profile links (`site.links` in `src/data/site.ts`) are the single list behind the home page socials, the footer icons and the résumé.
-- Projects in `src/data/projects.ts` ship their logo or wordmark, stored in this repo, whenever the project has one; without one, the name shows as text. A project without a screenshot gets a cover from `ProjectMedia`.
+- Projects in `src/data/projects.ts` ship their logo or wordmark, stored in this repo, whenever the project has one; without one, the name shows as text. A project without a screenshot gets a cover from `ProjectMedia`. Projects marked `featured` show in full on the home page; the rest wait behind "See all" (`ProjectReveal`).
 
 ## Accent
 
