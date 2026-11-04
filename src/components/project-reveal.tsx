@@ -73,10 +73,8 @@ export function ProjectReveal({
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 ease-out group-hover/peek:opacity-100 group-has-focus-visible/peek:opacity-100 motion-reduce:transition-none"
             >
-              {/* The light rising off the line. */}
-              <div className="absolute inset-x-0 bottom-0 h-3/4 bg-linear-to-t from-highlight/20 via-highlight/5 to-transparent" />
-              {/* The source: a glowing line along the bottom edge. */}
-              <div className="absolute inset-x-6 bottom-0 h-0.5 rounded-full bg-highlight shadow-glow" />
+              {/* Light rising from the bottom edge. */}
+              <div className="absolute inset-x-0 bottom-0 h-3/4 bg-linear-to-t from-highlight/25 via-highlight/5 to-transparent" />
             </div>
             {/* The whole peek is the button, as wide as both columns: click
                 anywhere on the blurred cards to open them. */}
