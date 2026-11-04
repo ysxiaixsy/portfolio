@@ -74,7 +74,9 @@ export function ProjectReveal({
               aria-expanded={false}
               aria-controls={id}
               onClick={() => setOpen(true)}
-              className="absolute inset-0 h-full w-full items-end rounded-xl pb-6 text-base hover:bg-transparent dark:hover:bg-transparent"
+              // Hover lights the whole peek with the card signal, so its
+              // edges read as clickable too, not just the label.
+              className="absolute inset-0 h-full w-full items-end rounded-xl pb-6 text-base hover:bg-transparent hover:shadow-glow hover:ring-3 hover:ring-highlight/60 dark:hover:bg-transparent"
             >
               See all {total} projects
               <ChevronDownIcon data-icon="inline-end" />
