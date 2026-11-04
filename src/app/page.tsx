@@ -124,8 +124,8 @@ export default function Home() {
               At Philippine Science High School – Western Visayas Campus, my
               engineering and Design &amp; Make Technologies (DMT) classes gave
               me my first taste of building things, and I started taking
-              programming seriously at UP Visayas. Most recently, I designed the
-              UI and every screen of{" "}
+              programming seriously at UP Visayas. At Hack Iloilo 2026, I
+              designed the brand and every screen of{" "}
               <Link
                 href="/projects/sackto"
                 transitionTypes={["nav-forward"]}
@@ -134,8 +134,20 @@ export default function Home() {
                 SACKTO
               </Link>
               , a capacity-planning platform for the Iloilo Rice Processing
-              Complex built at Hack Iloilo 2026, and helped plan and build it
-              from start to finish.
+              Complex, and helped plan and build it from start to finish.
+            </p>
+            <p>
+              Right now I&apos;m working on my next big project,{" "}
+              <Link
+                href="/projects/solnexus"
+                transitionTypes={["nav-forward"]}
+                className="text-link"
+              >
+                SolNexus
+              </Link>
+              : a lead and client communication pipeline for SolTech EMR, a real
+              client. On a five-person team, I&apos;m the full-stack developer,
+              lead UI/UX designer and Scrum Master.
             </p>
           </div>
 
