@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRightIcon } from "@/components/pixel-icons";
+import { MenuCursor } from "@/components/menu-cursor";
 import { ProjectTitle } from "@/components/project-title";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -14,7 +14,8 @@ import { signalTitle } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 // A project past the featured ones, as one row of a list: title and summary,
-// with its role and year on the right on wide screens.
+// with its role on the right on wide screens. The menu cursor sits in the
+// gutter left of the title.
 export function ProjectRow({ project }: { project: Project }) {
   return (
     <Item
@@ -29,9 +30,13 @@ export function ProjectRow({ project }: { project: Project }) {
       <ItemContent className="min-w-0 gap-1.5">
         {/* Not clamped: the title and its badge wrap together. */}
         <ItemTitle
-          className={cn("line-clamp-none flex-wrap text-xl", signalTitle)}
+          className={cn(
+            "relative line-clamp-none flex-wrap text-xl",
+            signalTitle,
+          )}
           style={{ display: "flex" }}
         >
+          <MenuCursor className="absolute top-[calc(50%-7px)] -left-4" />
           <ProjectTitle project={project} />
           {project.inProgress && <Badge variant="outline">In progress</Badge>}
         </ItemTitle>
@@ -39,12 +44,8 @@ export function ProjectRow({ project }: { project: Project }) {
           {project.summary}
         </ItemDescription>
       </ItemContent>
-      <ItemActions className="w-full gap-4 text-sm text-muted-foreground sm:w-auto sm:max-w-64 sm:self-start sm:pt-1.5">
-        <span className="sm:text-right">{project.role}</span>
-        <ArrowRightIcon
-          aria-hidden="true"
-          className={cn("ml-auto size-4 shrink-0 max-sm:hidden", signalTitle)}
-        />
+      <ItemActions className="w-full text-sm text-muted-foreground sm:w-auto sm:max-w-64 sm:self-start sm:pt-1.5 sm:text-right">
+        {project.role}
       </ItemActions>
     </Item>
   );

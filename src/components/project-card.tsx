@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MenuCursor } from "@/components/menu-cursor";
 import { MetaLabel } from "@/components/meta-label";
 import { ProjectMedia } from "@/components/project-media";
 import { ProjectTitle } from "@/components/project-title";
@@ -46,7 +47,8 @@ export function ProjectCard({
         />
 
         <CardHeader className="gap-2">
-          <CardTitle className={cn("text-2xl", signalTitle)}>
+          <CardTitle className={cn("relative text-2xl", signalTitle)}>
+            <MenuCursor className="absolute top-[calc(50%-7px)] -left-4" />
             <ProjectTitle project={project} />
           </CardTitle>
           {project.inProgress && (

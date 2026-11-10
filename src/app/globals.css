@@ -20,8 +20,9 @@
   --muted-foreground: oklch(0.49 0.015 262);
   --border: oklch(0.91 0.006 262);
   --input: oklch(0.88 0.008 262);
-  /* Pixel frames and rules. */
+  /* Pixel frames and rules, and the hard shadow under raised blocks. */
   --frame: oklch(0.8 0.01 262);
+  --frame-shadow: oklch(0.72 0.012 262);
   --card: var(--background);
   --card-foreground: var(--foreground);
   --popover: var(--background);
@@ -57,6 +58,7 @@
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
     --frame: oklch(0.38 0.015 262);
+    --frame-shadow: oklch(0.09 0.01 262);
     --popover: oklch(0.21 0.014 262);
     --destructive: oklch(0.7 0.19 22);
   }
@@ -91,6 +93,13 @@
   --font-heading: var(--font-geist-pixel);
   /* State changes move in whole steps, like a sprite, not a smooth fade. */
   --ease-pixel: steps(3, end);
+  /* The menu cursor nudging toward what it points at, two frames a beat. */
+  --animate-cursor-nudge: cursor-nudge 600ms steps(1, end) infinite;
+  @keyframes cursor-nudge {
+    50% {
+      translate: calc(var(--pixel) * -1) 0;
+    }
+  }
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -299,15 +308,29 @@
    static shadows, so it costs no layout and no repaint. Set --frame-color to
    recolour it (the accent on hover and focus) and --frame-size for a thinner
    frame on small parts like badges. Clear of Tailwind's ring and shadow
-   utilities, which would replace it. */
+   utilities, which would replace it.
+   Under the frame sits a hard shadow of the same notched shape, --raise-depth
+   down and to the right (none by default; see pixel-raised). */
 @utility pixel-frame {
   --frame-width: var(--frame-size, var(--pixel));
   --frame-fill: var(--frame-color, var(--frame));
+  --raise: var(--raise-depth, 0px);
   box-shadow:
     0 calc(var(--frame-width) * -1) 0 0 var(--frame-fill),
     0 var(--frame-width) 0 0 var(--frame-fill),
     calc(var(--frame-width) * -1) 0 0 0 var(--frame-fill),
-    var(--frame-width) 0 0 0 var(--frame-fill);
+    var(--frame-width) 0 0 0 var(--frame-fill),
+    var(--raise) calc(var(--raise) - var(--frame-width)) 0 0 var(--frame-shadow),
+    var(--raise) calc(var(--raise) + var(--frame-width)) 0 0 var(--frame-shadow),
+    calc(var(--raise) - var(--frame-width)) var(--raise) 0 0 var(--frame-shadow),
+    calc(var(--raise) + var(--frame-width)) var(--raise) 0 0 var(--frame-shadow),
+    var(--raise) var(--raise) 0 0 var(--frame-shadow);
+}
+
+/* A framed block that stands one art pixel off the page, like a key: buttons,
+   cards, the portrait. Pressing or lifting it changes --raise-depth. */
+@utility pixel-raised {
+  --raise-depth: var(--pixel);
 }
 
 /* A dotted rule, one art pixel thick: Separator, list dividers, timelines. */

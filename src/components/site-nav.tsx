@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
+import { MenuCursor } from "@/components/menu-cursor";
 import { SectionLink } from "@/components/section-link";
 import { Button } from "@/components/ui/button";
 import { routeDepth, transitionTypesFor } from "@/lib/navigation";
@@ -81,9 +82,10 @@ function Nav({ pathname }: { pathname: string | null }) {
                 variant="ghost"
                 nativeButton={false}
                 aria-current={current ? "location" : undefined}
-                // The active link is the accent signal: "you are here".
+                // The active link is the accent signal, "you are here", with
+                // the menu cursor beside it.
                 className={cn(
-                  "px-2 text-muted-foreground sm:px-3",
+                  "group gap-1 px-1.5 text-muted-foreground sm:gap-1.5 sm:px-2",
                   current && "text-highlight",
                 )}
                 render={
@@ -95,6 +97,7 @@ function Nav({ pathname }: { pathname: string | null }) {
                   />
                 }
               >
+                <MenuCursor />
                 {link.label}
               </Button>
             </li>

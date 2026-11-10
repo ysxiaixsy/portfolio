@@ -8,6 +8,7 @@ The look is **minimal pixel art**: everything is drawn on a pixel grid (type, fr
 
 - One art pixel is `--pixel` (3px). Frames, rules, the focus outline and the press offset are all multiples of it.
 - Corners are square (`--radius` is 0). A box that needs an edge (cards, buttons, inputs, badges, alerts, images) takes the `pixel-frame` utility: a notched frame drawn with static shadows in the `frame` colour. Recolour it through `--frame-color`, and keep Tailwind's `ring-*` and `shadow-*` utilities off framed elements, since they replace the frame.
+- Blocks you can press or open stand off the page: buttons, cards and the portrait add `pixel-raised`, a hard shadow of the frame's shape one art pixel deep (`--raise-depth`). A press pushes a button down onto it; hovering a card lifts it one more pixel.
 - Dividers are dotted pixel rules: `pixel-rule` (top), `pixel-rule-b` (bottom), `pixel-rule-s` (side). `Separator` draws one.
 - Icons come from pixelarticons through `src/components/pixel-icons.tsx`, the only place icons are imported. Add a new one there.
 - Photos and screenshots stay sharp, as they are; the pixel frame around them carries the style. Raster pixel art, if added, scales by whole multiples (sized in px, not rem) with the `pixelated` utility and `unoptimized`, since image optimisation smooths pixels.
@@ -25,7 +26,8 @@ The look is **minimal pixel art**: everything is drawn on a pixel grid (type, fr
 
 Cobalt (`highlight`) is the **signal**: it marks what is active, hovered or focused, so it always means "you are here" or "this responds". At rest, everything is ink and paper.
 
-- A link bigger than a word is a `group` link: a framed card takes `signalSurface` (its frame turns to the accent), and its title, or a row's title (project rows, contact rows), takes `signalTitle`, both from `src/lib/styles.ts`. The active nav link turns to the accent.
+- A link bigger than a word is a `group` link: a framed card takes `signalSurface` (its frame turns to the accent and it lifts), and its title, or a row's title (project rows, contact rows), takes `signalTitle`, both from `src/lib/styles.ts`.
+- The **menu cursor** (`MenuCursor`), a pixel ▶ like a game menu's selection arrow, points at what is hovered or focused, nudging, and stands still beside the current nav link. Every nav link, card title and list row carries one, in the space to its left; a new link of that kind does too.
 - Inline text links use the `text-link` utility. Buttons signal through their variants in `button.tsx`. Focus is one global rule in `globals.css`: a square outline in the accent, clear of any frame.
 
 ## Layout

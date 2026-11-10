@@ -24,7 +24,10 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { slug } = await props.params;
   const project = getProject(slug);
-  return project ? { title: project.title, description: project.summary } : {};
+  // An unknown slug renders the 404 page (notFound below), so title it too.
+  return project
+    ? { title: project.title, description: project.summary }
+    : { title: "Page not found" };
 }
 
 export default async function ProjectPage(
