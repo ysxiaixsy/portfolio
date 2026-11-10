@@ -1,5 +1,5 @@
-import { ArrowUpRightIcon, MailIcon } from "lucide-react";
 import type { ComponentType, SVGProps } from "react";
+import { ExternalLinkIcon, MailIcon } from "@/components/pixel-icons";
 import {
   Item,
   ItemActions,
@@ -40,11 +40,11 @@ const methods: Method[] = [
 // projects past the featured ones.
 export function ContactMethods() {
   return (
-    <ul className="border-t">
+    <ul className="pixel-rule pt-(--pixel)">
       {methods.map((method) => (
         <li key={method.href}>
           <Item
-            className="group rounded-none border-0 border-b px-0 py-3.5 text-base [a]:hover:bg-transparent"
+            className="group border-0 pixel-rule-b px-0 pt-3.5 pb-[calc(0.875rem+var(--pixel))] text-base"
             render={
               <a
                 href={method.href}
@@ -67,7 +67,7 @@ export function ContactMethods() {
               </ItemTitle>
             </ItemContent>
             <ItemActions>
-              <ArrowUpRightIcon
+              <ExternalLinkIcon
                 aria-hidden="true"
                 className={cn("size-4 text-muted-foreground", signalTitle)}
               />

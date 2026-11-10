@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Geist } from "next/font/google";
 import { PageTransition } from "@/components/page-transition";
 import { Separator } from "@/components/ui/separator";
 import { journey } from "@/data/journey";
@@ -9,6 +10,10 @@ import { stacks } from "@/data/tech-stack";
 export const metadata: Metadata = {
   title: "Résumé",
 };
+
+// The résumé is a document to print and parse, so it keeps a plain sans
+// instead of the site's pixel face. Loaded here, so only this page pays.
+const geist = Geist({ subsets: ["latin"] });
 
 // Printed to public/resume.pdf by `npm run resume`; the site chrome is hidden
 // in print (see the print: classes in the layout), and entries carry
@@ -48,7 +53,9 @@ const contacts = [
 export default function ResumePage() {
   return (
     <PageTransition>
-      <article className="flex max-w-3xl flex-col gap-6 py-12 text-sm leading-relaxed sm:py-16 print:max-w-none print:py-0">
+      <article
+        className={`${geist.className} flex max-w-3xl flex-col gap-6 py-12 text-sm leading-relaxed sm:py-16 print:max-w-none print:py-0`}
+      >
         <header>
           <h1 className="text-3xl font-semibold tracking-tight">{site.name}</h1>
           <p className="mt-1 text-base text-muted-foreground">{site.role}</p>

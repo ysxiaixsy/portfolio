@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpIcon } from "lucide-react";
+import { ArrowUpIcon } from "@/components/pixel-icons";
 import { Button } from "@/components/ui/button";
 
 // Scrolls the current page back to its top; smooth unless reduced motion is

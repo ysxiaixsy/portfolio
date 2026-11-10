@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleAlertIcon, CircleCheckIcon } from "lucide-react";
+import { AlertIcon, CheckIcon } from "@/components/pixel-icons";
 import { useActionState, useEffect, useRef } from "react";
 import { type ContactState, sendMessage } from "@/app/contact/actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -23,7 +23,7 @@ export function ContactForm() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1.5">
-        <h3 className="text-2xl font-semibold tracking-tight">
+        <h3 className="text-2xl tracking-tight">
           Send a message
         </h3>
         <p className="text-muted-foreground">
@@ -57,7 +57,7 @@ function ContactFormBody() {
   if (state.status === "success") {
     return (
       <Alert>
-        <CircleCheckIcon />
+        <CheckIcon />
         <AlertTitle>Message sent</AlertTitle>
         <AlertDescription>
           Thanks for reaching out — I&apos;ll get back to you soon.
@@ -73,7 +73,7 @@ function ContactFormBody() {
       <FieldGroup>
         {state.message && (
           <Alert variant="destructive">
-            <CircleAlertIcon />
+            <AlertIcon />
             <AlertTitle>{state.message}</AlertTitle>
             <AlertDescription>
               You can also email me directly at{" "}

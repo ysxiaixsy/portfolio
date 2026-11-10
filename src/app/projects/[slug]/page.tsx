@@ -1,9 +1,9 @@
-import { ArrowLeftIcon, ArrowUpRightIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MetaLabel } from "@/components/meta-label";
 import { PageTransition } from "@/components/page-transition";
+import { ArrowLeftIcon, ExternalLinkIcon } from "@/components/pixel-icons";
 import { ProjectMedia } from "@/components/project-media";
 import { ProjectTitle } from "@/components/project-title";
 import { Title } from "@/components/section-heading";
@@ -136,7 +136,7 @@ export default async function ProjectPage(
                     }
                   >
                     Live site
-                    <ArrowUpRightIcon data-icon="inline-end" />
+                    <ExternalLinkIcon data-icon="inline-end" />
                   </Button>
                 )}
                 {project.repoUrl && (
@@ -153,7 +153,7 @@ export default async function ProjectPage(
                     }
                   >
                     Source code
-                    <ArrowUpRightIcon data-icon="inline-end" />
+                    <ExternalLinkIcon data-icon="inline-end" />
                   </Button>
                 )}
               </div>

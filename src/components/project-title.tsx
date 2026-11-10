@@ -26,7 +26,7 @@ export function ProjectTitle({
       share="morph"
       default="none"
     >
-      <Tag className={cn("flex items-center gap-2 font-pixel", className)}>
+      <Tag className={cn("flex items-center gap-2", className)}>
         <ProjectLogo
           project={project}
           className={project.logo?.wordmark ? sizes.wordmark : sizes.mark}

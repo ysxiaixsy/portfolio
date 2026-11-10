@@ -7,7 +7,9 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /* Cool paper and ink, with one cobalt accent. The accent (`highlight`) only
-   signals interaction: hover, focus and the active nav link (see AGENTS.md). */
+   signals interaction: hover, focus and the active nav link (see AGENTS.md).
+   Everything is pixel art: square corners, notched frames (`pixel-frame`)
+   and dotted rules (`pixel-rule`), all in the `frame` colour at rest. */
 :root {
   --rateupv-primary: #a31f33;
   --highlight: oklch(0.52 0.2 262);
@@ -18,6 +20,8 @@
   --muted-foreground: oklch(0.49 0.015 262);
   --border: oklch(0.91 0.006 262);
   --input: oklch(0.88 0.008 262);
+  /* Pixel frames and rules. */
+  --frame: oklch(0.8 0.01 262);
   --card: var(--background);
   --card-foreground: var(--foreground);
   --popover: var(--background);
@@ -31,7 +35,10 @@
   --destructive: oklch(0.55 0.21 27);
   /* Focus rings are the accent signal too. */
   --ring: var(--highlight);
-  --radius: 0.5rem;
+  /* Pixel art has square corners; frames notch them instead. */
+  --radius: 0px;
+  /* One art pixel: the width of frames, rules and dots. */
+  --pixel: 3px;
   /* The sticky header, border included. Sections scroll to just below it. */
   --header-height: 4rem;
 }
@@ -49,6 +56,7 @@
     --muted-foreground: oklch(0.7 0.014 262);
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
+    --frame: oklch(0.38 0.015 262);
     --popover: oklch(0.21 0.014 262);
     --destructive: oklch(0.7 0.19 22);
   }
@@ -63,6 +71,7 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
+  --color-frame: var(--frame);
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-card: var(--card);
@@ -76,10 +85,12 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
-  /* Geist for everything; its pixel cut for titles (see Title). */
-  --font-sans: var(--font-geist-sans);
-  --font-heading: var(--font-geist-sans);
-  --font-pixel: var(--font-geist-pixel);
+  /* Geist Pixel sets everything. It has one weight, so hierarchy comes from
+     size and colour (font-synthesis is off: no faux bold). */
+  --font-sans: var(--font-geist-pixel);
+  --font-heading: var(--font-geist-pixel);
+  /* State changes move in whole steps, like a sprite, not a smooth fade. */
+  --ease-pixel: steps(3, end);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -119,6 +130,12 @@
   }
   html {
     @apply font-sans;
+    font-synthesis: none;
+  }
+  /* Focus is a square outline in the accent, clear of any pixel frame. */
+  :focus-visible {
+    outline: var(--pixel) solid var(--highlight);
+    outline-offset: calc(var(--pixel) * 2);
   }
   ::selection {
     background: color-mix(in oklab, var(--highlight) 25%, transparent);
@@ -167,43 +184,44 @@
 
 /* Going deeper (home → a project): content moves left. */
 ::view-transition-old(.nav-forward) {
-  --slide-offset: -40px;
+  --slide-offset: -48px;
   animation:
-    150ms ease-in both fade reverse,
-    300ms ease-out both slide reverse;
+    150ms steps(3, end) both fade reverse,
+    300ms steps(6, end) both slide reverse;
 }
 ::view-transition-new(.nav-forward) {
-  --slide-offset: 40px;
+  --slide-offset: 48px;
   animation:
-    200ms ease-out 100ms both fade,
-    300ms ease-out both slide;
+    150ms steps(3, end) 150ms both fade,
+    300ms steps(6, end) both slide;
 }
 
 /* Going back up: content moves right. */
 ::view-transition-old(.nav-back) {
-  --slide-offset: 40px;
+  --slide-offset: 48px;
   animation:
-    150ms ease-in both fade reverse,
-    300ms ease-out both slide reverse;
+    150ms steps(3, end) both fade reverse,
+    300ms steps(6, end) both slide reverse;
 }
 ::view-transition-new(.nav-back) {
-  --slide-offset: -40px;
+  --slide-offset: -48px;
   animation:
-    200ms ease-out 100ms both fade,
-    300ms ease-out both slide;
+    150ms steps(3, end) 150ms both fade,
+    300ms steps(6, end) both slide;
 }
 
 /* Untyped navigations (footer links, browser back/forward): crossfade. */
 ::view-transition-old(.page-fade) {
-  animation: 150ms ease-in both fade reverse;
+  animation: 150ms steps(3, end) both fade reverse;
 }
 ::view-transition-new(.page-fade) {
-  animation: 200ms ease-out 100ms both fade;
+  animation: 150ms steps(3, end) 150ms both fade;
 }
 
 /* Project title morphing from its card into the project page heading. */
 ::view-transition-group(.morph) {
   animation-duration: 300ms;
+  animation-timing-function: steps(6, end);
 }
 
 /* Keep the header fixed while content moves beneath it. */
@@ -237,11 +255,12 @@
 /* An inline text link: underlined, turning to the accent on hover and focus. */
 @utility text-link {
   text-decoration-line: underline;
+  text-decoration-thickness: 2px;
   text-decoration-color: color-mix(in oklab, currentColor 40%, transparent);
   text-underline-offset: 4px;
   transition:
-    color 300ms ease-out,
-    text-decoration-color 300ms ease-out;
+    color 150ms var(--ease-pixel),
+    text-decoration-color 150ms var(--ease-pixel);
   &:hover,
   &:focus-visible {
     color: var(--color-highlight);
@@ -274,4 +293,56 @@
   @media (min-width: 48rem) {
     padding-block: 7rem;
   }
+}
+
+/* A notched pixel frame: one art pixel wide, drawn outside the box with
+   static shadows, so it costs no layout and no repaint. Set --frame-color to
+   recolour it (the accent on hover and focus) and --frame-size for a thinner
+   frame on small parts like badges. Clear of Tailwind's ring and shadow
+   utilities, which would replace it. */
+@utility pixel-frame {
+  --frame-width: var(--frame-size, var(--pixel));
+  --frame-fill: var(--frame-color, var(--frame));
+  box-shadow:
+    0 calc(var(--frame-width) * -1) 0 0 var(--frame-fill),
+    0 var(--frame-width) 0 0 var(--frame-fill),
+    calc(var(--frame-width) * -1) 0 0 0 var(--frame-fill),
+    var(--frame-width) 0 0 0 var(--frame-fill);
+}
+
+/* A dotted rule, one art pixel thick: Separator, list dividers, timelines. */
+@utility pixel-rule {
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--frame) 0 var(--pixel),
+    transparent var(--pixel) calc(var(--pixel) * 2)
+  );
+  background-size: 100% var(--pixel);
+  background-repeat: no-repeat;
+  background-position: top;
+}
+@utility pixel-rule-b {
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--frame) 0 var(--pixel),
+    transparent var(--pixel) calc(var(--pixel) * 2)
+  );
+  background-size: 100% var(--pixel);
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+@utility pixel-rule-s {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--frame) 0 var(--pixel),
+    transparent var(--pixel) calc(var(--pixel) * 2)
+  );
+  background-size: var(--pixel) 100%;
+  background-repeat: no-repeat;
+  background-position: left;
+}
+
+/* Pixel art scaled up stays sharp: whole pixels, no smoothing. */
+@utility pixelated {
+  image-rendering: pixelated;
 }

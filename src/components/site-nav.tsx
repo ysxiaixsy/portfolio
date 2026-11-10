@@ -83,7 +83,7 @@ function Nav({ pathname }: { pathname: string | null }) {
                 aria-current={current ? "location" : undefined}
                 // The active link is the accent signal: "you are here".
                 className={cn(
-                  "px-2 text-muted-foreground hover:bg-transparent sm:px-3 dark:hover:bg-transparent",
+                  "px-2 text-muted-foreground sm:px-3",
                   current && "text-highlight",
                 )}
                 render={
