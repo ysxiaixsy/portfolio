@@ -184,27 +184,6 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/CMSC128-NexusWorks/SolNexus",
   },
   {
-    slug: "online",
-    title: "OnLine",
-    summary:
-      "A queue management system for UP Visayas service offices: students join and track queues, staff call the next person, and admins manage services.",
-    role: "UI design",
-    event: "CMSC 127 final project",
-    description: [
-      "On a three-person team, I redesigned OnLine's interface: a new color palette, an elevation system, the sign-in page, and the logo and wordmark.",
-      "OnLine replaces the lines at UP Visayas service offices with queues students can join and track. Students join, cancel or swap places; staff call, skip and re-add people; admins manage services, staff, users and locations.",
-      "The queue logic lives in the database layer, including swapping two waiting students and putting a skipped student back at the front of the line. It's PHP with PDO on MySQL, with plain HTML, CSS and JavaScript in the browser.",
-    ],
-    tech: ["PHP", "MySQL", "JavaScript", "HTML", "CSS"],
-    year: 2026,
-    logo: {
-      src: "/projects/online/logo.svg",
-      width: 300,
-      height: 300,
-    },
-    repoUrl: "https://github.com/ed-cambel/cmsc127-final-project/tree/jp",
-  },
-  {
     slug: "trapscript",
     title: "TrapScript",
     summary:

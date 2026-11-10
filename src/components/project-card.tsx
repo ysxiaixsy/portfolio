@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { MenuCursor } from "@/components/menu-cursor";
 import { MetaLabel } from "@/components/meta-label";
 import { ProjectMedia } from "@/components/project-media";
 import { ProjectTitle } from "@/components/project-title";
+import { SelectionCorners } from "@/components/selection-corners";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -13,11 +13,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import type { Project } from "@/data/projects";
-import { signalSurface, signalTitle } from "@/lib/styles";
+import { signalSurface } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 // A featured project: its screenshot (or cover) above the title, summary,
-// role and stack.
+// role and stack. Hovered or focused, the card lifts and selection brackets
+// light its corners; the name keeps its own colours.
 export function ProjectCard({
   project,
   eager,
@@ -34,10 +35,11 @@ export function ProjectCard({
     >
       <Card
         className={cn(
-          "h-full pt-0 [--card-spacing:--spacing(5)]",
+          "relative h-full pt-0 [--card-spacing:--spacing(5)]",
           signalSurface,
         )}
       >
+        <SelectionCorners />
         <ProjectMedia
           project={project}
           eager={eager}
@@ -47,8 +49,7 @@ export function ProjectCard({
         />
 
         <CardHeader className="gap-2">
-          <CardTitle className={cn("relative text-2xl", signalTitle)}>
-            <MenuCursor className="absolute top-[calc(50%-7px)] -left-4" />
+          <CardTitle className="text-2xl">
             <ProjectTitle project={project} />
           </CardTitle>
           {project.inProgress && (

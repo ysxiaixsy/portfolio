@@ -26,8 +26,10 @@ The look is **minimal pixel art**: everything is drawn on a pixel grid (type, fr
 
 Cobalt (`highlight`) is the **signal**: it marks what is active, hovered or focused, so it always means "you are here" or "this responds". At rest, everything is ink and paper.
 
-- A link bigger than a word is a `group` link: a framed card takes `signalSurface` (its frame turns to the accent and it lifts), and its title, or a row's title (project rows, contact rows), takes `signalTitle`, both from `src/lib/styles.ts`.
-- The **menu cursor** (`MenuCursor`), a pixel ▶ like a game menu's selection arrow, points at what is hovered or focused, nudging, and stands still beside the current nav link. Every nav link, card title and list row carries one, in the space to its left; a new link of that kind does too.
+- A link bigger than a word is a `group` link, and signals the way a game menu marks a selection:
+  - A **block** (a project card) takes `signalSurface` from `src/lib/styles.ts` and holds `SelectionCorners`: hovered or focused, it lifts and pixel brackets light its four corners. Its title keeps its own colours, since project names carry brand colours.
+  - A **line** (nav links, project rows, contact rows) carries the **menu cursor** (`MenuCursor`), a pixel ▶ in the space to its left, nudging while hovered or focused and standing still beside the current nav link. A row's title takes `signalTitle`.
+  - A new link of either kind does the same.
 - Inline text links use the `text-link` utility. Buttons signal through their variants in `button.tsx`. Focus is one global rule in `globals.css`: a square outline in the accent, clear of any frame.
 
 ## Layout
