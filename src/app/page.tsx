@@ -64,7 +64,7 @@ export default function Home() {
               height={960}
               preload
               sizes="(min-width: 1024px) 20rem, 8rem"
-              className="-order-1 size-32 object-cover pixel-frame lg:order-none lg:size-80"
+              className="-order-1 size-32 object-cover pixel-frame pixel-raised lg:order-none lg:size-80"
             />
           )}
         </section>

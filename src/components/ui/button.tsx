@@ -2,24 +2,25 @@ import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
-// Pixel buttons: filled and outline variants sit in a notched pixel frame,
-// and a press drops the button one art pixel. Hover is the accent signal on
-// every variant (see AGENTS.md); focus is the global square outline.
+// Pixel buttons: filled and outline variants are raised blocks in a notched
+// pixel frame, and a press pushes the button down onto its shadow, like a
+// key. Hover is the accent signal on every variant (see AGENTS.md); focus is
+// the global square outline.
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center text-sm whitespace-nowrap transition-[color,background-color,box-shadow] duration-150 ease-pixel outline-none select-none motion-reduce:transition-none active:not-aria-[haspopup]:translate-y-(--pixel) disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center text-sm whitespace-nowrap transition-[color,background-color,box-shadow,translate] duration-150 ease-pixel outline-none select-none motion-reduce:transition-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         // The frame takes the fill colour, so the button reads as one block.
         default:
-          "pixel-frame bg-primary text-primary-foreground [--frame-color:var(--primary)] hover:bg-highlight hover:text-highlight-foreground hover:[--frame-color:var(--highlight)]",
+          "pixel-frame bg-primary text-primary-foreground [--frame-color:var(--primary)] hover:bg-highlight hover:text-highlight-foreground hover:[--frame-color:var(--highlight)] pixel-raised active:translate-(--pixel) active:[--raise-depth:0px]",
         outline:
-          "pixel-frame bg-background hover:text-highlight hover:[--frame-color:var(--highlight)] aria-expanded:text-highlight",
+          "pixel-frame bg-background hover:text-highlight hover:[--frame-color:var(--highlight)] aria-expanded:text-highlight pixel-raised active:translate-(--pixel) active:[--raise-depth:0px]",
         secondary:
-          "pixel-frame bg-secondary text-secondary-foreground [--frame-color:var(--secondary)] hover:text-highlight",
+          "pixel-frame bg-secondary text-secondary-foreground [--frame-color:var(--secondary)] hover:text-highlight pixel-raised active:translate-(--pixel) active:[--raise-depth:0px]",
         ghost: "hover:text-highlight aria-expanded:text-highlight",
         destructive:
-          "pixel-frame bg-destructive/10 text-destructive [--frame-color:var(--destructive)]",
+          "pixel-frame bg-destructive/10 text-destructive [--frame-color:var(--destructive)] pixel-raised active:translate-(--pixel) active:[--raise-depth:0px]",
         link: "text-primary underline decoration-2 underline-offset-4 hover:text-highlight",
       },
       size: {
