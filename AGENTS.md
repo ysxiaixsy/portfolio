@@ -2,7 +2,7 @@
 
 The site should read as one continuous surface: every page and section uses the same container, type scale, accent and motion. When something new needs a style, reuse the pattern below; when no pattern fits, add one here and in a shared component, then use it.
 
-The look is **minimal pixel art**: everything is drawn on a pixel grid (type, frames, rules, icons, logos, the portrait), on a quiet surface of ink and paper. Anything new earns its place by carrying information, and is drawn in pixels too.
+The look is **minimal pixel art**: everything is drawn on a pixel grid (type, frames, rules, icons, logos), on a quiet surface of ink and paper. Anything new earns its place by carrying information, and is drawn in pixels too.
 
 ## Pixel art
 
@@ -10,8 +10,8 @@ The look is **minimal pixel art**: everything is drawn on a pixel grid (type, fr
 - Corners are square (`--radius` is 0). A box that needs an edge (cards, buttons, inputs, badges, alerts, images) takes the `pixel-frame` utility: a notched frame drawn with static shadows in the `frame` colour. Recolour it through `--frame-color`, and keep Tailwind's `ring-*` and `shadow-*` utilities off framed elements, since they replace the frame.
 - Dividers are dotted pixel rules: `pixel-rule` (top), `pixel-rule-b` (bottom), `pixel-rule-s` (side). `Separator` draws one.
 - Icons come from pixelarticons through `src/components/pixel-icons.tsx`, the only place icons are imported. Add a new one there.
-- Raster pixel art scales by whole multiples (2×, 5×, sized in px, not rem) with the `pixelated` utility and `unoptimized`, since image optimisation smooths pixels.
-- `npm run pixel-art` (`scripts/pixel-art.mjs`) generates the pixel portrait from `site.photo` and the 16×16 stack logos in `src/data/stack-pixels.ts`. Run it after changing either, and commit the output.
+- Photos and screenshots stay sharp, as they are; the pixel frame around them carries the style. Raster pixel art, if added, scales by whole multiples (sized in px, not rem) with the `pixelated` utility and `unoptimized`, since image optimisation smooths pixels.
+- `npm run pixel-art` (`scripts/pixel-art.mjs`) generates the 16×16 stack logos in `src/data/stack-pixels.ts`. Run it after changing the stack, and commit the output.
 
 ## Building blocks
 

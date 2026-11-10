@@ -1,5 +1,4 @@
 import { SectionLink } from "@/components/section-link";
-import { SiteMark } from "@/components/site-mark";
 import { SiteNav } from "@/components/site-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { site } from "@/data/site";
@@ -16,10 +15,10 @@ export function SiteHeader() {
           section="main"
           transitionTypes={["nav-back"]}
           aria-label={`${site.name}, back to the top`}
-          className="flex shrink-0 items-center gap-2.5 tracking-tight transition-colors duration-150 ease-pixel hover:text-highlight motion-reduce:transition-none"
+          className="flex shrink-0 items-center text-xl tracking-tight transition-colors duration-150 ease-pixel hover:text-highlight motion-reduce:transition-none"
         >
-          <SiteMark className="size-6" />
-          <span className="max-sm:sr-only">{site.name}</span>
+          {/* Just the initials: the hero right below carries the name. */}
+          JP
         </SectionLink>
         <div className="flex items-center gap-1">
           <SiteNav />

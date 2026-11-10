@@ -1,7 +1,6 @@
-// Generates the site's pixel art from its sources. Run `npm run pixel-art`
-// after changing the portrait or the tech stack, and commit the output:
-//   public/portrait-pixel.png  the portrait, shrunk to a small palette
-//   src/data/stack-pixels.ts   every stack logo on a 16×16 pixel grid
+// Generates the stack logos as pixel art: every logo in tech-stack.ts on a
+// 16×16 grid, written to src/data/stack-pixels.ts. Run `npm run pixel-art`
+// after changing the stack, and commit the output.
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -10,15 +9,7 @@ import ts from "typescript";
 
 const root = resolve(import.meta.dirname, "..");
 
-// Portrait: 64 pixels square, 24 colours, no dithering, so it reads as drawn
-// pixel art when scaled up with `image-rendering: pixelated`.
-const PORTRAIT_SIZE = 64;
-await sharp(join(root, "public/portrait.jpg"))
-  .resize(PORTRAIT_SIZE, PORTRAIT_SIZE, { fit: "cover", position: "top" })
-  .png({ palette: true, colours: 24, dither: 0 })
-  .toFile(join(root, "public/portrait-pixel.png"));
-
-// Stack logos: load the stack from the TypeScript data files by transpiling
+// Load the stack from the TypeScript data files by transpiling
 // them next to node_modules, so `simple-icons` still resolves.
 const cache = join(root, "node_modules/.cache/pixel-art");
 mkdirSync(cache, { recursive: true });
@@ -89,5 +80,5 @@ export const stackPixels: Record<string, string> = ${JSON.stringify(pixels, null
 `,
 );
 console.log(
-  `Wrote public/portrait-pixel.png and ${Object.keys(pixels).length} logos to src/data/stack-pixels.ts`,
+  `Wrote ${Object.keys(pixels).length} logos to src/data/stack-pixels.ts`,
 );
