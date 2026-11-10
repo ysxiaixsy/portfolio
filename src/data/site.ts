@@ -28,8 +28,8 @@ export const site = {
   // The name the résumé saves under when downloaded.
   resumeFileName: "Joseph Patrick Salomeo_Resume.pdf",
   // Shown as icon + handle on the home page and as icons in the footer.
-  // `resume` marks the ones the résumé lists; `hex` is the brand colour the
-  // contact cards show.
+  // `resume` marks the ones the résumé lists; `hex` is the brand colour
+  // (unused while icons follow the text colour).
   links: [
     {
       label: "Facebook",

@@ -1,7 +1,12 @@
 // Class lists shared by more than one component (see AGENTS.md).
 
-// A card that links somewhere. Put it on the Card inside a link with the
-// `group` class: the card takes the accent signal while the link is hovered
-// or keyboard-focused.
+// Something that links somewhere and is bigger than a word: a project card
+// or a row in a list. Put it on the element inside a link with the `group`
+// class: its border turns to the accent while the link is hovered or
+// keyboard-focused.
 export const signalSurface =
-  "ring-2 ring-foreground/15 transition-shadow duration-300 ease-out group-hover:shadow-glow group-hover:ring-3 group-hover:ring-highlight/60 group-focus-visible:shadow-glow group-focus-visible:ring-3 group-focus-visible:ring-highlight/60 motion-reduce:transition-none";
+  "ring-1 ring-border transition-[box-shadow,color] duration-300 ease-out group-hover:ring-highlight group-focus-visible:ring-2 group-focus-visible:ring-highlight motion-reduce:transition-none";
+
+// The title inside such a link: it takes the accent with the border.
+export const signalTitle =
+  "transition-colors duration-300 ease-out group-hover:text-highlight group-focus-visible:text-highlight motion-reduce:transition-none";

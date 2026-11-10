@@ -18,9 +18,9 @@ const portrait = site.photo
 // Social cards are images, not themed pages, so colors are fixed here
 // (matching the dark theme in globals.css).
 const colors = {
-  background: "#0a0a0a",
-  foreground: "#fafafa",
-  muted: "#a1a1a1",
+  background: "#0d0f15",
+  foreground: "#edeef2",
+  muted: "#9a9fa7",
 };
 
 async function inlineLogo(logo: ProjectLogo) {

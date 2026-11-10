@@ -22,7 +22,7 @@ export function ProjectMedia({
   className,
   sizes,
 }: ProjectMediaProps) {
-  const frame = "aspect-[16/10] w-full rounded-lg ring-1 ring-foreground/10";
+  const frame = "aspect-[16/10] w-full rounded-lg ring-1 ring-border";
 
   if (!project.screenshot) {
     return (
@@ -37,12 +37,11 @@ export function ProjectMedia({
           <ProjectLogo
             project={project}
             className={cn(
-              "drop-shadow-sm",
               project.logo.wordmark ? "h-1/5" : "h-2/5 rounded-2xl",
             )}
           />
         ) : (
-          <span className="font-mono text-3xl font-semibold tracking-tight text-muted-foreground sm:text-4xl">
+          <span className="font-pixel text-3xl tracking-tight text-muted-foreground sm:text-4xl">
             {project.title}
           </span>
         )}

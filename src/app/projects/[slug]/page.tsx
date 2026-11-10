@@ -2,16 +2,18 @@ import { ArrowLeftIcon, ArrowUpRightIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ViewTransition } from "react";
-import { MonoLabel } from "@/components/mono-label";
+import { MetaLabel } from "@/components/meta-label";
 import { PageTransition } from "@/components/page-transition";
-import { ProjectLogo } from "@/components/project-logo";
-import { ProjectName } from "@/components/project-name";
 import { ProjectMedia } from "@/components/project-media";
+import { ProjectTitle } from "@/components/project-title";
 import { Title } from "@/components/section-heading";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getProject, projects } from "@/data/projects";
+
+// Every project page is prerendered, so a navigation waits for the whole
+// page rather than showing a shell first: the title morph needs the heading
+// in place when the transition starts.
+export const instant = false;
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -34,7 +36,7 @@ export default async function ProjectPage(
 
   return (
     <PageTransition>
-      <article>
+      <article className="py-12 sm:py-16">
         <Button
           variant="ghost"
           size="sm"
@@ -46,23 +48,19 @@ export default async function ProjectPage(
           All projects
         </Button>
 
-        {/* Same name as the title in ProjectCard, so the two morph. */}
-        <ViewTransition
-          name={`project-title-${project.slug}`}
-          share="morph"
-          default="none"
-        >
-          <Title as="h1" className="mt-6 flex items-center gap-3">
-            <ProjectLogo
-              project={project}
-              className={
-                project.logo?.wordmark ? "h-10 sm:h-12" : "size-9 sm:size-11"
-              }
-            />
-            <ProjectName project={project} />
-          </Title>
-        </ViewTransition>
-        <p className="mt-4 max-w-3xl text-lg text-muted-foreground">
+        {/* Morphs from the project's title on the home page. */}
+        <Title as="h1" className="mt-8">
+          <ProjectTitle
+            project={project}
+            as="span"
+            className="gap-3"
+            logoClassName={{
+              mark: "size-9 sm:size-11",
+              wordmark: "h-10 sm:h-12",
+            }}
+          />
+        </Title>
+        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground">
           {project.summary}
         </p>
 
@@ -72,60 +70,52 @@ export default async function ProjectPage(
           <ProjectMedia
             project={project}
             eager
-            sizes="(min-width: 1280px) 1210px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 48px)"
+            sizes="(min-width: 1280px) 1210px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 32px)"
             className="mt-10"
           />
         )}
 
         {/* Metadata sits in a left rail on large screens. */}
         <div className="mt-10 grid gap-10 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-12">
-          <dl className="flex flex-col gap-5 text-sm">
+          <dl className="flex flex-col gap-5">
             {project.inProgress && (
               <div className="flex flex-col gap-1">
                 <dt>
-                  <MonoLabel>Status</MonoLabel>
+                  <MetaLabel>Status</MetaLabel>
                 </dt>
                 <dd>In progress</dd>
               </div>
             )}
             <div className="flex flex-col gap-1">
               <dt>
-                <MonoLabel>Year</MonoLabel>
+                <MetaLabel>Year</MetaLabel>
               </dt>
               <dd>{project.year}</dd>
             </div>
             <div className="flex flex-col gap-1">
               <dt>
-                <MonoLabel>Role</MonoLabel>
+                <MetaLabel>Role</MetaLabel>
               </dt>
               <dd>{project.role}</dd>
             </div>
             {project.event && (
               <div className="flex flex-col gap-1">
                 <dt>
-                  <MonoLabel>Event</MonoLabel>
+                  <MetaLabel>Event</MetaLabel>
                 </dt>
                 <dd>{project.event}</dd>
               </div>
             )}
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-1">
               <dt>
-                <MonoLabel>Stack</MonoLabel>
+                <MetaLabel>Stack</MetaLabel>
               </dt>
-              <dd>
-                <ul className="flex flex-wrap gap-1.5">
-                  {project.tech.map((tech) => (
-                    <li key={tech}>
-                      <Badge variant="secondary">{tech}</Badge>
-                    </li>
-                  ))}
-                </ul>
-              </dd>
+              <dd>{project.tech.join(", ")}</dd>
             </div>
           </dl>
 
           <div className="flex min-w-0 flex-col gap-10">
-            <div className="flex flex-col gap-4 text-lg leading-relaxed">
+            <div className="flex max-w-3xl flex-col gap-5 text-lg leading-relaxed">
               {project.description.map((paragraph, i) => (
                 <p key={i}>{paragraph}</p>
               ))}

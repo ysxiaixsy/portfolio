@@ -3,16 +3,16 @@ import { journey } from "@/data/journey";
 
 export function JourneyTimeline() {
   return (
-    <ol className="flex flex-col gap-10 border-s border-border ps-6">
+    <ol className="flex flex-col gap-10 border-s ps-6">
       {journey.map((entry) => (
         <li key={`${entry.place}-${entry.start}`} className="relative">
           {/* Dot sitting on the timeline rule. */}
           <span
             aria-hidden="true"
-            className="absolute top-1.5 -left-[calc(--spacing(6)+4.5px)] size-2 rounded-full bg-foreground"
+            className="absolute top-1.5 -left-[calc(--spacing(6)+4.5px)] size-2 bg-foreground"
           />
           <p className="text-sm text-muted-foreground">
-            {entry.start} — {entry.end ?? "Present"}
+            {entry.start}–{entry.end ?? "Present"}
           </p>
           <h4 className="mt-1 font-medium">
             {entry.title} <span className="text-muted-foreground">at</span>{" "}
@@ -36,7 +36,7 @@ export function JourneyTimeline() {
                 </p>
                 <p className="text-muted-foreground">
                   {item.role}
-                  {item.years && ` · ${item.years}`}
+                  {item.years && `, ${item.years}`}
                 </p>
               </li>
             ))}
