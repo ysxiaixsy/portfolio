@@ -55,17 +55,18 @@ export default function Home() {
             <SocialLinks className="mt-6" />
           </div>
 
-          {/* Pixel art scales by whole pixels: served as-is (unoptimized),
-              since re-encoding would smooth them. */}
-          <Image
-            src={site.pixelPhoto}
-            alt={site.name}
-            width={64}
-            height={64}
-            unoptimized
-            preload
-            className="pixelated -order-1 size-[128px] pixel-frame lg:order-none lg:size-[320px]"
-          />
+          {/* The real photo, sharp, in a pixel frame. */}
+          {site.photo && (
+            <Image
+              src={site.photo}
+              alt={site.name}
+              width={957}
+              height={960}
+              preload
+              sizes="(min-width: 1024px) 20rem, 8rem"
+              className="-order-1 size-32 object-cover pixel-frame lg:order-none lg:size-80"
+            />
+          )}
         </section>
 
         <Separator />
