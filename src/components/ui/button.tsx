@@ -51,6 +51,10 @@ function Button({
     <ButtonPrimitive
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
+      // nativeButton={false} renders a link here (an <a> or Link in
+      // `render`). Base UI gives it role="button"; keep it a link for
+      // assistive tech.
+      role={props.nativeButton === false ? "link" : undefined}
       {...props}
     />
   )
