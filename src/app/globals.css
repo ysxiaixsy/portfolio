@@ -100,6 +100,13 @@
       translate: calc(var(--pixel) * -1) 0;
     }
   }
+  /* Selection brackets breathing outward from their corner (--nudge-x/y). */
+  --animate-corner-nudge: corner-nudge 600ms steps(1, end) infinite;
+  @keyframes corner-nudge {
+    50% {
+      translate: var(--nudge-x) var(--nudge-y);
+    }
+  }
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
