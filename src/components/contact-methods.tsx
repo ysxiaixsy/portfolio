@@ -1,9 +1,14 @@
 import { ArrowUpRightIcon, MailIcon } from "lucide-react";
 import type { ComponentType, SVGProps } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemMedia,
+  ItemTitle,
+} from "@/components/ui/item";
 import { site } from "@/data/site";
-import { brandColor } from "@/data/tech-stack";
-import { signalSurface } from "@/lib/styles";
+import { signalTitle } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 type Method = {
@@ -11,8 +16,6 @@ type Method = {
   value: string;
   href: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
-  // Brand colour; email and black or white brands follow the text colour.
-  hex?: string;
   external: boolean;
 };
 
@@ -29,44 +32,47 @@ const methods: Method[] = [
     value: link.handle,
     href: link.href,
     icon: link.icon,
-    hex: link.hex,
     external: true,
   })),
 ];
 
-// Every way to reach me directly, as cards with the same signal as the
-// project cards. Email spans the full row; the profiles pair up.
+// Every way to reach me directly, as a list in the same row style as the
+// projects past the featured ones.
 export function ContactMethods() {
   return (
-    <ul className="grid gap-3 sm:grid-cols-2">
-      {methods.map((method, index) => (
-        <li key={method.href} className={cn(index === 0 && "sm:col-span-2")}>
-          <a
-            href={method.href}
-            // The card shows only the icon and handle; this names the platform.
-            aria-label={`${method.label}: ${method.value}`}
-            {...(method.external && { target: "_blank", rel: "noreferrer" })}
-            className="group block rounded-xl outline-none"
+    <ul className="border-t">
+      {methods.map((method) => (
+        <li key={method.href}>
+          <Item
+            className="group rounded-none border-0 border-b px-0 py-3.5 text-base [a]:hover:bg-transparent"
+            render={
+              <a
+                href={method.href}
+                {...(method.external && {
+                  target: "_blank",
+                  rel: "noreferrer",
+                })}
+              />
+            }
           >
-            <Card size="sm" className={signalSurface}>
-              <CardContent className="flex items-center gap-3">
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-muted">
-                  <method.icon
-                    aria-hidden="true"
-                    className="size-5"
-                    style={{ color: brandColor(method) }}
-                  />
-                </span>
-                <span className="min-w-0 flex-1 truncate font-medium">
-                  {method.value}
-                </span>
-                <ArrowUpRightIcon
-                  aria-hidden="true"
-                  className="size-4 shrink-0 text-muted-foreground transition-colors duration-300 ease-out group-hover:text-highlight group-focus-visible:text-highlight motion-reduce:transition-none"
-                />
-              </CardContent>
-            </Card>
-          </a>
+            <ItemMedia variant="icon" className="text-muted-foreground">
+              <method.icon aria-hidden="true" className="size-4" />
+            </ItemMedia>
+            <ItemContent className="flex-row items-baseline gap-3">
+              <span className="w-20 shrink-0 text-sm text-muted-foreground">
+                {method.label}
+              </span>
+              <ItemTitle className={cn("min-w-0 text-base", signalTitle)}>
+                <span className="truncate">{method.value}</span>
+              </ItemTitle>
+            </ItemContent>
+            <ItemActions>
+              <ArrowUpRightIcon
+                aria-hidden="true"
+                className={cn("size-4 text-muted-foreground", signalTitle)}
+              />
+            </ItemActions>
+          </Item>
         </li>
       ))}
     </ul>

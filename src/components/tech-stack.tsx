@@ -1,31 +1,34 @@
+import { MetaLabel } from "@/components/meta-label";
 import { StackLogo } from "@/components/stack-logo";
-import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { stacks } from "@/data/tech-stack";
 
+// Every tool I use, grouped by kind, as one-colour logo badges.
 export function TechStack() {
   return (
-    <div className="flex flex-col gap-8">
+    <dl className="flex flex-col gap-6">
       {stacks.map((group) => (
-        <section key={group.title}>
-          <h4 className="text-sm font-medium text-muted-foreground">
-            {group.title}
-          </h4>
-          <ul className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-5">
-            {group.items.map((item) => (
-              <li key={item.title}>
-                <Card size="sm" className="h-full">
-                  <CardContent className="flex flex-col items-center gap-2">
-                    <StackLogo item={item} className="size-8" />
-                    <span className="text-center text-xs text-muted-foreground">
-                      {item.title}
-                    </span>
-                  </CardContent>
-                </Card>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <div key={group.title} className="flex flex-col gap-2.5">
+          <dt>
+            <MetaLabel>{group.title}</MetaLabel>
+          </dt>
+          <dd>
+            <ul className="flex flex-wrap gap-2">
+              {group.items.map((item) => (
+                <li key={item.title}>
+                  <Badge
+                    variant="outline"
+                    className="h-7 gap-1.5 px-2.5 text-sm font-normal has-data-[icon=inline-start]:pl-2 [&>svg]:size-3.5!"
+                  >
+                    <StackLogo item={item} data-icon="inline-start" />
+                    {item.title}
+                  </Badge>
+                </li>
+              ))}
+            </ul>
+          </dd>
+        </div>
       ))}
-    </div>
+    </dl>
   );
 }

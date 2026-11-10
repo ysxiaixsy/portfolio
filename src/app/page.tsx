@@ -1,4 +1,5 @@
 import { MailIcon, MapPinIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
 import { ContactMethods } from "@/components/contact-methods";
@@ -9,13 +10,9 @@ import { ResumeButton } from "@/components/resume-button";
 import { SectionHeading } from "@/components/section-heading";
 import { SectionLink } from "@/components/section-link";
 import { SocialLinks } from "@/components/social-links";
-import { StackMarquee } from "@/components/stack-marquee";
 import { TechStack } from "@/components/tech-stack";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Backlight } from "@/components/ui/backlight";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { KineticText } from "@/components/ui/kinetic-text";
 import { Separator } from "@/components/ui/separator";
 import { projects } from "@/data/projects";
 import { site } from "@/data/site";
@@ -23,89 +20,71 @@ import { site } from "@/data/site";
 export default function Home() {
   return (
     <PageTransition>
-      {/* Each section is at least a screen tall (see AGENTS.md). */}
       <div className="flex flex-col">
-        {/* The hero's screen also holds <main>'s top padding (pt-16), and its
-            margin lets the jump to it reach the top of the page. */}
+        {/* The name, in the pixel face, is the one loud thing on the page. */}
         <section
           id="main"
-          className="flex min-h-[calc(100svh-var(--header-height)-4rem)] scroll-mt-40 flex-col gap-12 pb-8"
+          className="page-section grid scroll-mt-40 items-center gap-10 pt-12 sm:pt-20 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16"
         >
-          <div className="flex flex-1 flex-col-reverse justify-center gap-8 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              {/* Outside the h1, so the heading reads as just the name. */}
-              <p className="text-sm font-medium tracking-tight text-muted-foreground sm:text-base">
-                {site.education}
-              </p>
-              <h1 className="mt-2">
-                <KineticText
-                  as="span"
-                  text={site.name}
-                  className="text-5xl leading-none tracking-tight sm:text-7xl lg:text-8xl"
-                />
-              </h1>
-              <p className="mt-3 text-2xl font-medium tracking-tight text-highlight sm:text-3xl">
-                {site.role}
-              </p>
-              <p className="mt-2 text-xl font-medium tracking-tight sm:text-2xl">
-                {site.motto}
-              </p>
-              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-                {site.tagline}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <ResumeButton size="lg">Download résumé</ResumeButton>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  nativeButton={false}
-                  render={<SectionLink section="contact" />}
-                >
-                  <MailIcon data-icon="inline-start" />
-                  Get in touch
-                </Button>
-              </div>
-              <SocialLinks className="mt-6" />
+          <div className="flex flex-col">
+            <p className="text-muted-foreground">{site.education}</p>
+            <h1 className="mt-4 font-pixel text-6xl leading-[0.9] tracking-tight sm:text-7xl lg:text-8xl">
+              {site.name}
+            </h1>
+            <p className="mt-8 text-xl font-medium tracking-tight sm:text-2xl">
+              {site.role}
+            </p>
+            <p className="mt-1 text-xl tracking-tight text-muted-foreground sm:text-2xl">
+              {site.motto}
+            </p>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
+              {site.tagline}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ResumeButton size="lg">Download résumé</ResumeButton>
+              <Button
+                size="lg"
+                variant="outline"
+                nativeButton={false}
+                render={<SectionLink section="contact" />}
+              >
+                <MailIcon data-icon="inline-start" />
+                Get in touch
+              </Button>
             </div>
-
-            {/* Casts the photo's own colours around it as a glow. */}
-            <Backlight blur={40} className="shrink-0">
-              <Avatar className="size-40 sm:size-60 lg:size-80">
-                {site.photo && <AvatarImage src={site.photo} alt={site.name} />}
-                <AvatarFallback className="text-3xl font-medium">
-                  {site.initials}
-                </AvatarFallback>
-              </Avatar>
-            </Backlight>
+            <SocialLinks className="mt-6" />
           </div>
 
-          <StackMarquee />
+          {site.photo && (
+            <Image
+              src={site.photo}
+              alt={site.name}
+              width={957}
+              height={960}
+              preload
+              sizes="(min-width: 1024px) 18rem, 7rem"
+              className="-order-1 size-28 rounded-lg object-cover ring-1 ring-border lg:order-none lg:size-72"
+            />
+          )}
         </section>
 
-        <section
-          id="projects"
-          className="flex min-h-page scroll-mt-(--header-height) flex-col justify-center py-20"
-        >
-          <SectionHeading
-            index={1}
-            description="Things I've built or contributed to, from games and web apps to a programming language."
-          >
+        <Separator />
+
+        <section id="projects" className="page-section">
+          <SectionHeading description="Things I've built or contributed to, from games and web apps to a programming language.">
             Projects
           </SectionHeading>
-          <div className="mt-10">
+          <div className="mt-12">
             <ProjectGrid projects={projects} />
           </div>
         </section>
 
         <Separator />
 
-        <section
-          id="about"
-          className="flex min-h-page scroll-mt-(--header-height) flex-col justify-center py-20"
-        >
-          <SectionHeading index={2}>About</SectionHeading>
+        <section id="about" className="page-section">
+          <SectionHeading>About</SectionHeading>
 
-          <div className="mt-10 flex flex-col gap-4 text-lg leading-relaxed">
+          <div className="mt-12 flex max-w-3xl flex-col gap-5 text-lg leading-relaxed">
             <p>
               I&apos;m {site.name}, a third-year Computer Science student at the
               University of the Philippines Visayas. I design and build
@@ -151,7 +130,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-16 grid gap-14 lg:grid-cols-2 lg:gap-16">
+          <div className="mt-20 grid gap-16 lg:grid-cols-2">
             <div>
               <h3 className="text-2xl font-semibold tracking-tight">Stack</h3>
               <div className="mt-6">
@@ -179,30 +158,21 @@ export default function Home() {
 
         <section
           id="contact"
-          className="-mb-16 grid min-h-page-end scroll-mt-(--header-height) content-center gap-10 pt-12 pb-10 lg:grid-cols-2 lg:gap-16"
+          className="page-section grid gap-16 lg:grid-cols-2"
         >
-          <div>
-            <SectionHeading index={3}>Contact</SectionHeading>
-            <p className="mt-10 text-lg leading-relaxed">
-              Have a role, a project or an idea? Let&apos;s talk.
-            </p>
-            <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
-              I&apos;m open to internships, full-time roles, freelance design
-              and collaborations. Reach me directly below, or send a message and
-              it lands straight in my inbox.
-            </p>
+          <div className="flex flex-col">
+            <SectionHeading description="Have a role, a project or an idea? I'm open to internships, full-time roles, freelance design and collaborations.">
+              Contact
+            </SectionHeading>
             <ul className="mt-6 flex flex-wrap items-center gap-2">
               <li className="flex">
                 <Badge variant="outline">
-                  {/* A live-status dot in the same 12px slot as the pin icon,
-                      so both badges share padding and alignment. It stops
-                      pulsing under reduced motion. */}
                   <span
                     data-icon="inline-start"
                     aria-hidden="true"
                     className="flex size-3 shrink-0 items-center justify-center"
                   >
-                    <span className="size-1.5 rounded-full bg-foreground motion-safe:animate-pulse" />
+                    <span className="size-1.5 bg-foreground" />
                   </span>
                   {site.status}
                 </Badge>
@@ -218,10 +188,7 @@ export default function Home() {
               <ContactMethods />
             </div>
           </div>
-          {/* Lines up with the heading's number on wide screens. */}
-          <div className="lg:pt-1">
-            <ContactForm />
-          </div>
+          <ContactForm />
         </section>
       </div>
     </PageTransition>

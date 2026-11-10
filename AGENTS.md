@@ -2,42 +2,47 @@
 
 The site should read as one continuous surface: every page and section uses the same container, type scale, accent and motion. When something new needs a style, reuse the pattern below; when no pattern fits, add one here and in a shared component, then use it.
 
+The look is **minimal**: one loud element, the pixel-face titles, on a quiet surface of ink and paper. Anything new earns its place by carrying information.
+
 ## Building blocks
 
 - Build UI from shadcn components (`src/components/ui`, registries in `components.json`) and their variants. Site-level pieces live in `src/components` and compose them.
-- Shared styling lives in one place: a component variant, a theme token in `src/app/globals.css`, or a shared component such as `SectionHeading` or `MonoLabel`. When two places need the same look, extract it so a change is a one-place edit.
-- Colours come from the semantic tokens in `globals.css` (`foreground`, `muted-foreground`, `border`, `highlight`, …), so light and dark stay in step. Brand logos are the one exception: tech stack logos (`StackLogo`) and the contact cards show brand colours through `brandColor`, with black and white brands following the text colour.
-- Profile links (`site.links` in `src/data/site.ts`) are the single list behind the home page socials, the footer icons and the résumé.
-- Projects in `src/data/projects.ts` ship their logo or wordmark, stored in this repo, whenever the project has one; without one, the name shows as text. A project without a screenshot gets a cover from `ProjectMedia`. Projects marked `featured` show in full on the home page; the rest wait behind "See all" (`ProjectReveal`).
+- Shared styling lives in one place: a component variant, a theme token in `src/app/globals.css`, a class list in `src/lib/styles.ts`, or a shared component such as `SectionHeading` or `MetaLabel`. When two places need the same look, extract it so a change is a one-place edit.
+- Colours come from the semantic tokens in `globals.css` (`foreground`, `muted-foreground`, `border`, `highlight`, …), so light and dark stay in step. Logos and icons (`StackLogo`, the profile icons) follow the text colour.
+- Profile links (`site.links` in `src/data/site.ts`) are the single list behind the home page socials, the contact list, the footer icons and the résumé.
+- Projects in `src/data/projects.ts` ship their logo or wordmark, stored in this repo, whenever the project has one; without one, the name shows as text. Projects marked `featured` show as cards with their screenshot (`ProjectCard`); the rest are rows in a list (`ProjectRow`). A featured project without a screenshot gets a cover from `ProjectMedia`.
 
 ## Accent
 
-Orange (`highlight`) is the **signal**: it marks what is active, hovered or focused, so it always means "you are here" or "this responds".
+Cobalt (`highlight`) is the **signal**: it marks what is active, hovered or focused, so it always means "you are here" or "this responds". At rest, everything is ink and paper.
 
-- Interactive surfaces signal with `ring-highlight` and `shadow-glow`. A card that links somewhere (project cards, contact cards) takes `signalSurface` from `src/lib/styles.ts` inside a `group` link; the active nav tab glows the same way.
+- A link bigger than a word (project cards, project rows, contact rows) is a `group` link whose surface takes `signalSurface` and whose title takes `signalTitle`, both from `src/lib/styles.ts`. The active nav link turns to the accent.
 - Inline text links use the `text-link` utility. Buttons signal through their variants in `button.tsx`, and focus rings through the `--ring` token, which is the accent.
-- Outside interaction, orange appears only in the role line.
 
 ## Layout
 
 - Every page, the header and the footer share one content column, the `page-container` utility in `globals.css`, and every section fills its full width. Sizes are in rem, which the root font size scales up on wide screens. To use wide space, split a section into columns (`grid lg:grid-cols-2 gap-16`) rather than narrowing it.
-- Each home page section is at least one screen tall (`min-h-page`, `py-20`, content centred) and scrolls to just below the header (`scroll-mt-(--header-height)`). The last one, Contact, shares its screen with the footer (`min-h-page-end`). The hero's screen ends with the tech stack carousel, which leads into Projects; every later pair of sections has a `Separator` between them.
-- Sections open with `SectionHeading`, numbered in page order, and their content starts `mt-10` below it.
-- Links to a home page section use `SectionLink`, and the nav tabs list every section.
+- Home page sections use the `page-section` utility (equal vertical padding, scrolling to just below the header), take the height of their content, and have a `Separator` between each pair.
+- Sections open with `SectionHeading`, and their content starts `mt-12` below it.
+- Links to a home page section use `SectionLink`, and the header nav lists every section after the hero.
 
 ## Type scale
+
+Geist sets everything; its pixel cut, Geist Pixel (`font-pixel`), sets titles and names only.
 
 | Role | Classes |
 | --- | --- |
 | Title (home section heading, page `h1`) | `Title` from `section-heading.tsx` |
+| Hero name | `font-pixel`, the one size above `Title` |
+| Project name | `ProjectTitle`: `text-2xl` on cards, `text-xl` in rows |
 | Subheading (`h3` inside a section) | `text-2xl font-semibold tracking-tight` |
-| Card title | `text-xl` |
 | Prose | `text-lg leading-relaxed`; secondary prose adds `text-muted-foreground` |
-| Metadata label (Role, Stack, Year, section numbers) | `MonoLabel` |
+| Metadata label (Role, Stack, Year) | `MetaLabel` |
 
 ## Motion
 
 - State changes ease with `duration-300 ease-out` and stop under `motion-reduce`.
+- Motion and effects stay cheap to draw: animate `transform`, `opacity` and colour, and keep blur, `backdrop-filter`, masks and SVG filters off the page, since they repaint every frame.
 - Route changes animate through `transitionTypes`: `nav-forward` going deeper, `nav-back` coming up (`transitionTypesFor` in `src/lib/navigation.ts`). The keyframes live in `globals.css`.
 
 ## Done means seen

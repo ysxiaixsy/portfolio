@@ -39,23 +39,10 @@ export type StackItem = {
   path: string;
   viewBox?: string;
   fillRule?: "evenodd";
-  // The brand colour as six hex digits (simple-icons supplies it). Black and
-  // white brands, and items without one, follow the text colour instead.
+  // The brand colour as six hex digits (simple-icons supplies it). Unused:
+  // logos follow the text colour.
   hex?: string;
 };
-
-// The logo's brand colour, or undefined to follow the text colour: very dark
-// or very light logos would vanish in one of the themes.
-export function brandColor({ hex }: { hex?: string }) {
-  if (!hex) return undefined;
-  const [r, g, b] = [0, 2, 4].map((i) => {
-    const c = parseInt(hex.slice(i, i + 2), 16) / 255;
-    return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-  });
-  const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  if (luminance < 0.03 || luminance > 0.9) return undefined;
-  return `#${hex}`;
-}
 
 // Logos come from simple-icons (https://simpleicons.org). To add one, find
 // its slug there and import it as `si<Slug>`, e.g. Docker → siDocker. For

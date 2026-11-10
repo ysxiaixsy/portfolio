@@ -1,22 +1,20 @@
+import type { ComponentProps } from "react";
+import type { StackItem } from "@/data/tech-stack";
 import { cn } from "@/lib/utils";
-import { brandColor, type StackItem } from "@/data/tech-stack";
 
-// A tech stack logo in its brand colour, the one place it is drawn, so the
-// carousel and the About section always match.
+// A tech stack logo in the current text colour, the one place it is drawn.
 export function StackLogo({
   item,
   className,
-}: {
-  item: StackItem;
-  className?: string;
-}) {
+  ...props
+}: ComponentProps<"svg"> & { item: StackItem }) {
   return (
     <svg
       viewBox={item.viewBox ?? "0 0 24 24"}
       fill="currentColor"
       aria-hidden="true"
-      className={cn("shrink-0 text-foreground", className)}
-      style={{ color: brandColor(item) }}
+      className={cn("shrink-0", className)}
+      {...props}
     >
       <path d={item.path} fillRule={item.fillRule} />
     </svg>

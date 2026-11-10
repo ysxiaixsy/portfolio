@@ -7,7 +7,12 @@ import { Button } from "@/components/ui/button";
 // on (see the scroll-behavior rule in globals.css).
 export function BackToTop() {
   return (
-    <Button variant="outline" size="sm" onClick={() => window.scrollTo(0, 0)}>
+    <Button
+      variant="ghost"
+      size="sm"
+      className="text-muted-foreground"
+      onClick={() => window.scrollTo(0, 0)}
+    >
       <ArrowUpIcon data-icon="inline-start" />
       Back to top
     </Button>

@@ -9,9 +9,9 @@ const buttonVariants = cva(
       variant: {
         // Hover is the accent signal on every variant (see AGENTS.md).
         default:
-          "bg-primary text-primary-foreground hover:bg-primary/80 hover:shadow-glow",
+          "bg-primary text-primary-foreground hover:bg-highlight hover:text-highlight-foreground",
         outline:
-          "border-border bg-background hover:border-highlight/60 hover:bg-muted hover:text-highlight aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+          "border-input bg-background hover:border-highlight hover:text-highlight aria-expanded:bg-muted aria-expanded:text-foreground",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] hover:text-highlight aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
         ghost:

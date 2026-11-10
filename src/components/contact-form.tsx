@@ -6,13 +6,6 @@ import { type ContactState, sendMessage } from "@/app/contact/actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
   Field,
   FieldError,
   FieldGroup,
@@ -25,20 +18,20 @@ import { site } from "@/data/site";
 
 const initialState: ContactState = { status: "idle" };
 
-// The form in a card, titled so it reads as its own way to get in touch.
+// The form, titled so it reads as its own way to get in touch.
 export function ContactForm() {
   return (
-    <Card className="[--card-spacing:--spacing(6)]">
-      <CardHeader>
-        <CardTitle className="text-xl">Send a message</CardTitle>
-        <CardDescription>
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-1.5">
+        <h3 className="text-2xl font-semibold tracking-tight">
+          Send a message
+        </h3>
+        <p className="text-muted-foreground">
           It lands in my inbox, and I&apos;ll reply to the email you give.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ContactFormBody />
-      </CardContent>
-    </Card>
+        </p>
+      </div>
+      <ContactFormBody />
+    </div>
   );
 }
 
@@ -121,7 +114,7 @@ function ContactFormBody() {
           <Textarea
             id="message"
             name="message"
-            rows={4}
+            rows={5}
             required
             defaultValue={values?.message}
             aria-invalid={!!errors?.message || undefined}

@@ -1,13 +1,15 @@
 "use client";
 
-import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
-import { buttonVariants } from "@/components/ui/button";
+import { MoonIcon, SunIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
 
 // With no saved choice the site follows the OS (see themeScript in @/lib/theme),
 // and picking the OS's own theme clears the saved choice so it goes back to
 // following the OS.
-function applyTheme(next: "light" | "dark") {
+function toggleTheme() {
+  const root = document.documentElement;
+  const next = root.dataset.theme === "dark" ? "light" : "dark";
   const system = matchMedia("(prefers-color-scheme: dark)").matches
     ? "dark"
     : "light";
@@ -15,14 +17,22 @@ function applyTheme(next: "light" | "dark") {
     if (next === system) localStorage.removeItem(THEME_STORAGE_KEY);
     else localStorage.setItem(THEME_STORAGE_KEY, next);
   } catch {}
-  document.documentElement.dataset.theme = next;
+  root.dataset.theme = next;
 }
 
+// The icon shows the theme a click switches to. CSS picks it from data-theme,
+// so the button renders the same on the server and the client.
 export function ThemeToggle() {
   return (
-    <AnimatedThemeToggler
-      onThemeChange={applyTheme}
-      className={buttonVariants({ variant: "ghost", size: "icon" })}
-    />
+    <Button
+      variant="ghost"
+      size="icon"
+      aria-label="Toggle dark mode"
+      onClick={toggleTheme}
+      className="text-muted-foreground hover:bg-transparent dark:hover:bg-transparent"
+    >
+      <MoonIcon className="dark:hidden" />
+      <SunIcon className="hidden dark:block" />
+    </Button>
   );
 }
