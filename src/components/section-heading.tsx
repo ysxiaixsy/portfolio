@@ -11,7 +11,7 @@ export function Title({
   return (
     <Tag
       className={cn(
-        "font-pixel text-4xl leading-none tracking-tight sm:text-5xl",
+        " text-4xl leading-none tracking-tight sm:text-5xl",
         className,
       )}
       {...props}

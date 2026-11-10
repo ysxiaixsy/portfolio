@@ -1,10 +1,10 @@
-import { MailIcon, MapPinIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
 import { ContactMethods } from "@/components/contact-methods";
 import { JourneyTimeline } from "@/components/journey-timeline";
 import { PageTransition } from "@/components/page-transition";
+import { MailIcon, MapPinIcon } from "@/components/pixel-icons";
 import { ProjectGrid } from "@/components/project-grid";
 import { ResumeButton } from "@/components/resume-button";
 import { SectionHeading } from "@/components/section-heading";
@@ -28,10 +28,10 @@ export default function Home() {
         >
           <div className="flex flex-col">
             <p className="text-muted-foreground">{site.education}</p>
-            <h1 className="mt-4 font-pixel text-6xl leading-[0.9] tracking-tight sm:text-7xl lg:text-8xl">
+            <h1 className="mt-4 text-6xl leading-[0.9] tracking-tight sm:text-7xl lg:text-8xl">
               {site.name}
             </h1>
-            <p className="mt-8 text-xl font-medium tracking-tight sm:text-2xl">
+            <p className="mt-8 text-xl tracking-tight sm:text-2xl">
               {site.role}
             </p>
             <p className="mt-1 text-xl tracking-tight text-muted-foreground sm:text-2xl">
@@ -55,17 +55,17 @@ export default function Home() {
             <SocialLinks className="mt-6" />
           </div>
 
-          {site.photo && (
-            <Image
-              src={site.photo}
-              alt={site.name}
-              width={957}
-              height={960}
-              preload
-              sizes="(min-width: 1024px) 18rem, 7rem"
-              className="-order-1 size-28 rounded-lg object-cover ring-1 ring-border lg:order-none lg:size-72"
-            />
-          )}
+          {/* Pixel art scales by whole pixels: served as-is (unoptimized),
+              since re-encoding would smooth them. */}
+          <Image
+            src={site.pixelPhoto}
+            alt={site.name}
+            width={64}
+            height={64}
+            unoptimized
+            preload
+            className="pixelated -order-1 size-[128px] pixel-frame lg:order-none lg:size-[320px]"
+          />
         </section>
 
         <Separator />
@@ -132,7 +132,7 @@ export default function Home() {
 
           <div className="mt-20 grid gap-16 lg:grid-cols-2">
             <div>
-              <h3 className="text-2xl font-semibold tracking-tight">Stack</h3>
+              <h3 className="text-2xl tracking-tight">Stack</h3>
               <div className="mt-6">
                 <TechStack />
               </div>
@@ -140,7 +140,7 @@ export default function Home() {
 
             <div>
               <div className="flex items-baseline justify-between gap-4">
-                <h3 className="text-2xl font-semibold tracking-tight">
+                <h3 className="text-2xl tracking-tight">
                   Journey
                 </h3>
                 <ResumeButton variant="outline" size="sm">

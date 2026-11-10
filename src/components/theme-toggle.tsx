@@ -1,6 +1,6 @@
 "use client";
 
-import { MoonIcon, SunIcon } from "lucide-react";
+import { MoonIcon, SunIcon } from "@/components/pixel-icons";
 import { Button } from "@/components/ui/button";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
 
@@ -29,7 +29,7 @@ export function ThemeToggle() {
       size="icon"
       aria-label="Toggle dark mode"
       onClick={toggleTheme}
-      className="text-muted-foreground hover:bg-transparent dark:hover:bg-transparent"
+      className="text-muted-foreground"
     >
       <MoonIcon className="dark:hidden" />
       <SunIcon className="hidden dark:block" />

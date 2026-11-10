@@ -1,7 +1,7 @@
 "use client";
 
-import { DownloadIcon } from "lucide-react";
 import type { ComponentProps } from "react";
+import { DownloadIcon } from "@/components/pixel-icons";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/toast";
 import { site } from "@/data/site";

@@ -3,13 +3,16 @@ import {
   GitHubIcon,
   InstagramIcon,
   LinkedInIcon,
-} from "@/components/brand-icons";
+} from "@/components/pixel-icons";
 
 export const site = {
   name: "JP Salomeo",
   initials: "JPS",
   // Path to your photo in /public, e.g. "/me.jpg". Leave empty to show initials.
   photo: "/portrait.jpg" as string,
+  // The photo as pixel art, shown on the site (the photo itself goes in link
+  // previews). Generated from `photo` by `npm run pixel-art`.
+  pixelPhoto: "/portrait-pixel.png",
   // The hero, top to bottom: education, name, role, motto, tagline.
   education: "3rd-year BS Computer Science – UP Visayas",
   role: "Software Engineer",

@@ -2,13 +2,22 @@
 
 The site should read as one continuous surface: every page and section uses the same container, type scale, accent and motion. When something new needs a style, reuse the pattern below; when no pattern fits, add one here and in a shared component, then use it.
 
-The look is **minimal**: one loud element, the pixel-face titles, on a quiet surface of ink and paper. Anything new earns its place by carrying information.
+The look is **minimal pixel art**: everything is drawn on a pixel grid (type, frames, rules, icons, logos, the portrait), on a quiet surface of ink and paper. Anything new earns its place by carrying information, and is drawn in pixels too.
+
+## Pixel art
+
+- One art pixel is `--pixel` (3px). Frames, rules, the focus outline and the press offset are all multiples of it.
+- Corners are square (`--radius` is 0). A box that needs an edge (cards, buttons, inputs, badges, alerts, images) takes the `pixel-frame` utility: a notched frame drawn with static shadows in the `frame` colour. Recolour it through `--frame-color`, and keep Tailwind's `ring-*` and `shadow-*` utilities off framed elements, since they replace the frame.
+- Dividers are dotted pixel rules: `pixel-rule` (top), `pixel-rule-b` (bottom), `pixel-rule-s` (side). `Separator` draws one.
+- Icons come from pixelarticons through `src/components/pixel-icons.tsx`, the only place icons are imported. Add a new one there.
+- Raster pixel art scales by whole multiples (2×, 5×, sized in px, not rem) with the `pixelated` utility and `unoptimized`, since image optimisation smooths pixels.
+- `npm run pixel-art` (`scripts/pixel-art.mjs`) generates the pixel portrait from `site.photo` and the 16×16 stack logos in `src/data/stack-pixels.ts`. Run it after changing either, and commit the output.
 
 ## Building blocks
 
 - Build UI from shadcn components (`src/components/ui`, registries in `components.json`) and their variants. Site-level pieces live in `src/components` and compose them.
 - Shared styling lives in one place: a component variant, a theme token in `src/app/globals.css`, a class list in `src/lib/styles.ts`, or a shared component such as `SectionHeading` or `MetaLabel`. When two places need the same look, extract it so a change is a one-place edit.
-- Colours come from the semantic tokens in `globals.css` (`foreground`, `muted-foreground`, `border`, `highlight`, …), so light and dark stay in step. Logos and icons (`StackLogo`, the profile icons) follow the text colour.
+- Colours come from the semantic tokens in `globals.css` (`foreground`, `muted-foreground`, `frame`, `highlight`, …), so light and dark stay in step. Logos and icons (`StackLogo`, the profile icons) follow the text colour.
 - Profile links (`site.links` in `src/data/site.ts`) are the single list behind the home page socials, the contact list, the footer icons and the résumé.
 - Projects in `src/data/projects.ts` ship their logo or wordmark, stored in this repo, whenever the project has one; without one, the name shows as text. Projects marked `featured` show as cards with their screenshot (`ProjectCard`); the rest are rows in a list (`ProjectRow`). A featured project without a screenshot gets a cover from `ProjectMedia`.
 
@@ -16,8 +25,8 @@ The look is **minimal**: one loud element, the pixel-face titles, on a quiet sur
 
 Cobalt (`highlight`) is the **signal**: it marks what is active, hovered or focused, so it always means "you are here" or "this responds". At rest, everything is ink and paper.
 
-- A link bigger than a word (project cards, project rows, contact rows) is a `group` link whose surface takes `signalSurface` and whose title takes `signalTitle`, both from `src/lib/styles.ts`. The active nav link turns to the accent.
-- Inline text links use the `text-link` utility. Buttons signal through their variants in `button.tsx`, and focus rings through the `--ring` token, which is the accent.
+- A link bigger than a word is a `group` link: a framed card takes `signalSurface` (its frame turns to the accent), and its title, or a row's title (project rows, contact rows), takes `signalTitle`, both from `src/lib/styles.ts`. The active nav link turns to the accent.
+- Inline text links use the `text-link` utility. Buttons signal through their variants in `button.tsx`. Focus is one global rule in `globals.css`: a square outline in the accent, clear of any frame.
 
 ## Layout
 
@@ -28,20 +37,20 @@ Cobalt (`highlight`) is the **signal**: it marks what is active, hovered or focu
 
 ## Type scale
 
-Geist sets everything; its pixel cut, Geist Pixel (`font-pixel`), sets titles and names only.
+Geist Pixel sets everything except the résumé, which loads Geist on its own page to stay a plain printable document. Geist Pixel has one weight and faux bold is off, so hierarchy comes from size and colour: leave out `font-*` weight classes.
 
 | Role | Classes |
 | --- | --- |
 | Title (home section heading, page `h1`) | `Title` from `section-heading.tsx` |
-| Hero name | `font-pixel`, the one size above `Title` |
+| Hero name | the one size above `Title` |
 | Project name | `ProjectTitle`: `text-2xl` on cards, `text-xl` in rows |
-| Subheading (`h3` inside a section) | `text-2xl font-semibold tracking-tight` |
+| Subheading (`h3` inside a section) | `text-2xl tracking-tight` |
 | Prose | `text-lg leading-relaxed`; secondary prose adds `text-muted-foreground` |
 | Metadata label (Role, Stack, Year) | `MetaLabel` |
 
 ## Motion
 
-- State changes ease with `duration-300 ease-out` and stop under `motion-reduce`.
+- Motion moves in whole steps, like a sprite: state changes use `duration-150 ease-pixel` (`steps(3)`), and stop under `motion-reduce`. Page transitions step too (keyframes in `globals.css`).
 - Motion and effects stay cheap to draw: animate `transform`, `opacity` and colour, and keep blur, `backdrop-filter`, masks and SVG filters off the page, since they repaint every frame.
 - Route changes animate through `transitionTypes`: `nav-forward` going deeper, `nav-back` coming up (`transitionTypesFor` in `src/lib/navigation.ts`). The keyframes live in `globals.css`.
 

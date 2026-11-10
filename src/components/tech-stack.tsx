@@ -18,7 +18,7 @@ export function TechStack() {
                 <li key={item.title}>
                   <Badge
                     variant="outline"
-                    className="h-7 gap-1.5 px-2.5 text-sm font-normal has-data-[icon=inline-start]:pl-2 [&>svg]:size-3.5!"
+                    className="h-7 gap-2 px-2.5 text-sm has-data-[icon=inline-start]:pl-2 [&>svg]:size-4!"
                   >
                     <StackLogo item={item} data-icon="inline-start" />
                     {item.title}

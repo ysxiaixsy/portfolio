@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Pixel } from "next/font/google";
+import { Geist_Pixel } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Toaster } from "@/components/ui/toast";
@@ -7,13 +7,7 @@ import { site } from "@/data/site";
 import { themeScript } from "@/lib/theme";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-// Titles only (see Title in section-heading.tsx).
-// Next has no metrics to size-match a fallback for it, so fall back to a
+// The whole site is set in it (see the theme in globals.css). Next has no metrics to size-match a fallback for it, so fall back to a
 // monospace face, which is closest in width while it loads.
 const geistPixel = Geist_Pixel({
   variable: "--font-geist-pixel",
@@ -35,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     // themeScript sets data-theme before hydration, hence the suppression.
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistPixel.variable} h-full antialiased`}
+      className={`${geistPixel.variable} h-full antialiased`}
       // Smooth scrolling is for the home page's sections, not route changes.
       data-scroll-behavior="smooth"
       suppressHydrationWarning

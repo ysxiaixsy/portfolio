@@ -10,7 +10,7 @@ async function CurrentYear() {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t print:hidden">
+    <footer className="pixel-rule print:hidden">
       <div className="page-container flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-6 text-sm text-muted-foreground">
         <p>
           © <CurrentYear /> {site.name}

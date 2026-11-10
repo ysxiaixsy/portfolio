@@ -29,7 +29,7 @@ export function ProjectCard({
     <Link
       href={`/projects/${project.slug}`}
       transitionTypes={["nav-forward"]}
-      className="group block h-full rounded-xl outline-none"
+      className="group block h-full"
     >
       <Card
         className={cn(
@@ -41,7 +41,8 @@ export function ProjectCard({
           project={project}
           eager={eager}
           sizes="(min-width: 1280px) 600px, (min-width: 768px) calc(50vw - 48px), calc(100vw - 32px)"
-          className="rounded-none border-b ring-0"
+          framed={false}
+          className="border-b-(length:--pixel) border-frame"
         />
 
         <CardHeader className="gap-2">

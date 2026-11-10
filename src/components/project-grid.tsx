@@ -19,10 +19,10 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
 
       {rest.length > 0 && (
         <div>
-          <h3 className="text-2xl font-semibold tracking-tight">
+          <h3 className="text-2xl tracking-tight">
             More projects
           </h3>
-          <ul className="mt-4 border-t">
+          <ul className="mt-4 pixel-rule pt-(--pixel)">
             {rest.map((project) => (
               <li key={project.slug}>
                 <ProjectRow project={project} />

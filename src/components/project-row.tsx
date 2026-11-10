@@ -1,5 +1,5 @@
-import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
+import { ArrowRightIcon } from "@/components/pixel-icons";
 import { ProjectTitle } from "@/components/project-title";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 export function ProjectRow({ project }: { project: Project }) {
   return (
     <Item
-      className="group gap-x-6 gap-y-1 rounded-none border-0 border-b px-0 py-5 [a]:hover:bg-transparent"
+      className="group gap-x-6 gap-y-1 border-0 pixel-rule-b px-0 pt-5 pb-[calc(1.25rem+var(--pixel))]"
       render={
         <Link
           href={`/projects/${project.slug}`}

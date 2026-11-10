@@ -11,6 +11,8 @@ type ProjectMediaProps = Pick<
   project: Project;
   // Set this when the image is the largest thing above the fold.
   eager?: boolean;
+  // Off when something around it already draws the frame, like a card.
+  framed?: boolean;
 };
 
 // A project's screenshot, cropped to 16:10 so cards line up. Projects without
@@ -19,10 +21,11 @@ type ProjectMediaProps = Pick<
 export function ProjectMedia({
   project,
   eager,
+  framed = true,
   className,
   sizes,
 }: ProjectMediaProps) {
-  const frame = "aspect-[16/10] w-full rounded-lg ring-1 ring-border";
+  const frame = cn("aspect-[16/10] w-full", framed && "pixel-frame");
 
   if (!project.screenshot) {
     return (
@@ -37,11 +40,11 @@ export function ProjectMedia({
           <ProjectLogo
             project={project}
             className={cn(
-              project.logo.wordmark ? "h-1/5" : "h-2/5 rounded-2xl",
+              project.logo.wordmark ? "h-1/5" : "h-2/5",
             )}
           />
         ) : (
-          <span className="font-pixel text-3xl tracking-tight text-muted-foreground sm:text-4xl">
+          <span className="text-3xl tracking-tight text-muted-foreground sm:text-4xl">
             {project.title}
           </span>
         )}
