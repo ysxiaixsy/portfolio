@@ -10,6 +10,8 @@ export const site = {
   initials: "JPS",
   // Path to your photo in /public, e.g. "/me.jpg". Leave empty to show initials.
   photo: "/portrait.jpg" as string,
+  // The photo as 64×64 pixel art, drawn by `npm run pixel-portrait`.
+  pixelPortrait: { src: "/pixel-portrait.png", size: 64 },
   // The hero, top to bottom: education, name, role, motto, tagline.
   education: "3rd-year BS Computer Science – UP Visayas",
   role: "Software Engineer",
