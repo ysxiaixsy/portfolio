@@ -13,7 +13,7 @@ The look is **minimal pixel art**: everything is drawn on a pixel grid (type, fr
 - Icons come from pixelarticons through `src/components/pixel-icons.tsx`, the only place icons are imported. Add a new one there.
 - Photos and screenshots stay sharp, as they are; the pixel frame around them carries the style. Raster pixel art, if added, scales by whole multiples (sized in px, not rem) with the `pixelated` utility and `unoptimized`, since image optimisation smooths pixels.
 - `npm run pixel-art` (`scripts/pixel-art.mjs`) generates the 16×16 stack logos in `src/data/stack-pixels.ts`. Run it after changing the stack, and commit the output.
-- `npm run pixel-portrait` (`scripts/pixel-portrait.mjs`) draws `public/pixel-portrait.png`, the photo as 64×64 pixel art on a hand-picked palette, shown on the 404 page at 3× and 4×. Run it after changing the photo, and commit the output.
+- `npm run pixel-portrait` (`scripts/pixel-portrait.mjs`) draws `public/pixel-portrait.png`, the photo as 128×128 pixel art on a hand-picked palette, with hand-drawn eyes and a transparent background that the page fills with one theme colour (`bg-muted`). It shows on the 404 page at 2×. It cuts the figure out with `scripts/portrait-mask.png`, so a new photo needs a new mask. Run it after changing the photo, and commit the output.
 
 ## Building blocks
 

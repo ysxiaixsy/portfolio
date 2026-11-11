@@ -43,15 +43,15 @@ export default function NotFound() {
           </div>
         </div>
 
-        {/* Me as a sprite, lost on this level. Whole multiples of the
-            64px art (3× on phones, 4× from sm), unsmoothed. */}
+        {/* Me as a sprite, lost on this level: the 128px art at exactly 2×,
+            unsmoothed, on one solid colour from the theme. */}
         <Image
           src={site.pixelPortrait.src}
           alt={`${site.name}, drawn in pixel art`}
           width={site.pixelPortrait.size}
           height={site.pixelPortrait.size}
           unoptimized
-          className="-order-1 size-[192px] pixel-frame pixelated sm:size-[256px] lg:order-none"
+          className="-order-1 size-[256px] bg-muted pixel-frame pixelated lg:order-none"
         />
       </section>
     </PageTransition>
