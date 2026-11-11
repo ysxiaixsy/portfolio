@@ -15,6 +15,10 @@ const toggleVariants = cva(
         // An inventory slot: a square in a pixel frame that lights in the
         // accent while hovered or selected.
         slot: "bg-transparent text-muted-foreground pixel-frame hover:bg-transparent hover:text-highlight hover:[--frame-color:var(--highlight)] aria-pressed:bg-transparent aria-pressed:text-highlight aria-pressed:[--frame-color:var(--highlight)]",
+        // A picture that flips when pressed (the hero portrait): a raised
+        // block whose frame lights on hover, pushed down like a key.
+        portrait:
+          "bg-transparent pixel-frame pixel-raised transition-[box-shadow,translate] hover:bg-transparent hover:[--frame-color:var(--highlight)] aria-pressed:bg-transparent active:translate-(--pixel) active:[--raise-depth:0px]",
       },
       size: {
         default:
@@ -23,6 +27,8 @@ const toggleVariants = cva(
         lg: "h-9 min-w-9 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
         // Holds a 16×16 pixel logo at 2×, sized in px so its pixels stay whole.
         slot: "size-12 p-0 [&_svg]:size-[32px]!",
+        // Sized by its content.
+        content: "h-auto min-w-0 p-0",
       },
     },
     defaultVariants: {

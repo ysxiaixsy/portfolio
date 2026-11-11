@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
 import { ContactMethods } from "@/components/contact-methods";
@@ -6,6 +5,7 @@ import { JourneyTimeline } from "@/components/journey-timeline";
 import { PageTransition } from "@/components/page-transition";
 import { NowPanel } from "@/components/now-panel";
 import { MailIcon, MapPinIcon } from "@/components/pixel-icons";
+import { PortraitSwap } from "@/components/portrait-swap";
 import { ProjectGrid } from "@/components/project-grid";
 import { ResumeButton } from "@/components/resume-button";
 import { SectionHeading } from "@/components/section-heading";
@@ -60,18 +60,8 @@ export default function Home() {
             <SocialLinks className="mt-6" />
           </div>
 
-          {/* The real photo, sharp, in a pixel frame. */}
-          {site.photo && (
-            <Image
-              src={site.photo}
-              alt={site.name}
-              width={957}
-              height={960}
-              preload
-              sizes="(min-width: 1024px) 20rem, 8rem"
-              className="-order-1 size-32 object-cover pixel-frame pixel-raised lg:order-none lg:size-80"
-            />
-          )}
+          {/* Me in pixel art, flipping to the real photo. */}
+          <PortraitSwap className="-order-1 lg:order-none" />
         </section>
 
         <Separator />
