@@ -8,7 +8,7 @@ The look is **minimal pixel art**: everything is drawn on a pixel grid (type, fr
 
 - One art pixel is `--pixel` (3px). Frames, rules, the focus outline and the press offset are all multiples of it.
 - Corners are square (`--radius` is 0). A box that needs an edge (cards, buttons, inputs, badges, alerts, images) takes the `pixel-frame` utility: a notched frame drawn with static shadows in the `frame` colour. Recolour it through `--frame-color`, and keep Tailwind's `ring-*` and `shadow-*` utilities off framed elements, since they replace the frame.
-- Blocks you can press or open stand off the page: buttons, cards and the portrait add `pixel-raised`, a hard shadow of the frame's shape one art pixel deep (`--raise-depth`). A press pushes a button down onto it; hovering a card lifts it one more pixel.
+- Blocks you can press or open stand off the page: buttons, linked cards (`ProjectCard`) and the portrait add `pixel-raised`, a hard shadow of the frame's shape one art pixel deep (`--raise-depth`). A press pushes a button down onto it; hovering a card lifts it one more pixel. A `Card` that only holds information (`NowPanel`) stays flat in its frame.
 - Dividers are dotted pixel rules: `pixel-rule` (top), `pixel-rule-b` (bottom), `pixel-rule-s` (side). `Separator` draws one.
 - Icons come from pixelarticons through `src/components/pixel-icons.tsx`, the only place icons are imported. Add a new one there.
 - Photos and screenshots stay sharp, as they are; the pixel frame around them carries the style. Raster pixel art, if added, scales by whole multiples (sized in px, not rem) with the `pixelated` utility and `unoptimized`, since image optimisation smooths pixels.
@@ -20,6 +20,7 @@ The look is **minimal pixel art**: everything is drawn on a pixel grid (type, fr
 - Shared styling lives in one place: a component variant, a theme token in `src/app/globals.css`, a class list in `src/lib/styles.ts`, or a shared component such as `SectionHeading` or `MetaLabel`. When two places need the same look, extract it so a change is a one-place edit.
 - Colours come from the semantic tokens in `globals.css` (`foreground`, `muted-foreground`, `frame`, `highlight`, …), so light and dark stay in step. Logos and icons (`StackLogo`, the profile icons) follow the text colour.
 - Profile links (`site.links` in `src/data/site.ts`) are the single list behind the home page socials, the contact list, the footer icons and the résumé.
+- A project page is a case study, from `story` in `src/data/projects.ts`: Overview, What I did, Key decisions, Where it stands. Keep each part to facts the project can back up.
 - Projects in `src/data/projects.ts` ship their logo or wordmark, stored in this repo, whenever the project has one; without one, the name shows as text. Projects marked `featured` show as cards with their screenshot (`ProjectCard`); the rest are rows in a list (`ProjectRow`). A featured project without a screenshot gets a cover from `ProjectMedia`.
 
 ## Accent
@@ -30,6 +31,9 @@ Cobalt (`highlight`) is the **signal**: it marks what is active, hovered or focu
   - A **block** (a project card) takes `signalSurface` from `src/lib/styles.ts` and holds `SelectionCorners`: hovered or focused, it lifts and pixel brackets light its four corners. Its title keeps its own colours, since project names carry brand colours.
   - A **line** (nav links, project rows, contact rows) carries the **menu cursor** (`MenuCursor`), a pixel ▶ in the space to its left, nudging while hovered or focused and standing still beside the current nav link. A row's title takes `signalTitle`.
   - A new link of either kind does the same.
+  - A list of line links is a `MenuList` (`src/components/menu-list.tsx`): the arrow keys move focus, and the cursor, through it like a game menu, while Tab still works as usual.
+- A grid of things to inspect rather than open (the stack) is an inventory: `ToggleGroup` with the `slot` variant and size, one selection across the whole inventory, and the hovered, focused or picked item read out beside its group label. At rest no slot is lit.
+- A live status (the availability dot) blinks in the accent with `animate-blink`.
 - Inline text links use the `text-link` utility. Buttons signal through their variants in `button.tsx`. Focus is one global rule in `globals.css`: a square outline in the accent, clear of any frame.
 
 ## Layout
