@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { ReactNode } from "react";
 import { MetaLabel } from "@/components/meta-label";
 import { PageTransition } from "@/components/page-transition";
 import { ArrowLeftIcon, ExternalLinkIcon } from "@/components/pixel-icons";
@@ -14,6 +15,22 @@ import { getProject, projects } from "@/data/projects";
 // page rather than showing a shell first: the title morph needs the heading
 // in place when the transition starts.
 export const instant = false;
+
+// One part of a project's case study: a subheading over prose.
+function StorySection({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <section className="flex max-w-3xl flex-col gap-5 text-lg leading-relaxed">
+      <h2 className="text-2xl tracking-tight">{title}</h2>
+      {children}
+    </section>
+  );
+}
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -36,6 +53,7 @@ export default async function ProjectPage(
   const { slug } = await props.params;
   const project = getProject(slug);
   if (!project) notFound();
+  const { story } = project;
 
   return (
     <PageTransition>
@@ -117,12 +135,46 @@ export default async function ProjectPage(
             </div>
           </dl>
 
-          <div className="flex min-w-0 flex-col gap-10">
-            <div className="flex max-w-3xl flex-col gap-5 text-lg leading-relaxed">
-              {project.description.map((paragraph, i) => (
+          {/* The case study: overview, my part, the decisions that shaped
+              it, and where it stands. */}
+          <div className="flex min-w-0 flex-col gap-14">
+            <StorySection title="Overview">
+              {story.overview.map((paragraph, i) => (
                 <p key={i}>{paragraph}</p>
               ))}
-            </div>
+            </StorySection>
+
+            <StorySection title="What I did">
+              {story.role.map((paragraph, i) => (
+                <p key={i}>{paragraph}</p>
+              ))}
+            </StorySection>
+
+            {story.decisions && (
+              <StorySection title="Key decisions">
+                <ol className="flex flex-col gap-6">
+                  {story.decisions.map((decision) => (
+                    <li key={decision.title} className="flex gap-4">
+                      {/* A pixel dot, as on the journey timeline. */}
+                      <span
+                        aria-hidden="true"
+                        className="mt-[0.6em] size-[calc(var(--pixel)*2)] shrink-0 bg-foreground"
+                      />
+                      <div className="flex flex-col gap-1">
+                        <h3>{decision.title}</h3>
+                        <p className="text-muted-foreground">
+                          {decision.body}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </StorySection>
+            )}
+
+            <StorySection title="Where it stands">
+              <p>{story.status}</p>
+            </StorySection>
 
             {(project.liveUrl || project.repoUrl) && (
               <div className="flex flex-wrap gap-3">

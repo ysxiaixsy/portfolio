@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { MenuCursor } from "@/components/menu-cursor";
+import { MenuList } from "@/components/menu-list";
 import { SectionLink } from "@/components/section-link";
 import { Button } from "@/components/ui/button";
 import { routeDepth, transitionTypesFor } from "@/lib/navigation";
@@ -73,7 +74,7 @@ function Nav({ pathname }: { pathname: string | null }) {
 
   return (
     <nav aria-label="Sections">
-      <ul className="flex items-center">
+      <MenuList orientation="horizontal" className="flex items-center">
         {links.map((link) => {
           const current = link.id === active;
           return (
@@ -103,7 +104,7 @@ function Nav({ pathname }: { pathname: string | null }) {
             </li>
           );
         })}
-      </ul>
+      </MenuList>
     </nav>
   );
 }

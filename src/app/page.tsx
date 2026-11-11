@@ -1,10 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
 import { ContactMethods } from "@/components/contact-methods";
 import { JourneyTimeline } from "@/components/journey-timeline";
 import { PageTransition } from "@/components/page-transition";
+import { NowPanel } from "@/components/now-panel";
 import { MailIcon, MapPinIcon } from "@/components/pixel-icons";
+import { PortraitSwap } from "@/components/portrait-swap";
 import { ProjectGrid } from "@/components/project-grid";
 import { ResumeButton } from "@/components/resume-button";
 import { SectionHeading } from "@/components/section-heading";
@@ -41,7 +42,11 @@ export default function Home() {
               {site.tagline}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <ResumeButton size="lg">Download résumé</ResumeButton>
+              {/* Short on phones, so both buttons fit on one line. */}
+              <ResumeButton size="lg">
+                <span className="sm:hidden">Résumé</span>
+                <span className="max-sm:hidden">Download résumé</span>
+              </ResumeButton>
               <Button
                 size="lg"
                 variant="outline"
@@ -55,18 +60,8 @@ export default function Home() {
             <SocialLinks className="mt-6" />
           </div>
 
-          {/* The real photo, sharp, in a pixel frame. */}
-          {site.photo && (
-            <Image
-              src={site.photo}
-              alt={site.name}
-              width={957}
-              height={960}
-              preload
-              sizes="(min-width: 1024px) 20rem, 8rem"
-              className="-order-1 size-32 object-cover pixel-frame pixel-raised lg:order-none lg:size-80"
-            />
-          )}
+          {/* Me in pixel art, flipping to the real photo. */}
+          <PortraitSwap className="-order-1 lg:order-none" />
         </section>
 
         <Separator />
@@ -85,50 +80,41 @@ export default function Home() {
         <section id="about" className="page-section">
           <SectionHeading>About</SectionHeading>
 
-          <div className="mt-12 flex max-w-3xl flex-col gap-5 text-lg leading-relaxed">
-            <p>
-              I&apos;m {site.name}, a third-year Computer Science student at the
-              University of the Philippines Visayas. I design and build
-              software, from the interface to the code behind it.
-            </p>
-            <p>
-              I&apos;ve loved making art for as long as I can remember. I
-              started with drawing, picked up Photoshop at 11, and it only
-              snowballed in high school, where I kept joining publication
-              committees. At 12, I started producing music too. To me, art
-              isn&apos;t limited to what you can see; it&apos;s anything
-              beautiful. That&apos;s what drew me to software: a product where
-              everything fits together and just works is beautiful too.
-            </p>
-            <p>
-              At Philippine Science High School – Western Visayas Campus, my
-              engineering and Design &amp; Make Technologies (DMT) classes gave
-              me my first taste of building things, and I started taking
-              programming seriously at UP Visayas. At Hack Iloilo 2026, I
-              designed the brand and every screen of{" "}
-              <Link
-                href="/projects/sackto"
-                transitionTypes={["nav-forward"]}
-                className="text-link"
-              >
-                SACKTO
-              </Link>
-              , a capacity-planning platform for the Iloilo Rice Processing
-              Complex, and helped plan and build it from start to finish.
-            </p>
-            <p>
-              Right now I&apos;m working on my next big project,{" "}
-              <Link
-                href="/projects/solnexus"
-                transitionTypes={["nav-forward"]}
-                className="text-link"
-              >
-                SolNexus
-              </Link>
-              : a lead and client communication pipeline for SolTech EMR, a real
-              client. On a five-person team, I&apos;m the full-stack developer,
-              lead UI/UX designer and Scrum Master.
-            </p>
+          {/* The story on the left, what I'm on now on the right. */}
+          <div className="mt-12 grid items-start gap-16 lg:grid-cols-2">
+            <div className="flex flex-col gap-5 text-lg leading-relaxed">
+              <p>
+                I&apos;m {site.name}, a third-year Computer Science student at the
+                University of the Philippines Visayas. I design and build
+                software, from the interface to the code behind it.
+              </p>
+              <p>
+                I&apos;ve loved making art for as long as I can remember. I
+                started with drawing, picked up Photoshop at 11, and it only
+                snowballed in high school, where I kept joining publication
+                committees. At 12, I started producing music too. To me, art
+                isn&apos;t limited to what you can see; it&apos;s anything
+                beautiful. That&apos;s what drew me to software: a product where
+                everything fits together and just works is beautiful too.
+              </p>
+              <p>
+                At Philippine Science High School – Western Visayas Campus, my
+                engineering and Design &amp; Make Technologies (DMT) classes gave
+                me my first taste of building things, and I started taking
+                programming seriously at UP Visayas. At Hack Iloilo 2026, I
+                designed the brand and every screen of{" "}
+                <Link
+                  href="/projects/sackto"
+                  transitionTypes={["nav-forward"]}
+                  className="text-link"
+                >
+                  SACKTO
+                </Link>
+                , a capacity-planning platform for the Iloilo Rice Processing
+                Complex, and helped plan and build it from start to finish.
+              </p>
+            </div>
+            <NowPanel />
           </div>
 
           <div className="mt-20 grid gap-16 lg:grid-cols-2">
@@ -173,7 +159,8 @@ export default function Home() {
                     aria-hidden="true"
                     className="flex size-3 shrink-0 items-center justify-center"
                   >
-                    <span className="size-1.5 bg-foreground" />
+                    {/* Live status: a dot blinking in the accent. */}
+                    <span className="size-1.5 animate-blink bg-highlight motion-reduce:animate-none" />
                   </span>
                   {site.status}
                 </Badge>

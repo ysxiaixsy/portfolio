@@ -107,6 +107,13 @@
       translate: var(--nudge-x) var(--nudge-y);
     }
   }
+  /* A live status light: on, then off, in whole frames. */
+  --animate-blink: blink 1.2s steps(1, end) infinite;
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);

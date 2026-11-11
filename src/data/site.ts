@@ -10,6 +10,9 @@ export const site = {
   initials: "JPS",
   // Path to your photo in /public, e.g. "/me.jpg". Leave empty to show initials.
   photo: "/portrait.jpg" as string,
+  // The photo as 128×128 pixel art on a transparent background, drawn by
+  // `npm run pixel-portrait`.
+  pixelPortrait: { src: "/pixel-portrait.png", size: 128 },
   // The hero, top to bottom: education, name, role, motto, tagline.
   education: "3rd-year BS Computer Science – UP Visayas",
   role: "Software Engineer",
@@ -19,6 +22,17 @@ export const site = {
   description:
     "Portfolio of JP Salomeo — projects, experience, and ways to get in touch.",
   email: "jasalomeo@up.edu.ph",
+  // The "Now" panel beside About: what I'm building at the moment (a project
+  // slug) and my part in it, then a few hard numbers, each from a project.
+  now: {
+    project: "solnexus",
+    role: "Full-stack developer, lead UI/UX designer and Scrum Master on a five-person team, for SolTech EMR, a real client.",
+  },
+  numbers: [
+    { value: "170+", label: "engine and AI tests", project: "tavern-card-game" },
+    { value: "94/94", label: "commits, built solo", project: "tavern-card-game" },
+    { value: "4", label: "people on the team I led", project: "rateupv" },
+  ],
   // The availability line in the Contact section.
   status: "Open to internships, jobs and freelance work",
   location: "Iloilo, Philippines",

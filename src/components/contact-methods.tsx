@@ -1,5 +1,6 @@
 import type { ComponentType, SVGProps } from "react";
 import { MenuCursor } from "@/components/menu-cursor";
+import { MenuList } from "@/components/menu-list";
 import { ExternalLinkIcon, MailIcon } from "@/components/pixel-icons";
 import {
   Item,
@@ -41,7 +42,7 @@ const methods: Method[] = [
 // projects past the featured ones, menu cursor included.
 export function ContactMethods() {
   return (
-    <ul className="pixel-rule pt-(--pixel)">
+    <MenuList className="pixel-rule pt-(--pixel)">
       {methods.map((method) => (
         <li key={method.href}>
           <Item
@@ -75,6 +76,6 @@ export function ContactMethods() {
           </Item>
         </li>
       ))}
-    </ul>
+    </MenuList>
   );
 }

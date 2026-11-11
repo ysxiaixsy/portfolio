@@ -35,7 +35,8 @@ export function ProjectCard({
     >
       <Card
         className={cn(
-          "relative h-full pt-0 [--card-spacing:--spacing(5)]",
+          // A card you can open stands off the page.
+          "relative h-full pt-0 pixel-raised [--card-spacing:--spacing(5)]",
           signalSurface,
         )}
       >

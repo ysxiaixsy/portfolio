@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "resume": "node scripts/resume-pdf.mjs",
-    "pixel-art": "node scripts/pixel-art.mjs"
+    "pixel-art": "node scripts/pixel-art.mjs",
+    "pixel-portrait": "node scripts/pixel-portrait.mjs",
+    "favicon": "node scripts/favicon.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
