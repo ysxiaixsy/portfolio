@@ -1,3 +1,4 @@
+import { MenuList } from "@/components/menu-list";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectRow } from "@/components/project-row";
 import type { Project } from "@/data/projects";
@@ -22,13 +23,15 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
           <h3 className="text-2xl tracking-tight">
             More projects
           </h3>
-          <ul className="mt-4 pixel-rule pt-(--pixel)">
+          {/* The last row drops its bottom rule: the section's Separator
+              follows. */}
+          <MenuList className="mt-4 pixel-rule pt-(--pixel)">
             {rest.map((project) => (
-              <li key={project.slug}>
+              <li key={project.slug} className="last:*:bg-none">
                 <ProjectRow project={project} />
               </li>
             ))}
-          </ul>
+          </MenuList>
         </div>
       )}
     </div>
