@@ -1,34 +1,102 @@
+"use client";
+
+import { useState } from "react";
 import { MetaLabel } from "@/components/meta-label";
 import { StackLogo } from "@/components/stack-logo";
-import { Badge } from "@/components/ui/badge";
-import { stacks } from "@/data/tech-stack";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { type StackItem, stacks } from "@/data/tech-stack";
+import { cn } from "@/lib/utils";
 
-// Every tool I use, grouped by kind, as one-colour logo badges.
-export function TechStack() {
+type Pointing = {
+  // The slot picked with a click, tap or Enter: it stays lit, in the accent.
+  selected: string | null;
+  // The slot under the pointer or keyboard focus, read out while it's there.
+  hovered: string | null;
+};
+
+// One kind of tool as a row of inventory slots: pixel logos in square
+// frames. Beside the group's label it reads out the hovered or picked item,
+// or how many it holds. Arrow keys move between slots.
+function StackGroup({
+  title,
+  items,
+  pointing,
+  onSelect,
+  onHover,
+}: {
+  title: string;
+  items: StackItem[];
+  pointing: Pointing;
+  onSelect: (title: string | null) => void;
+  onHover: (title: string | null) => void;
+}) {
+  const names = items.map((item) => item.title);
+  const shown = [pointing.hovered, pointing.selected].find(
+    (name) => name && names.includes(name),
+  );
+
   return (
-    <dl className="flex flex-col gap-6">
+    <div className="flex flex-col gap-3">
+      <div className="flex items-baseline justify-between gap-4">
+        <MetaLabel>{title}</MetaLabel>
+        <span
+          aria-hidden="true"
+          className={cn("text-sm", !shown && "text-muted-foreground")}
+        >
+          {shown ?? `${items.length} items`}
+        </span>
+      </div>
+      <ToggleGroup
+        aria-label={title}
+        value={
+          pointing.selected && names.includes(pointing.selected)
+            ? [pointing.selected]
+            : []
+        }
+        onValueChange={(value) => onSelect(value[0] ?? null)}
+        variant="slot"
+        size="slot"
+        spacing={3}
+        className="w-full flex-wrap"
+      >
+        {items.map((item) => (
+          <ToggleGroupItem
+            key={item.title}
+            value={item.title}
+            aria-label={item.title}
+            onPointerEnter={() => onHover(item.title)}
+            onPointerLeave={() => onHover(null)}
+            // Keyboard focus reads out the item too.
+            onFocus={() => onHover(item.title)}
+            onBlur={() => onHover(null)}
+          >
+            <StackLogo item={item} />
+          </ToggleGroupItem>
+        ))}
+      </ToggleGroup>
+    </div>
+  );
+}
+
+// Every tool I use, grouped by kind, as one inventory: at rest it's all ink,
+// and at most one slot, the picked one, lights up.
+export function TechStack() {
+  const [pointing, setPointing] = useState<Pointing>({
+    selected: null,
+    hovered: null,
+  });
+
+  return (
+    <div className="flex flex-col gap-8">
       {stacks.map((group) => (
-        <div key={group.title} className="flex flex-col gap-2.5">
-          <dt>
-            <MetaLabel>{group.title}</MetaLabel>
-          </dt>
-          <dd>
-            <ul className="flex flex-wrap gap-2">
-              {group.items.map((item) => (
-                <li key={item.title}>
-                  <Badge
-                    variant="outline"
-                    className="h-7 gap-2 px-2.5 text-sm has-data-[icon=inline-start]:pl-2 [&>svg]:size-4!"
-                  >
-                    <StackLogo item={item} data-icon="inline-start" />
-                    {item.title}
-                  </Badge>
-                </li>
-              ))}
-            </ul>
-          </dd>
-        </div>
+        <StackGroup
+          key={group.title}
+          {...group}
+          pointing={pointing}
+          onSelect={(selected) => setPointing((p) => ({ ...p, selected }))}
+          onHover={(hovered) => setPointing((p) => ({ ...p, hovered }))}
+        />
       ))}
-    </dl>
+    </div>
   );
 }
