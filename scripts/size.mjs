@@ -13,12 +13,13 @@ import { gzipSync } from "node:zlib";
 
 const root = join(import.meta.dirname, "..", ".next");
 
-// Gzipped bytes. `null` means not budgeted yet.
+// Gzipped bytes. Set from the build after the game-interface restyle
+// (34.4 / 15.1 / 222.7 / 16.5 KB), with a little room.
 const budgets = {
-  html: null,
-  css: null,
-  js: null,
-  fonts: null,
+  html: 36 * 1024,
+  css: 16 * 1024,
+  js: 228 * 1024,
+  fonts: 18 * 1024,
 };
 
 const html = await readFile(join(root, "server", "app", "index.html")).catch(
