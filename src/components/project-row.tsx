@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { MenuCursor } from "@/components/menu-cursor";
+import { MetaLabel } from "@/components/meta-label";
 import { ProjectTitle } from "@/components/project-title";
-import { Badge } from "@/components/ui/badge";
+import { StatusBadge } from "@/components/status-badge";
 import {
   Item,
   ItemActions,
@@ -9,12 +10,12 @@ import {
   ItemDescription,
   ItemTitle,
 } from "@/components/ui/item";
-import type { Project } from "@/data/projects";
+import { type Project, projectNumber } from "@/data/projects";
 import { signalTitle } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
-// A project past the featured ones, as one row of a list: title and summary,
-// with its role on the right on wide screens. The menu cursor sits in the
+// A project past the featured ones, as one row of a list: its quest number,
+// title, status and summary, with its role on the right on wide screens. The menu cursor sits in the
 // gutter left of the title.
 export function ProjectRow({ project }: { project: Project }) {
   return (
@@ -37,8 +38,9 @@ export function ProjectRow({ project }: { project: Project }) {
           style={{ display: "flex" }}
         >
           <MenuCursor className="absolute top-[calc(50%-7px)] -left-4" />
+          <MetaLabel>{projectNumber(project)}</MetaLabel>
           <ProjectTitle project={project} />
-          {project.inProgress && <Badge variant="outline">In progress</Badge>}
+          <StatusBadge project={project} />
         </ItemTitle>
         <ItemDescription className="line-clamp-none text-base">
           {project.summary}

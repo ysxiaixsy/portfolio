@@ -14,24 +14,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
+import { Window } from "@/components/window";
 import { site } from "@/data/site";
 
 const initialState: ContactState = { status: "idle" };
 
-// The form, titled so it reads as its own way to get in touch.
+// The form, in its own window and titled so it reads as its own way to get
+// in touch.
 export function ContactForm() {
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-1.5">
-        <h3 className="text-2xl tracking-tight">
-          Send a message
-        </h3>
-        <p className="text-muted-foreground">
-          It lands in my inbox, and I&apos;ll reply to the email you give.
-        </p>
+    <Window title="New message" className="self-start">
+      <div className="flex flex-col gap-6 p-5 sm:p-6">
+        <div className="flex flex-col gap-1.5">
+          <h3 className="text-2xl tracking-tight">Send a message</h3>
+          <p className="text-muted-foreground">
+            It lands in my inbox, and I&apos;ll reply to the email you give.
+          </p>
+        </div>
+        <ContactFormBody />
       </div>
-      <ContactFormBody />
-    </div>
+    </Window>
   );
 }
 

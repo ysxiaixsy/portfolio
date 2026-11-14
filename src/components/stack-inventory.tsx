@@ -1,13 +1,24 @@
 "use client";
 
+import Link from "next/link";
 import { type ReactNode, useState } from "react";
+import { MenuCursor } from "@/components/menu-cursor";
+import { MenuList } from "@/components/menu-list";
 import { MetaLabel } from "@/components/meta-label";
+import { CardContent } from "@/components/ui/card";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Window } from "@/components/window";
+import { signalTitle } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
-// A tool as the inventory sees it: its name and its logo, already drawn on
-// the server (TechStack), so the logo data never ships to the browser.
-export type InventoryItem = { title: string; logo: ReactNode };
+// A tool as the inventory sees it: its name, its logo, already drawn on the
+// server (TechStack) so the logo data never ships to the browser, and the
+// projects that list it in their stack.
+export type InventoryItem = {
+  title: string;
+  logo: ReactNode;
+  usedIn: { slug: string; title: string }[];
+};
 export type InventoryGroup = { title: string; items: InventoryItem[] };
 
 type Pointing = {
@@ -79,13 +90,78 @@ function InventoryRow({
   );
 }
 
-// The interactive half of the stack: one selection across every group, and
-// the hovered or focused slot read out beside its group's label.
+// The picked item's description, like the box under a game inventory: its
+// name and kind, and the projects it was used in. At rest it says what
+// picking does, so the layout holds still.
+function ItemWindow({
+  item,
+  group,
+}: {
+  item?: InventoryItem;
+  group?: string;
+}) {
+  return (
+    <Window title="Item" aside={group}>
+      <CardContent className="flex min-h-28 flex-col justify-center gap-2 p-5">
+        {!item ? (
+          <p className="text-muted-foreground">
+            Pick a tool to see where I&apos;ve used it.
+          </p>
+        ) : (
+          <>
+            <p className="text-xl tracking-tight">{item.title}</p>
+            {item.usedIn.length === 0 ? (
+              <p className="text-muted-foreground">
+                Not in a project listed here.
+              </p>
+            ) : (
+              <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                <MetaLabel>Used in</MetaLabel>
+                <MenuList
+                  orientation="horizontal"
+                  // Pulled left by the cursor's width and gap, so the first
+                  // name lines up with the item's.
+                  className="-ml-[14px] flex basis-full flex-wrap gap-x-4 gap-y-1"
+                >
+                  {item.usedIn.map((project) => (
+                    <li key={project.slug}>
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        transitionTypes={["nav-forward"]}
+                        className={cn(
+                          "group flex items-center gap-1.5",
+                          signalTitle,
+                        )}
+                      >
+                        <MenuCursor />
+                        {project.title}
+                      </Link>
+                    </li>
+                  ))}
+                </MenuList>
+              </div>
+            )}
+          </>
+        )}
+      </CardContent>
+    </Window>
+  );
+}
+
+// The interactive half of the stack: one selection across every group, the
+// hovered or focused slot read out beside its group's label, and the picked
+// one described in the window below.
 export function StackInventory({ groups }: { groups: InventoryGroup[] }) {
   const [pointing, setPointing] = useState<Pointing>({
     selected: null,
     hovered: null,
   });
+  const pickedGroup = groups.find((group) =>
+    group.items.some((item) => item.title === pointing.selected),
+  );
+  const picked = pickedGroup?.items.find(
+    (item) => item.title === pointing.selected,
+  );
 
   return (
     <div className="flex flex-col gap-8">
@@ -98,6 +174,7 @@ export function StackInventory({ groups }: { groups: InventoryGroup[] }) {
           onHover={(hovered) => setPointing((p) => ({ ...p, hovered }))}
         />
       ))}
+      <ItemWindow item={picked} group={pickedGroup?.title} />
     </div>
   );
 }

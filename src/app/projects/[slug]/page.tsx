@@ -2,14 +2,27 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
+import { JsonLd } from "@/components/json-ld";
+import { MenuList } from "@/components/menu-list";
 import { MetaLabel } from "@/components/meta-label";
 import { PageTransition } from "@/components/page-transition";
 import { ArrowLeftIcon, ExternalLinkIcon } from "@/components/pixel-icons";
 import { ProjectMedia } from "@/components/project-media";
+import { ProjectRow } from "@/components/project-row";
 import { ProjectTitle } from "@/components/project-title";
 import { Title } from "@/components/section-heading";
+import { StatusBadge } from "@/components/status-badge";
+import { TechList } from "@/components/tech-list";
 import { Button } from "@/components/ui/button";
-import { getProject, projects } from "@/data/projects";
+import { Window } from "@/components/window";
+import {
+  getProject,
+  nextProject,
+  projectNumber,
+  projects,
+} from "@/data/projects";
+import { site } from "@/data/site";
+import { siteUrl } from "@/lib/site-url";
 
 // Every project page is prerendered, so a navigation waits for the whole
 // page rather than showing a shell first: the title morph needs the heading
@@ -43,7 +56,11 @@ export async function generateMetadata(
   const project = getProject(slug);
   // An unknown slug renders the 404 page (notFound below), so title it too.
   return project
-    ? { title: project.title, description: project.summary }
+    ? {
+        title: project.title,
+        description: project.summary,
+        alternates: { canonical: `/projects/${project.slug}` },
+      }
     : { title: "Page not found" };
 }
 
@@ -58,6 +75,18 @@ export default async function ProjectPage(
   return (
     <PageTransition>
       <article className="py-12 sm:py-16">
+        <JsonLd
+          data={{
+            "@type": "CreativeWork",
+            name: project.title,
+            description: project.summary,
+            url: `${siteUrl}/projects/${project.slug}`,
+            dateCreated: String(project.year),
+            keywords: project.tech.join(", "),
+            author: { "@type": "Person", name: site.name, url: siteUrl },
+            sameAs: [project.liveUrl, project.repoUrl].filter(Boolean),
+          }}
+        />
         <Button
           variant="ghost"
           size="sm"
@@ -85,55 +114,58 @@ export default async function ProjectPage(
           {project.summary}
         </p>
 
-        {/* Covers suit the project grid; here only a real screenshot shows. */}
-
+        {/* Covers suit the project grid; here only a real screenshot shows,
+            in a window of its own. */}
         {project.screenshot && (
-          <ProjectMedia
-            project={project}
-            eager
-            sizes="(min-width: 1280px) 1210px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 32px)"
-            className="mt-10"
-          />
+          <Window title="Preview" className="mt-10">
+            <ProjectMedia
+              project={project}
+              eager
+              framed={false}
+              sizes="(min-width: 1280px) 1210px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 32px)"
+            />
+          </Window>
         )}
 
-        {/* Metadata sits in a left rail on large screens. */}
-        <div className="mt-10 grid gap-10 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-12">
-          <dl className="flex flex-col gap-5">
-            {project.inProgress && (
+        {/* The quest's details sit in a left rail on large screens, and
+            follow the story down the page. */}
+        <div className="mt-12 grid items-start gap-10 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-12">
+          <Window
+            title={`Quest ${projectNumber(project)}`}
+            aside={<StatusBadge project={project} />}
+            className="lg:sticky lg:top-[calc(var(--header-height)+1.5rem)]"
+          >
+            <dl className="flex flex-col gap-5 p-5">
               <div className="flex flex-col gap-1">
                 <dt>
-                  <MetaLabel>Status</MetaLabel>
+                  <MetaLabel>Year</MetaLabel>
                 </dt>
-                <dd>In progress</dd>
+                <dd>{project.year}</dd>
               </div>
-            )}
-            <div className="flex flex-col gap-1">
-              <dt>
-                <MetaLabel>Year</MetaLabel>
-              </dt>
-              <dd>{project.year}</dd>
-            </div>
-            <div className="flex flex-col gap-1">
-              <dt>
-                <MetaLabel>Role</MetaLabel>
-              </dt>
-              <dd>{project.role}</dd>
-            </div>
-            {project.event && (
               <div className="flex flex-col gap-1">
                 <dt>
-                  <MetaLabel>Event</MetaLabel>
+                  <MetaLabel>Role</MetaLabel>
                 </dt>
-                <dd>{project.event}</dd>
+                <dd>{project.role}</dd>
               </div>
-            )}
-            <div className="flex flex-col gap-1">
-              <dt>
-                <MetaLabel>Stack</MetaLabel>
-              </dt>
-              <dd>{project.tech.join(", ")}</dd>
-            </div>
-          </dl>
+              {project.event && (
+                <div className="flex flex-col gap-1">
+                  <dt>
+                    <MetaLabel>Event</MetaLabel>
+                  </dt>
+                  <dd>{project.event}</dd>
+                </div>
+              )}
+              <div className="flex flex-col gap-2">
+                <dt>
+                  <MetaLabel>Stack</MetaLabel>
+                </dt>
+                <dd>
+                  <TechList tech={project.tech} />
+                </dd>
+              </div>
+            </dl>
+          </Window>
 
           {/* The case study: overview, my part, the decisions that shaped
               it, and where it stands. */}
@@ -153,13 +185,15 @@ export default async function ProjectPage(
             {story.decisions && (
               <StorySection title="Key decisions">
                 <ol className="flex flex-col gap-6">
-                  {story.decisions.map((decision) => (
+                  {story.decisions.map((decision, i) => (
                     <li key={decision.title} className="flex gap-4">
-                      {/* A pixel dot, as on the journey timeline. */}
+                      {/* Its number, on a gold plate. */}
                       <span
                         aria-hidden="true"
-                        className="mt-[0.6em] size-[calc(var(--pixel)*2)] shrink-0 bg-foreground"
-                      />
+                        className="mt-0.5 flex h-6 w-8 shrink-0 items-center justify-center bg-gold text-sm text-gold-foreground"
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
                       <div className="flex flex-col gap-1">
                         <h3>{decision.title}</h3>
                         <p className="text-muted-foreground">
@@ -213,6 +247,16 @@ export default async function ProjectPage(
                 )}
               </div>
             )}
+
+            {/* On to the next quest, without going back to the list. */}
+            <nav aria-label="Next project" className="max-w-3xl">
+              <MetaLabel>Next quest</MetaLabel>
+              <MenuList className="mt-3 pixel-rule pt-(--pixel)">
+                <li>
+                  <ProjectRow project={nextProject(project)} />
+                </li>
+              </MenuList>
+            </nav>
           </div>
         </div>
       </article>
