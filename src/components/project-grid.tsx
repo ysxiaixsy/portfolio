@@ -11,9 +11,9 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
   return (
     <div className="flex flex-col gap-16">
       <ul className="grid gap-6 md:grid-cols-2">
-        {featured.map((project, index) => (
+        {featured.map((project) => (
           <li key={project.slug}>
-            <ProjectCard project={project} eager={index === 0} />
+            <ProjectCard project={project} />
           </li>
         ))}
       </ul>

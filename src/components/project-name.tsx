@@ -6,6 +6,8 @@ const agency = localFont({
   src: "../../public/projects/rateupv/AgencyFB-Bold.ttf",
   weight: "700",
   display: "swap",
+  // One word, below the fold on the home page: it can wait its turn.
+  preload: false,
   fallback: ["Impact", "sans-serif"],
 });
 

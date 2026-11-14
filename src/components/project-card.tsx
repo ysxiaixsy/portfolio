@@ -19,14 +19,7 @@ import { cn } from "@/lib/utils";
 // A featured project: its screenshot (or cover) above the title, summary,
 // role and stack. Hovered or focused, the card lifts and selection brackets
 // light its corners; the name keeps its own colours.
-export function ProjectCard({
-  project,
-  eager,
-}: {
-  project: Project;
-  // Set this on the first card, whose screenshot is above the fold.
-  eager?: boolean;
-}) {
+export function ProjectCard({ project }: { project: Project }) {
   return (
     <Link
       href={`/projects/${project.slug}`}
@@ -43,7 +36,6 @@ export function ProjectCard({
         <SelectionCorners />
         <ProjectMedia
           project={project}
-          eager={eager}
           sizes="(min-width: 1280px) 600px, (min-width: 768px) calc(50vw - 48px), calc(100vw - 32px)"
           framed={false}
           className="border-b-(length:--pixel) border-frame"
