@@ -23,6 +23,15 @@
   --gold-foreground: oklch(0.2 0.015 262);
   --success: oklch(0.78 0.15 150);
   --success-foreground: oklch(0.2 0.015 262);
+  /* The footer's skyline (Skyline): three bands of sky, the sun, the far
+     hills, the near towers and the ground. Dark mode turns it to night. */
+  --sky-1: oklch(0.8 0.09 245);
+  --sky-2: oklch(0.87 0.07 235);
+  --sky-3: oklch(0.93 0.045 225);
+  --sun: oklch(0.86 0.16 85);
+  --hill: oklch(0.74 0.08 200);
+  --tower: oklch(0.42 0.09 255);
+  --ground: oklch(0.42 0.08 150);
   --background: oklch(0.99 0.002 262);
   --foreground: oklch(0.2 0.015 262);
   --muted: oklch(0.96 0.004 262);
@@ -63,6 +72,13 @@
     --highlight-inverse: oklch(0.48 0.2 262);
     --gold: oklch(0.84 0.14 85);
     --success: oklch(0.8 0.15 150);
+    --sky-1: oklch(0.16 0.04 275);
+    --sky-2: oklch(0.22 0.06 280);
+    --sky-3: oklch(0.3 0.08 285);
+    --sun: oklch(0.93 0.03 90);
+    --hill: oklch(0.3 0.06 270);
+    --tower: oklch(0.12 0.03 265);
+    --ground: oklch(0.2 0.04 160);
     --background: oklch(0.17 0.012 262);
     --foreground: oklch(0.95 0.005 262);
     --muted: oklch(0.22 0.014 262);
@@ -136,6 +152,19 @@
   @keyframes march {
     to {
       translate: calc(var(--pixel) * -4) 0;
+    }
+  }
+  /* The skyline's clouds and its walker, crossing in whole pixels. */
+  --animate-drift: drift 60s steps(100, end) infinite alternate;
+  @keyframes drift {
+    to {
+      translate: 300px 0;
+    }
+  }
+  --animate-walk: walk 40s steps(200, end) infinite;
+  @keyframes walk {
+    to {
+      translate: 100cqw 0;
     }
   }
   --radius-sm: calc(var(--radius) * 0.6);
