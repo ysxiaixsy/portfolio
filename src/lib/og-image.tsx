@@ -7,20 +7,21 @@ import { site } from "@/data/site";
 export const ogSize = { width: 1200, height: 630 };
 export const ogContentType = "image/png";
 
-// Satori can't fetch /public paths, so inline the portrait as a data URL.
-const portrait = site.photo
-  ? `data:image/${extname(site.photo) === ".png" ? "png" : "jpeg"};base64,${await readFile(
-      join(process.cwd(), "public", site.photo),
-      "base64",
-    )}`
-  : null;
+// Satori can't fetch /public paths, so inline the pixel portrait as a data
+// URL.
+const portrait = `data:image/png;base64,${await readFile(
+  join(process.cwd(), "public", site.pixelPortrait.src),
+  "base64",
+)}`;
 
 // Social cards are images, not themed pages, so colors are fixed here
 // (matching the dark theme in globals.css).
 const colors = {
   background: "#0d0f15",
+  panel: "#1c1e26",
   foreground: "#edeef2",
   muted: "#9a9fa7",
+  gold: "#f2bf3f",
 };
 
 async function inlineLogo(logo: ProjectLogo) {
@@ -44,7 +45,7 @@ export async function renderOgImage({
 }) {
   const logoSrc = logo && (await inlineLogo(logo));
   // Wordmarks replace the title; marks sit beside it.
-  const logoHeight = logo?.wordmark ? 88 : 68;
+  const logoHeight = logo?.wordmark ? 84 : 62;
   const logoImage = logo && logoSrc && (
     // eslint-disable-next-line @next/next/no-img-element
     <img
@@ -55,65 +56,126 @@ export async function renderOgImage({
     />
   );
 
+  // The card is one game window, like the site's: a paper frame under a
+  // paper title bar, on a gold hard shadow. (Satori can't load the site's
+  // WOFF2 pixel face, so the type is its default sans.)
   return new ImageResponse(
     (
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
           width: "100%",
           height: "100%",
-          padding: 80,
+          padding: "44px 56px 56px 44px",
           background: colors.background,
           color: colors.foreground,
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <div style={{ fontSize: 28, color: colors.muted }}>{eyebrow}</div>
-          {logo?.wordmark ? (
-            logoImage
-          ) : (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 24,
-                fontSize: 68,
-                fontWeight: 600,
-                letterSpacing: -2,
-                lineHeight: 1.1,
-              }}
-            >
-              {logoImage}
-              {/* Satori ignores \n in text, so each line gets its own block. */}
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                {title.split("\n").map((line) => (
-                  <div key={line}>{line}</div>
-                ))}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            height: "100%",
+            border: `6px solid ${colors.foreground}`,
+            boxShadow: `12px 12px 0 ${colors.gold}`,
+            background: colors.background,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "8px 24px",
+              background: colors.foreground,
+              color: colors.background,
+              fontSize: 22,
+              letterSpacing: 4,
+              textTransform: "uppercase",
+            }}
+          >
+            <div>{eyebrow}</div>
+            <div style={{ display: "flex", gap: 6 }}>
+              <div style={{ width: 18, height: 18, background: colors.gold }} />
+              <div
+                style={{ width: 18, height: 18, background: colors.background }}
+              />
+              <div
+                style={{ width: 18, height: 18, background: colors.background }}
+              />
+            </div>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              flexGrow: 1,
+              padding: "40px 48px",
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+              {logo?.wordmark ? (
+                logoImage
+              ) : (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 24,
+                    fontSize: 60,
+                    fontWeight: 600,
+                    letterSpacing: -2,
+                    lineHeight: 1.1,
+                  }}
+                >
+                  {logoImage}
+                  {/* Satori ignores \n in text, so each line gets its own
+                      block. */}
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    {title.split("\n").map((line) => (
+                      <div key={line}>{line}</div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {description && (
+                <div
+                  style={{
+                    fontSize: 30,
+                    lineHeight: 1.4,
+                    color: colors.muted,
+                  }}
+                >
+                  {description}
+                </div>
+              )}
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: 28 }}>
+              {/* The 128px pixel portrait at 1×, in a square frame on a
+                  small gold shadow. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={portrait}
+                alt=""
+                width={128}
+                height={128}
+                style={{
+                  background: colors.panel,
+                  border: `4px solid ${colors.foreground}`,
+                  boxShadow: `6px 6px 0 ${colors.gold}`,
+                }}
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <div style={{ fontSize: 34, fontWeight: 600 }}>{site.name}</div>
+                <div style={{ fontSize: 26, color: colors.muted }}>
+                  {site.role}
+                </div>
               </div>
             </div>
-          )}
-          {description && (
-            <div style={{ fontSize: 32, lineHeight: 1.4, color: colors.muted }}>
-              {description}
-            </div>
-          )}
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-          {portrait && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={portrait}
-              alt=""
-              width={80}
-              height={80}
-              style={{ borderRadius: 9999, objectFit: "cover" }}
-            />
-          )}
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <div style={{ fontSize: 30, fontWeight: 600 }}>{site.name}</div>
-            <div style={{ fontSize: 24, color: colors.muted }}>{site.role}</div>
           </div>
         </div>
       </div>

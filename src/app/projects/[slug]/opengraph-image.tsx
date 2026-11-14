@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getProject, projects } from "@/data/projects";
+import { getProject, projectNumber, projects } from "@/data/projects";
 import { site } from "@/data/site";
 import { ogContentType, ogSize, renderOgImage } from "@/lib/og-image";
 
@@ -21,7 +21,7 @@ export default async function Image({
   if (!project) notFound();
 
   return renderOgImage({
-    eyebrow: `Project · ${project.year}`,
+    eyebrow: `Quest ${projectNumber(project)} · ${project.year}`,
     title: project.title,
     description: project.summary,
     logo: project.logo,
