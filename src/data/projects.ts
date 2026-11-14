@@ -334,3 +334,20 @@ export const projects: Project[] = [
 export function getProject(slug: string) {
   return projects.find((project) => project.slug === slug);
 }
+
+// Where a project stands, from what its entry says: still being built, up
+// at a public address, or finished without one.
+export function projectStatus(project: Project) {
+  if (project.inProgress) return "In progress";
+  return project.liveUrl ? "Live" : "Complete";
+}
+
+// A project's place in the list, as a two-digit quest number: "01", "02", …
+export function projectNumber(project: Project) {
+  return String(projects.indexOf(project) + 1).padStart(2, "0");
+}
+
+// The project after this one, wrapping from the last back to the first.
+export function nextProject(project: Project) {
+  return projects[(projects.indexOf(project) + 1) % projects.length];
+}

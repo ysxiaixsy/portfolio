@@ -13,17 +13,20 @@ export const site = {
   // The photo as 128×128 pixel art on a transparent background, drawn by
   // `npm run pixel-portrait`.
   pixelPortrait: { src: "/pixel-portrait.png", size: 128 },
-  // The hero, top to bottom: education, name, role, motto, tagline.
+  // The hero's character sheet: the name, the motto, then role (Class),
+  // education (Guild), location (Base) and status as rows, and the tagline.
   education: "3rd-year BS Computer Science – UP Visayas",
   role: "Software Engineer",
   motto: "Engineered first, designed with care.",
   tagline:
     "I engineer software end to end, from web apps and games down to low-level systems, and design the interfaces people use to reach them.",
+  // What search results and link previews say under the title.
   description:
-    "Portfolio of JP Salomeo — projects, experience, and ways to get in touch.",
+    "JP Salomeo is a software engineer and third-year BS Computer Science student at UP Visayas who builds web apps, games and low-level systems, and designs their interfaces.",
   email: "jasalomeo@up.edu.ph",
-  // The "Now" panel beside About: what I'm building at the moment (a project
-  // slug) and my part in it, then a few hard numbers, each from a project.
+  // The "Current quest" window beside About: what I'm building at the moment
+  // (a project slug) and my part in it. Then the hero's stats: a few hard
+  // numbers, each from a project.
   now: {
     project: "solnexus",
     role: "Full-stack developer, lead UI/UX designer and Scrum Master on a five-person team, for SolTech EMR, a real client.",
@@ -33,8 +36,12 @@ export const site = {
     { value: "94/94", label: "commits, built solo", project: "tavern-card-game" },
     { value: "4", label: "people on the team I led", project: "rateupv" },
   ],
-  // The availability line in the Contact section.
+  // The plate under the hero portrait: my year, as a level.
+  level: "LV 3 · BS CS",
+  // The availability line in the hero and the Contact section, and its
+  // short form in the header.
   status: "Open to internships, jobs and freelance work",
+  statusShort: "Open to work",
   location: "Iloilo, Philippines",
   // Path to your résumé PDF in /public, e.g. "/resume.pdf". Leave empty and
   // the résumé buttons show a "coming soon" toast instead.

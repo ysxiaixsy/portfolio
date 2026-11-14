@@ -10,7 +10,8 @@
     "resume": "node scripts/resume-pdf.mjs",
     "pixel-art": "node scripts/pixel-art.mjs",
     "pixel-portrait": "node scripts/pixel-portrait.mjs",
-    "favicon": "node scripts/favicon.mjs"
+    "favicon": "node scripts/favicon.mjs",
+    "size": "node scripts/size.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

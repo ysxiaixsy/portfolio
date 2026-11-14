@@ -7,5 +7,10 @@ export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
-  return renderOgImage({ eyebrow: "Portfolio", title: site.tagline });
+  return renderOgImage({
+    eyebrow: "Player 1",
+    // The card's footer already carries the name.
+    title: site.motto,
+    description: site.tagline,
+  });
 }

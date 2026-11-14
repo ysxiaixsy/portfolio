@@ -18,7 +18,7 @@ const toggleVariants = cva(
         // A picture that flips when pressed (the hero portrait): a raised
         // block whose frame lights on hover, pushed down like a key.
         portrait:
-          "bg-transparent pixel-frame pixel-raised transition-[box-shadow,translate] hover:bg-transparent hover:[--frame-color:var(--highlight)] aria-pressed:bg-transparent active:translate-(--pixel) active:[--raise-depth:0px]",
+          "bg-transparent pixel-frame pixel-raised [--frame-color:var(--foreground)] transition-[box-shadow,translate] hover:bg-transparent hover:[--frame-color:var(--highlight)] aria-pressed:bg-transparent active:translate-(--pixel) active:[--raise-depth:0px]",
       },
       size: {
         default:

@@ -83,11 +83,12 @@ function Nav({ pathname }: { pathname: string | null }) {
                 variant="ghost"
                 nativeButton={false}
                 aria-current={current ? "location" : undefined}
-                // The active link is the accent signal, "you are here", with
-                // the menu cursor beside it.
+                // On the HUD's ink bar. The active link is the selected menu
+                // item, "you are here": a paper chip with the cursor in it.
                 className={cn(
-                  "group gap-1 px-1.5 text-muted-foreground sm:gap-1.5 sm:px-2",
-                  current && "text-highlight",
+                  "group gap-1 px-1.5 text-background/70 hover:text-highlight-inverse sm:gap-1.5 sm:px-2",
+                  current &&
+                    "bg-background text-foreground hover:text-foreground",
                 )}
                 render={
                   <SectionLink
@@ -98,7 +99,7 @@ function Nav({ pathname }: { pathname: string | null }) {
                   />
                 }
               >
-                <MenuCursor />
+                <MenuCursor className="text-highlight-inverse group-aria-[current]:text-highlight" />
                 {link.label}
               </Button>
             </li>

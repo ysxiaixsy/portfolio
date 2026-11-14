@@ -9,6 +9,7 @@ import { stacks } from "@/data/tech-stack";
 
 export const metadata: Metadata = {
   title: "Résumé",
+  alternates: { canonical: "/resume" },
 };
 
 // The résumé is a document to print and parse, so it keeps a plain sans

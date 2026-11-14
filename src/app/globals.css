@@ -6,14 +6,32 @@
    from the visitor's choice or, by default, their OS setting. */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* Cool paper and ink, with one cobalt accent. The accent (`highlight`) only
-   signals interaction: hover, focus and the active nav link (see AGENTS.md).
-   Everything is pixel art: square corners, notched frames (`pixel-frame`)
-   and dotted rules (`pixel-rule`), all in the `frame` colour at rest. */
+/* Cool paper and ink, drawn as a game interface (see AGENTS.md). Cobalt
+   (`highlight`) is the signal: hover, focus and "you are here". Gold is the
+   colour at rest: the hard shadow under anything you can press or open, name
+   plates and marks. Everything is pixel art: square corners, notched frames
+   (`pixel-frame`), dotted rules (`pixel-rule`) and dither. */
 :root {
   --rateupv-primary: #a31f33;
   --highlight: oklch(0.52 0.2 262);
   --highlight-foreground: oklch(0.99 0.003 262);
+  /* The signal on an ink surface (the HUD bar, window title bars), where the
+     surface is the other theme's colour: so this is the other theme's cobalt. */
+  --highlight-inverse: oklch(0.76 0.13 262);
+  /* Gold, and the green of something live. Both carry ink text. */
+  --gold: oklch(0.8 0.15 85);
+  --gold-foreground: oklch(0.2 0.015 262);
+  --success: oklch(0.78 0.15 150);
+  --success-foreground: oklch(0.2 0.015 262);
+  /* The footer's skyline (Skyline): three bands of sky, the sun, the far
+     hills, the near towers and the ground. Dark mode turns it to night. */
+  --sky-1: oklch(0.8 0.09 245);
+  --sky-2: oklch(0.87 0.07 235);
+  --sky-3: oklch(0.93 0.045 225);
+  --sun: oklch(0.86 0.16 85);
+  --hill: oklch(0.74 0.08 200);
+  --tower: oklch(0.42 0.09 255);
+  --ground: oklch(0.42 0.08 150);
   --background: oklch(0.99 0.002 262);
   --foreground: oklch(0.2 0.015 262);
   --muted: oklch(0.96 0.004 262);
@@ -51,6 +69,16 @@
     --rateupv-primary: #ed8b9a;
     --highlight: oklch(0.76 0.13 262);
     --highlight-foreground: oklch(0.17 0.012 262);
+    --highlight-inverse: oklch(0.48 0.2 262);
+    --gold: oklch(0.84 0.14 85);
+    --success: oklch(0.8 0.15 150);
+    --sky-1: oklch(0.16 0.04 275);
+    --sky-2: oklch(0.22 0.06 280);
+    --sky-3: oklch(0.3 0.08 285);
+    --sun: oklch(0.93 0.03 90);
+    --hill: oklch(0.3 0.06 270);
+    --tower: oklch(0.12 0.03 265);
+    --ground: oklch(0.2 0.04 160);
     --background: oklch(0.17 0.012 262);
     --foreground: oklch(0.95 0.005 262);
     --muted: oklch(0.22 0.014 262);
@@ -68,6 +96,11 @@
   --color-rateupv-primary: var(--rateupv-primary);
   --color-highlight: var(--highlight);
   --color-highlight-foreground: var(--highlight-foreground);
+  --color-highlight-inverse: var(--highlight-inverse);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
@@ -112,6 +145,26 @@
   @keyframes blink {
     50% {
       opacity: 0;
+    }
+  }
+  /* Work under way: stripes marching one stripe-pair per loop. */
+  --animate-march: march 800ms steps(4, end) infinite;
+  @keyframes march {
+    to {
+      translate: calc(var(--pixel) * -4) 0;
+    }
+  }
+  /* The skyline's clouds and its walker, crossing in whole pixels. */
+  --animate-drift: drift 60s steps(100, end) infinite alternate;
+  @keyframes drift {
+    to {
+      translate: 300px 0;
+    }
+  }
+  --animate-walk: walk 40s steps(200, end) infinite;
+  @keyframes walk {
+    to {
+      translate: 100cqw 0;
     }
   }
   --radius-sm: calc(var(--radius) * 0.6);
@@ -322,9 +375,25 @@
    static shadows, so it costs no layout and no repaint. Set --frame-color to
    recolour it (the accent on hover and focus) and --frame-size for a thinner
    frame on small parts like badges. Clear of Tailwind's ring and shadow
-   utilities, which would replace it.
+   utilities, which would replace it. The three properties above do not
+   inherit, so a frame's colour, size and depth stay with the block they are
+   set on: a badge inside a window keeps its own.
    Under the frame sits a hard shadow of the same notched shape, --raise-depth
    down and to the right (none by default; see pixel-raised). */
+@property --frame-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --frame-size {
+  syntax: "*";
+  inherits: false;
+}
+@property --raise-depth {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
 @utility pixel-frame {
   --frame-width: var(--frame-size, var(--pixel));
   --frame-fill: var(--frame-color, var(--frame));
@@ -342,9 +411,66 @@
 }
 
 /* A framed block that stands one art pixel off the page, like a key: buttons,
-   cards, the portrait. Pressing or lifting it changes --raise-depth. */
+   cards, the portrait. Pressing or lifting it changes --raise-depth. Its
+   hard shadow is gold: gold under a block means it can be pressed or opened. */
 @utility pixel-raised {
   --raise-depth: var(--pixel);
+  --frame-shadow: var(--gold);
+}
+
+/* The two patterns below can be stretched across the window (pixel-bleed),
+   which switches off the block's own copy through this property. It does not
+   inherit, so a pattern nested inside a bleeding block still draws. */
+@property --pattern-own {
+  syntax: "*";
+  inherits: false;
+}
+
+/* A checkerboard of muted squares, eight art pixels each: the floor behind
+   the hero. Set --checker-color to recolour it. */
+@utility pixel-checker {
+  --pattern-image: repeating-conic-gradient(
+    var(--checker-color, var(--muted)) 0 25%,
+    transparent 0 50%
+  );
+  --pattern-size: calc(var(--pixel) * 16) calc(var(--pixel) * 16);
+  background-image: var(--pattern-own, var(--pattern-image));
+  background-size: var(--pattern-size);
+}
+
+/* Dither: a checkerboard one art pixel fine, half ink and half paper. Bands
+   of it divide the home page's sections. Set --dither-color to recolour it. */
+@utility pixel-dither {
+  --pattern-image: repeating-conic-gradient(
+    var(--dither-color, var(--foreground)) 0 25%,
+    transparent 0 50%
+  );
+  --pattern-size: calc(var(--pixel) * 2) calc(var(--pixel) * 2);
+  background-image: var(--pattern-own, var(--pattern-image));
+  background-size: var(--pattern-size);
+}
+
+/* Stretches a block's pattern across the whole window while its content
+   stays in the page column: the pattern moves to a layer behind the block
+   that overhangs both sides (<main> clips the overhang). */
+@utility pixel-bleed {
+  --pattern-own: none;
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline: -100vmax;
+    z-index: -1;
+    background-image: var(--pattern-image);
+    background-size: var(--pattern-size);
+  }
+}
+
+/* The hero name's hard drop shadow, two art pixels down and right, in gold. */
+@utility pixel-title-shadow {
+  text-shadow: calc(var(--pixel) * 2) calc(var(--pixel) * 2) 0 var(--gold);
 }
 
 /* A dotted rule, one art pixel thick: Separator, list dividers, timelines. */

@@ -3,6 +3,7 @@
 import { MoonIcon, SunIcon } from "@/components/pixel-icons";
 import { Button } from "@/components/ui/button";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
+import { cn } from "@/lib/utils";
 
 // With no saved choice the site follows the OS (see themeScript in @/lib/theme),
 // and picking the OS's own theme clears the saved choice so it goes back to
@@ -22,14 +23,14 @@ function toggleTheme() {
 
 // The icon shows the theme a click switches to. CSS picks it from data-theme,
 // so the button renders the same on the server and the client.
-export function ThemeToggle() {
+export function ThemeToggle({ className }: { className?: string }) {
   return (
     <Button
       variant="ghost"
       size="icon"
       aria-label="Toggle dark mode"
       onClick={toggleTheme}
-      className="text-muted-foreground"
+      className={cn("text-muted-foreground", className)}
     >
       <MoonIcon className="dark:hidden" />
       <SunIcon className="hidden dark:block" />

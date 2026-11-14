@@ -38,8 +38,10 @@ export function PortraitSwap({ className }: { className?: string }) {
           width={957}
           height={960}
           sizes="(min-width: 1280px) 384px, (min-width: 1024px) 256px, 128px"
-          // Loaded up front, so the first flip is instant.
-          loading="eager"
+          // In view, so it loads with the page, but behind everything that
+          // shows: it stays hidden until the first flip.
+          loading="lazy"
+          fetchPriority="low"
           className={cn(
             "absolute inset-0 size-full object-cover",
             photoShown,
