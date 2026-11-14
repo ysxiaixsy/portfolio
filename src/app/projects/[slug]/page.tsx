@@ -129,7 +129,7 @@ export default async function ProjectPage(
 
         {/* The quest's details sit in a left rail on large screens, and
             follow the story down the page. */}
-        <div className="mt-12 grid items-start gap-10 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-12">
+        <div className="mt-12 grid grid-cols-1 items-start gap-10 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-12">
           <Window
             title={`Quest ${projectNumber(project)}`}
             aside={<StatusBadge project={project} />}
